@@ -41,7 +41,7 @@ string Git_Version_Number()
 	// format of versions
 	// <Version>.<Revision>.<Commit>.<Build>
 
-	ifstream in("buildno.txt", ios::in);
+	ifstream in("../logs/buildno.txt", ios::in);
 	if (!in)
 	{
 		cout << "Unable to open buildno.txt" << endl;
@@ -61,7 +61,7 @@ string Git_Version_Number()
 	in >> build;
 	in.close();
 
-	ofstream out("buildno.txt", ios::out);
+	ofstream out("../logs/buildno.txt", ios::out);
 	if (!out)
 	{
 		cout << "Unable to write buildno.txt" << endl;
@@ -72,24 +72,26 @@ string Git_Version_Number()
 	tmp += ".";
 	tmp += to_string(revision);
 	tmp += ".";
+	tmp += to_string(commit);
+	tmp += ".";
+	tmp += to_string(++build);
 
+	out << tmp << endl;
+	out.close();
+
+	/*
 	// commit.txt should not be in repository.  When file is missing, commit version will be incremented. This may need to be adjusted manually
-	in.open("commit.txt", ios::in);
+	in.open("../logs/commit.txt", ios::in);
 	if (!in)
 	{
 		// need to increment commit
 		commit = commit + 1;
-		ofstream o("commit.txt", ios::out);
+		ofstream o("../logs/commit.txt", ios::out);
 		o << commit;
 		o.close();
 	}
 
-	tmp += to_string(commit);
-	tmp += ".";
-	tmp += to_string(++build);
 	
-	out << tmp << endl;
-	out.close();
-
+	*/
 	return tmp;
 }
