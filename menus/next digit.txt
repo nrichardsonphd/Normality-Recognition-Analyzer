@@ -1,0 +1,2 @@
+numeral
+bit ( For Hexadecimal files only )

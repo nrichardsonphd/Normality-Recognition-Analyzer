@@ -1,36 +1,91 @@
+/// \file
+/// @file
+/// Normality Recognition Analyzer
+/// \author Dr. Nicholas Richardson
+
+
 #include <fstream>
 #include <iostream>
 #include <string>
 using namespace std;
 
-#define DEVELOPMENT			// for development builds
-//#define RELEASE			// for working releases
+// Version Control Functions
 string VERSION;				// store current version of program
-
 void Git_Init();
 string Git_Version_Number();
 
 
+
+// Setting up program
+#include "analysis_parameters.h"
+#include "cams.h"
+
+
+
+
+
+
 int main()
 {
+	
+	// Initialize for Version Control
 	Git_Init();
 
+	Analysis_Parameters ap;
+	cout << "Default Analysis Parameters" << endl;
+	Display_AP(ap);
+
+	/// CAMS 
+	//ap = Setup_Parameters();				// TBD
+	
+	// Start Project
+	/// select parallelization
+	//Select_Parallel(ap);				// CAMS
+
+	/// select constant to analyze
+	//Select_Constant(ap);				// CAMS
+	// pi, e, other, .. decimal/hex
+	// file / generated
+	// primes
+
+	// setup get next digit
+
+
+	/// select method how to analyze
+	//Select_Analysis_Method(ap);		// CAMS
+	// N-digit, poker, other ...
+	// random search
+	// check/compare
+	// display only
+
+	// setup get next group/class
+
+	cout << "Current Analysis Parameters" << endl;
+	Display_AP(ap);
+
+	/// process
+	// do analysis
+	//Select_Process_Interval(ap);
+	// one time run for N digits
+	// report every kth digit ( complete analysis on up to k digits each time )
+	// report every digit with continuous calculation ( save time, some calculations not possible ie median/mode)
+
+	/// display results
+	//Display_Results(ap);
+	// chi, mead median, ....
+	// other statistics based on classifications
+
+	/// verify testing correct?
 	return 0;
 }
 
 void Git_Init()
 {
 	VERSION = Git_Version_Number();
-	cout << "Normality Recognition Analyzer" << endl;
-	
-	#ifdef DEVELOPMENT
-		cout << "Development Build: " << VERSION << endl;
-	#else
-		cout << "Release Version: " << VERSION << endl;
-	#endif
-
+	cout << "Normality Recognition Analyzer" << endl;	
 	cout << "Author: Dr. Nicholas M. Richardson" << endl;
-
+	cout << "Development Build: " << VERSION << endl;
+	cout << "----------------------------------" << endl << endl;
 
 
 }
@@ -61,13 +116,6 @@ string Git_Version_Number()
 	in >> build;
 	in.close();
 
-	ofstream out("../logs/buildno.txt", ios::out);
-	if (!out)
-	{
-		cout << "Unable to write buildno.txt" << endl;
-		exit(1);
-	}
-
 	tmp = to_string(version);
 	tmp += ".";
 	tmp += to_string(revision);
@@ -76,22 +124,17 @@ string Git_Version_Number()
 	tmp += ".";
 	tmp += to_string(++build);
 
-	out << tmp << endl;
-	out.close();
-
-	/*
-	// commit.txt should not be in repository.  When file is missing, commit version will be incremented. This may need to be adjusted manually
-	in.open("../logs/commit.txt", ios::in);
-	if (!in)
+	ofstream out("../logs/buildno.txt", ios::out);
+	if (!out)
 	{
-		// need to increment commit
-		commit = commit + 1;
-		ofstream o("../logs/commit.txt", ios::out);
-		o << commit;
-		o.close();
+		cout << "Unable to write buildno.txt" << endl;
+		tmp = "*.*.*.*";
+	}
+	else
+	{
+		out << tmp << endl;
+		out.close();
 	}
 
-	
-	*/
 	return tmp;
 }

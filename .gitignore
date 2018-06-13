@@ -2,4 +2,5 @@
 VC++ Normality Recognition Analyzer/x64*
 .vs/*
 x64/*
-
+docs/html
+docs/latex
