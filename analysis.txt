@@ -1,0 +1,43 @@
+Types of test for normality
+
+1 - digit
+2 - digit
+3 - digit
+4 - digit
+5 - digit
+6 - digit
+7 - digit
+8 - digit
+...
+N - digit ? base on available memory
+
+
+Poker Tests
+
+1 card  == 1 digit
+2 card
+3
+4
+5
+6
+7
+
+K card
+
+
+Random Test
+
+
+
+
+**************************
+Analysis
+Digit sums 1 - base^n
+Base 2, 4, 8, 16, ... 2^n bits
+Base 10
+
+chi squared
+
+tables
+sample full 
+sample partial ( for graph only )
