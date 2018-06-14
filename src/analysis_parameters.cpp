@@ -29,5 +29,37 @@ void Display_AP(Analysis_Parameters ap)
 
 	cout << "\tGet_Next_Class: " << ap.fp_desc_next_class << endl;
 
+	/*
+	ap.in->open("../logs/tmp.txt", ios::in);
+	
+	if (!ap.in)
+	{
+		cout << "unable" << endl;
+	}
+	else
+		cout << "able" << endl;
+	ap.in->close();
+	*/
+	fopen_s( &ap.fp , "../logs/tmp.txt", "r" );
+	if ( ap.fp )
+	{
+		cout << "fp able" << endl;
+	}
+	else
+		cout << "fp unable" << endl;
+	
+	char x;
+
+	while ( !feof( ap.fp ) )
+	{
+		x = getc( ap.fp );
+		cout << "x: " << x << endl;
+	}
+
+	cout << "x: " << endl;
+	
+	fclose( ap.fp );
 	cout << "\tGet_Class_Identifier: " << ap.fp_desc_class_identifier << endl;
+
+	
 }

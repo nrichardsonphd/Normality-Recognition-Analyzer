@@ -4,7 +4,13 @@
 #define ANALYSIS_PARAMETERS
 #include <string>
 #include <iostream>
+#include <fstream>
 using namespace std;
+
+#include "Get_Next_Digit.h"
+
+//typedef int(*Get_Next_Digit)(string file);
+
 
 struct Analysis_Parameters
 {
@@ -30,10 +36,13 @@ struct Analysis_Parameters
 	/// @note: generation and files are mutually exclusive
 	bool file_constant = true;												///< number in file
 	std::string filename = "../data/Pi1K-dec.txt";
+	ifstream *in;
+	FILE *fp;
 
 	/// function pointer to next digit
-	string fp_desc_next_digit = "Grab 1 digit at a time sequentially";
-
+//	Get_Next_Digit func = Decimal_Digit;
+	string fp_desc_next_digit = "Grab 1 digit at a time sequentially from decimal number";
+	
 	/// function pointer to next class
 	string fp_desc_next_class = "Grab block of N digits";
 	
@@ -43,5 +52,8 @@ struct Analysis_Parameters
 };
 
 
+
+void Default_Parameters(Analysis_Parameters ap);
+void Open_File(Analysis_Parameters ap);
 void Display_AP(Analysis_Parameters ap);
 #endif

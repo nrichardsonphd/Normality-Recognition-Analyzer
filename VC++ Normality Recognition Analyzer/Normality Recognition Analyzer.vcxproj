@@ -22,11 +22,13 @@
     <ClCompile Include="..\src\analysis_parameters.cpp" />
     <ClCompile Include="..\src\cams.cpp" />
     <ClCompile Include="..\src\driver.cpp" />
+    <ClCompile Include="..\src\Get_Next_Digit.cpp" />
     <ClCompile Include="..\src\setup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\analysis_parameters.h" />
     <ClInclude Include="..\src\cams.h" />
+    <ClInclude Include="..\src\Get_Next_Digit.h" />
     <ClInclude Include="..\src\setup.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

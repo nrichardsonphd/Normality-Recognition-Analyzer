@@ -22,12 +22,8 @@ string Git_Version_Number();
 
 
 
-
-
-
 int main()
 {
-	
 	// Initialize for Version Control
 	Git_Init();
 
