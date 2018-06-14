@@ -36,9 +36,9 @@ struct Analysis_Parameters
 	/// @note: generation and files are mutually exclusive
 	bool file_constant = true;												///< number in file
 	std::string filename = "../data/Pi1K-dec.txt";
-	ifstream *in;
-	FILE *fp;
-
+	bool start_reading = false;												///< flag used to signal file has started to be read
+	FILE *fp;																///< track progress through constant file
+	
 	/// function pointer to next digit
 //	Get_Next_Digit func = Decimal_Digit;
 	string fp_desc_next_digit = "Grab 1 digit at a time sequentially from decimal number";
