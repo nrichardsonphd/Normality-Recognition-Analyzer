@@ -33,7 +33,9 @@ class Read_Number
 		~Read_Number();
 
 		bool Set_File( string filename );							// filename with constant
-		//void Set_Stream( int buffer_size );							// how much to load from file into memory, default = 1; 1 character at a time
+		void Set_Stream( int buffer_size );							// how much to load from file into memory, default = 1; 1 character at a time
+
+		bool Set_Constant( int Constant );							// choose a generated constant to use for new digits
 
 		long long Get_Digits_Read();
 
@@ -70,6 +72,11 @@ class Read_Number
 		/// store position for binary digits
 		int position;
 		int hex;
+
+		bool gen_const;
+
+
+
 };
 
 

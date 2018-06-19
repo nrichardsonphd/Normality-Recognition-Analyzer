@@ -29,16 +29,15 @@ int main()
 	// Initialize for Version Control
 	Git_Init();
 
-	Analysis_Parameters ap;
-	cout << "Default Analysis Parameters" << endl;
-	Display_AP(ap);
-
 	cout << "Detailed Test: " << endl;
 	Test_All( true );
-
 	cout << endl;
+	cout << endl << "*****************" << endl;
 	cout << "Summary Test" << endl;
 	Test_All( false );
+	
+
+	
 	/// CAMS 
 	//ap = Setup_Parameters();				// TBD
 	

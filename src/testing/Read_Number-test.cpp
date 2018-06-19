@@ -36,7 +36,7 @@ bool Test_Read_Number( bool detailed )
 // File Not Found
 bool RN_Test_Nofile( string file, bool detailed )
 {
-	string test_name = "\tMissing File: ";
+	string test_name = "Missing File";
 	Read_Number rn;
 
 	bool test = rn.Set_File( file );
@@ -44,9 +44,9 @@ bool RN_Test_Nofile( string file, bool detailed )
 	if ( detailed )
 	{
 		if ( !test )
-			cout << test_name << "TRUE" << endl;
+			cout << "\t[TRUE]: " << test_name << endl;
 		else
-			cout << test_name << "FALSE" << endl;
+			cout << "\t[FALSE]: " << test_name << endl;
 	}
 
 	return !test;
@@ -55,7 +55,7 @@ bool RN_Test_Nofile( string file, bool detailed )
 // Wrong file format
 bool RN_Test_Digit_Test( string file, bool detailed )
 {
-	string test_name = "\tDigit Test: ";
+	string test_name = "Digit Test";
 	Read_Number rn;
 	int i = 0;
 
@@ -75,9 +75,9 @@ bool RN_Test_Digit_Test( string file, bool detailed )
 	if ( detailed )
 	{
 		if ( test )
-			cout << test_name << "TRUE" << endl;
+			cout << "\t[TRUE]: " <<  test_name << endl;
 		else
-			cout << test_name << "FALSE" << endl;
+			cout << "\t[FALSE]: " << test_name << endl;
 	}
 
 	return test;
@@ -88,7 +88,7 @@ bool RN_Test_Digit_Test( string file, bool detailed )
 // next digit x 1000
 bool RN_Test_Decimal_Pre( string file, bool detailed )
 {
-	string test_name = "\tDecimal Digits Keep Pre Decimal: ";
+	string test_name = "Decimal Digits Keep Pre Decimal";
 	Read_Number rn;
 	// digit counts from thestarman.pcministry.com/math/pi/RandPI.html
 	// ** Added +1 for the 3 before decimal and go 1 digit extra
@@ -111,9 +111,9 @@ bool RN_Test_Decimal_Pre( string file, bool detailed )
 	if ( detailed )
 	{
 		if ( test )
-			cout << test_name << "TRUE" << endl;
+			cout << "\t[TRUE]: " << test_name << endl;
 		else
-			cout << test_name << "FALSE" << endl;
+			cout << "\t[FALSE]: " << test_name << endl;
 	}
 
 	return test;
@@ -124,7 +124,7 @@ bool RN_Test_Decimal_Pre( string file, bool detailed )
 // next digit x 1000
 bool RN_Test_Decimal_Remove( string file, bool detailed )
 {
-	string test_name = "\tDecimal Digits Remove Pre Decimal: ";
+	string test_name = "Decimal Digits Remove Pre Decimal";
 	Read_Number rn;
 	// digit counts from thestarman.pcministry.com/math/pi/RandPI.html
 	const int pi_1000[10] = { 93, 116, 103, 102, 93, 97, 94,95, 101, 106 };
@@ -147,9 +147,9 @@ bool RN_Test_Decimal_Remove( string file, bool detailed )
 	if ( detailed )
 	{
 		if ( test )
-			cout << test_name << "TRUE" << endl;
+			cout << "\t[TRUE]: " << test_name << endl;
 		else
-			cout << test_name << "FALSE" << endl;
+			cout << "\t[FALSE]: " << test_name << endl;
 	}
 
 	return test;
@@ -158,7 +158,7 @@ bool RN_Test_Decimal_Remove( string file, bool detailed )
 // check binary digits
 bool RN_Test_Binary( string file, bool detailed )
 {
-	string test_name = "\tBinary Digits: ";
+	string test_name = "Binary Digits";
 	Read_Number rn;
 	const int bin[24] = { 0,0,0,0, 0,0,0,1, 0,0,1,0, 1,0,1,0, 1,0,1,1, 1,1,0,0 };		// 012ABc
 	
@@ -179,9 +179,9 @@ bool RN_Test_Binary( string file, bool detailed )
 	if ( detailed )
 	{
 		if ( test )
-			cout << test_name << "TRUE" << endl;
+			cout << "\t[TRUE]: " << test_name << endl;
 		else
-			cout << test_name << "FALSE" << endl;
+			cout << "\t[FALSE]: " << test_name << endl;
 	}
 
 	return test;
