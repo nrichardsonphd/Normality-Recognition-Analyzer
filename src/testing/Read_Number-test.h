@@ -1,7 +1,7 @@
 #ifndef READ_NUMBER_TEST_H
 #define READ_NUMBER_TEST_H
 #include <cmath>
-#include "../Read_Number.h"
+#include "../common/Read_Number.h"
 
 // for testing functions in class
 bool Test_Read_Number( bool detailed );

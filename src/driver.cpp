@@ -17,10 +17,10 @@ string Git_Version_Number();
 
 
 // Setting up program
-#include "analysis_parameters.h"
-#include "cams.h"
+#include "analysis\analysis_parameters.h"
+#include "common\cams.h"
 
-#include "testing.h"
+#include "testing\testing.h"
 #include "testing\Read_Number-test.h" 
 
 

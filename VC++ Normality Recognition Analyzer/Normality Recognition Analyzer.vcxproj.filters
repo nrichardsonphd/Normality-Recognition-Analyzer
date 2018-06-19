@@ -18,48 +18,48 @@
     <ClCompile Include="..\src\driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cams.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Get_Next_Digit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\analysis_parameters.cpp">
+    <ClCompile Include="..\src\analysis\analysis_parameters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Read_Number.cpp">
+    <ClCompile Include="..\src\common\cams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\testing.cpp">
+    <ClCompile Include="..\src\common\Read_Number.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Read_Number-test.cpp">
+    <ClCompile Include="..\src\testing\Read_Number-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\testing\testing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\cams.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\setup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\analysis_parameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Get_Next_Digit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Read_Number.h">
+    <ClInclude Include="..\src\analysis\analysis_parameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\testing.h">
+    <ClInclude Include="..\src\common\cams.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Read_Number-test.h">
+    <ClInclude Include="..\src\common\Read_Number.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\testing\Read_Number-test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\testing\testing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
