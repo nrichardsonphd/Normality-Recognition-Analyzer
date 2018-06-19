@@ -33,6 +33,7 @@
     <ClCompile Include="..\src\Get_Next_Digit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\src\testing\testing.cpp">
       <Filter>Testing</Filter>
     </ClCompile>
@@ -47,10 +48,27 @@
     </ClCompile>
     <ClCompile Include="..\src\common\Read_Number.cpp">
       <Filter>Common</Filter>
+=======
+    <ClCompile Include="..\src\analysis\analysis_parameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\common\cams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\common\Read_Number.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\testing\Read_Number-test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\testing\testing.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> 48c501249e6d5fb750508e2e83d8a0cffa7056c3
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\setup.h">
+<<<<<<< HEAD
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Get_Next_Digit.h">
@@ -70,6 +88,27 @@
     </ClInclude>
     <ClInclude Include="..\src\common\Read_Number.h">
       <Filter>Common</Filter>
+=======
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Get_Next_Digit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\analysis\analysis_parameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\common\cams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\common\Read_Number.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\testing\Read_Number-test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\testing\testing.h">
+      <Filter>Header Files</Filter>
+>>>>>>> 48c501249e6d5fb750508e2e83d8a0cffa7056c3
     </ClInclude>
   </ItemGroup>
 </Project>
