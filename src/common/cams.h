@@ -7,8 +7,8 @@
 #include <fstream>
 using namespace std;
 
-#include "setup.h"
-#include "analysis_parameters.h"
+#include "../setup.h"
+#include "../analysis/analysis_parameters.h"
 
 Analysis_Parameters Setup_Parameters();
 

@@ -13,12 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Analysis">
+      <UniqueIdentifier>{364a92f3-10f9-47f9-89b4-08a637582700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{be188dea-64ae-4cbb-b3bf-3cfbf89e09d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{16544053-8d1c-40f8-9acc-2dad0577b457}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\driver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\cams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\setup.cpp">
@@ -27,40 +33,43 @@
     <ClCompile Include="..\src\Get_Next_Digit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\analysis_parameters.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\testing\testing.cpp">
+      <Filter>Testing</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Read_Number.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\testing\Read_Number-test.cpp">
+      <Filter>Testing</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\testing.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\analysis\analysis_parameters.cpp">
+      <Filter>Analysis</Filter>
     </ClCompile>
-    <ClCompile Include="Read_Number-test.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\common\cams.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\common\Read_Number.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\cams.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\setup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\analysis_parameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Get_Next_Digit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Read_Number.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\src\testing\testing.h">
+      <Filter>Testing</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\testing.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\src\testing\Read_Number-test.h">
+      <Filter>Testing</Filter>
     </ClInclude>
-    <ClInclude Include="Read_Number-test.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\src\analysis\analysis_parameters.h">
+      <Filter>Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\common\cams.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\common\Read_Number.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
