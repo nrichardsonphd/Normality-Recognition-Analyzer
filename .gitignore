@@ -1,5 +1,6 @@
-
-VC++ Normality Recognition Analyzer/x64*
+VC++ Normality Recognition Analyzer/Debug/*
+VC++ Normality Recognition Analyzer/x64/*
+Debug/*
 .vs/*
 x64/*
 docs/html

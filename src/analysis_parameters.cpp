@@ -40,6 +40,7 @@ void Display_AP(Analysis_Parameters ap)
 		cout << "able" << endl;
 	ap.in->close();
 	*/
+	/*
 	fopen_s( &ap.fp , "../logs/tmp.txt", "r" );
 	if ( ap.fp )
 	{
@@ -56,10 +57,11 @@ void Display_AP(Analysis_Parameters ap)
 		cout << "x: " << x << endl;
 	}
 
-	cout << "x: " << endl;
+	cout << "x: " << endl;*/
 	
-	fclose( ap.fp );
+	//fclose( ap.fp );
 	cout << "\tGet_Class_Identifier: " << ap.fp_desc_class_identifier << endl;
+	cout << endl;
 
 	
 }

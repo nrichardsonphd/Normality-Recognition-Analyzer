@@ -23,13 +23,19 @@
     <ClCompile Include="..\src\cams.cpp" />
     <ClCompile Include="..\src\driver.cpp" />
     <ClCompile Include="..\src\Get_Next_Digit.cpp" />
+    <ClCompile Include="..\src\Read_Number.cpp" />
     <ClCompile Include="..\src\setup.cpp" />
+    <ClCompile Include="..\src\testing.cpp" />
+    <ClCompile Include="Read_Number-test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\analysis_parameters.h" />
     <ClInclude Include="..\src\cams.h" />
     <ClInclude Include="..\src\Get_Next_Digit.h" />
+    <ClInclude Include="..\src\Read_Number.h" />
     <ClInclude Include="..\src\setup.h" />
+    <ClInclude Include="..\src\testing.h" />
+    <ClInclude Include="Read_Number-test.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
