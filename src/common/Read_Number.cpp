@@ -46,6 +46,9 @@ bool Read_Number::Set_File( string filename )
 	if ( fp != NULL )					// close old file
 		fclose( fp );
 
+	this->digits_read = 0;
+	this->buffer_pos = STREAM_SIZE - 1;
+
 	fopen_s(&fp, this->filename.c_str(), "r" );
 	if ( !fp )
 	{

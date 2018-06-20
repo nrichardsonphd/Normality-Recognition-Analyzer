@@ -47,8 +47,10 @@ class Read_Number
 		//		Any '.' will be ignored.
 		//		-1				end of file
 		/////////////////////////////////////////////
-		int Get_Next_Digit();							
-		int Get_Next_Binary_Digit();								///< get the next binary digit, only works with hexadecimal files
+		/// @ note Always Use Get_Next_Digit XOR Get_Next_Binary_Digit when reading one constant in a stream
+		///			Do not swap between in same reading of number
+		int Get_Next_Digit();										///< one digit at a time from number
+		int Get_Next_Binary_Digit();								///< get the next binary digit, assumes a hex file
 
 		void Remove_Decimal();		// remove digits until decimal
 
