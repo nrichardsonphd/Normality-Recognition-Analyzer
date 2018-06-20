@@ -7,7 +7,7 @@
 #include <fstream>
 using namespace std;
 
-#include "../Get_Next_Class.h"
+#include "../Get_Next_Sequence.h"
 
 //typedef int(*Get_Next_Digit)(string file);
 

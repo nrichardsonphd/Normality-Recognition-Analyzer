@@ -30,14 +30,25 @@ bool Test_All(bool detailed)
 	if ( detailed )
 		cout << "Testing Get Next digit Decimal ................" << endl;
 
-	if ( Test_Next_Class( detailed ) )
-		cout << "Decimal Digit: [PASSED]" << endl;
+	if ( Test_Next_Sequence( detailed ) )
+		cout << "Decimal Sequence: [PASSED]" << endl;
 	else
 	{
-		cout << "Decimal Digit: [FAILED]" << endl;
+		cout << "Decimal Sequence: [FAILED]" << endl;
 		pass = false;
 	}
 
+
+	if ( detailed )
+		cout << "Testing Get Sequence Value ................" << endl;
+
+	if ( Test_Sequence_Value( detailed ) )
+		cout << "Sequence Value: [PASSED]" << endl;
+	else
+	{
+		cout << "Sequence Value: [FAILED]" << endl;
+		pass = false;
+	}
 
 	return pass;
 }
