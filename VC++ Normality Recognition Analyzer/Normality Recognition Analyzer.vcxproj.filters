@@ -45,7 +45,10 @@
     <ClCompile Include="..\src\common\Read_Number.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Get_Next_Class.cpp">
+    <ClCompile Include="..\src\Get_Next_Sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Get_Sequence_Value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +71,13 @@
     <ClInclude Include="..\src\common\Read_Number.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Get_Next_Class.h">
+    <ClInclude Include="..\src\Get_Next_Sequence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Get_Sequence_Value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,7 +23,8 @@
     <ClCompile Include="..\src\common\cams.cpp" />
     <ClCompile Include="..\src\common\Read_Number.cpp" />
     <ClCompile Include="..\src\driver.cpp" />
-    <ClCompile Include="..\src\Get_Next_Class.cpp" />
+    <ClCompile Include="..\src\Get_Next_Sequence.cpp" />
+    <ClCompile Include="..\src\Get_Sequence_Value.cpp" />
     <ClCompile Include="..\src\setup.cpp" />
     <ClCompile Include="..\src\testing\Read_Number-test.cpp" />
     <ClCompile Include="..\src\testing\testing.cpp" />
@@ -32,7 +33,9 @@
     <ClInclude Include="..\src\analysis\analysis_parameters.h" />
     <ClInclude Include="..\src\common\cams.h" />
     <ClInclude Include="..\src\common\Read_Number.h" />
-    <ClInclude Include="..\src\Get_Next_Class.h" />
+    <ClInclude Include="..\src\Get_Next_Sequence.h" />
+    <ClInclude Include="..\src\Get_Sequence_Value.h" />
+    <ClInclude Include="..\src\Sequence.h" />
     <ClInclude Include="..\src\setup.h" />
     <ClInclude Include="..\src\testing\Read_Number-test.h" />
     <ClInclude Include="..\src\testing\testing.h" />
