@@ -52,7 +52,7 @@ bool Read_Number::Set_File( string filename )
 	fopen_s(&fp, this->filename.c_str(), "r" );
 	if ( !fp )
 	{
-		//printf( "Error opening file %s.\n", this->filename.c_str() );
+		printf( "Error opening file %s.\n", this->filename.c_str() );
 		return false;
 	}
 

@@ -23,6 +23,10 @@ string Git_Version_Number();
 #include "testing\testing.h"
 #include "testing\Read_Number-test.h" 
 
+#include "Get_Next_Sequence.h"
+#include "Get_Sequence_Value.h"
+
+#include "Analyze Number.h"
 
 int main()
 {
@@ -35,8 +39,23 @@ int main()
 	cout << endl << "*****************" << endl;
 	cout << "Summary Test" << endl;
 	Test_All( false );
-	
+	Analysis_Parameters ap;
 
+	ap.number_of_groups = 1000000;
+	ap.filename = "../data/Pi-Dec-1M.txt";
+	Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
+
+	ap.number_of_groups = 1000000;
+	ap.number_of_classes = 100;
+	ap.block_size = 2;
+	ap.max_class_size = 2;
+	Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
+
+	ap.number_of_groups = 5;
+	ap.number_of_classes = 1000;
+	ap.block_size = 3;
+	ap.max_class_size = 3;
+	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
 	
 	/// CAMS 
 	//ap = Setup_Parameters();				// TBD

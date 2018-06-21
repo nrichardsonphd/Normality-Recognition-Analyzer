@@ -5,7 +5,7 @@ int Get_Sequence_Digits_Base_2( Sequence s )
 	return Get_Sequence_Digits( s, 2 );
 }
 
-int Get_Sequence_Digits_Base_10( Sequence s )
+unsigned int Get_Sequence_Digits_Base_10( Sequence s )
 {
 	return Get_Sequence_Digits( s, 10 );
 }

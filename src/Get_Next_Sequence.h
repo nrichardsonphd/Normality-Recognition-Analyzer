@@ -7,9 +7,6 @@ using namespace std;
 #include "common/Read_Number.h"
 #include "Sequence.h"
 
-// Used for referencing number of digits to be in the sequence
-#define DIGITS 1
-#define MAX_DIGITS 10
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -21,7 +18,7 @@ using namespace std;
 	// 1. Read next sequence from the number
 	
 // These will be used for function pointers
-Sequence Get_Block_Sequence_Digit( Read_Number &rn );
+Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits );
 
 // These should be used as support functions
 Sequence Get_Block_Sequence( Read_Number &rn, int digits );

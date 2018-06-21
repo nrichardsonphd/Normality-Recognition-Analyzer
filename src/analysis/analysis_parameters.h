@@ -7,7 +7,7 @@
 #include <fstream>
 using namespace std;
 
-#include "../Get_Next_Sequence.h"
+//#include "../Get_Next_Sequence.h"
 
 //typedef int(*Get_Next_Digit)(string file);
 
@@ -21,7 +21,7 @@ struct Analysis_Parameters
 	int block_size = 1;														///< number of digits to get for each class, 0 for variable size classes
 	int max_class_size = 1;													///< maximum size of a class, usually equal to block_size
 	int number_of_classes = 10;												///< total number of classes possible
-
+	int number_of_groups = 1000;											// number of sequences to analyze		Total digits / block size
 
 	/// @note: Block and stream are mutually exclusive
 	bool block = true;														///< group by nonoverlapping blocks	14 15 92 65 ...

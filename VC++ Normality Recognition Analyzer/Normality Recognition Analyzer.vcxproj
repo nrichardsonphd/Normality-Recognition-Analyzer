@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\analysis\analysis_parameters.cpp" />
+    <ClCompile Include="..\src\Analyze Number.cpp" />
     <ClCompile Include="..\src\common\cams.cpp" />
     <ClCompile Include="..\src\common\Read_Number.cpp" />
     <ClCompile Include="..\src\driver.cpp" />
@@ -31,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\analysis\analysis_parameters.h" />
+    <ClInclude Include="..\src\Analyze Number.h" />
     <ClInclude Include="..\src\common\cams.h" />
     <ClInclude Include="..\src\common\Read_Number.h" />
     <ClInclude Include="..\src\Get_Next_Sequence.h" />
