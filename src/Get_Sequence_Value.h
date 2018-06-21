@@ -18,6 +18,8 @@ using namespace std;
 // @param digits	number of digits to take 
 //		@note		this is a maximum, the function should deal with variable size classes
 
+int Get_Sequence_Value( Sequence s );
+
 int Get_Sequence_Digits( Sequence s, int base );		// N digit groups
 //int Get_Sequence_Poker( Read_Number rn, int digits );		// poker hand values
 

@@ -1,5 +1,13 @@
 #include "Get_Next_Sequence.h"
 
+Sequence Get_Block_Sequence_Digits( Read_Number &rn )
+{
+	return Get_Block_Sequence( rn, DIGITS );
+}
+
+
+
+
 
 // Grabs N digits in a row.  Next set will start after last digit, nonoverlapping
 Sequence Get_Block_Sequence( Read_Number &rn, int digits )
