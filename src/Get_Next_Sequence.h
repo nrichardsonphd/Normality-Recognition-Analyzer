@@ -18,7 +18,7 @@ using namespace std;
 	// 1. Read next sequence from the number
 	
 // These will be used for function pointers
-Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits );
+//Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits );
 
 // These should be used as support functions
 Sequence Get_Block_Sequence( Read_Number &rn, int digits );

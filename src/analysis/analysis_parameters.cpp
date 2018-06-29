@@ -3,8 +3,9 @@
 
 void Display_AP(Analysis_Parameters ap)
 {
+	
 	cout << "Analysis Parameters" << endl;
-
+	/*
 	cout << "\tBase: " << ap.base;			cout << "\t\t\tTest Digits: " << ap.total_digits;			cout << "\t\t\tRemove pre decimal: " << ((ap.remove_predecimal==true) ? ("TRUE") : ("FALSE")) << endl;
 	cout << endl;
 
@@ -60,8 +61,8 @@ void Display_AP(Analysis_Parameters ap)
 	cout << "x: " << endl;*/
 	
 	//fclose( ap.fp );
-	cout << "\tGet_Class_Identifier: " << ap.fp_desc_class_identifier << endl;
-	cout << endl;
+//	cout << "\tGet_Class_Identifier: " << ap.fp_desc_class_identifier << endl;
+//	cout << endl;
 
 	
 }

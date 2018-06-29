@@ -1,9 +1,9 @@
 #include "Get_Next_Sequence.h"
 
-Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits )
-{
-	return Get_Block_Sequence( rn, digits );
-}
+//Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits )
+//{
+	//return Get_Block_Sequence( rn, digits );
+//}
 
 
 

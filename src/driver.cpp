@@ -41,20 +41,21 @@ int main()
 	Test_All( false );
 	Analysis_Parameters ap;
 
-	ap.number_of_groups = 1000000;
-	ap.filename = "../data/Pi-Dec-1M.txt";
-	Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
+	int *results;
+	//ap.number_of_groups = 1000000;
+	//ap.filename = "../data/Pi-Dec-1M.txt";
+	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 
-	ap.number_of_groups = 1000000;
-	ap.number_of_classes = 100;
-	ap.block_size = 2;
-	ap.max_class_size = 2;
-	Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
+	// Analyze the results
+	cout << "Results go here" << endl;
+	for ( int i = 0; i < ap.total_number_of_classes; ++i )
+		cout << i << ": " << results[i] << "\t";
+	cout << endl;
 
-	ap.number_of_groups = 5;
-	ap.number_of_classes = 1000;
-	ap.block_size = 3;
-	ap.max_class_size = 3;
+	delete [] results;
+
+	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
+
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
 	
 	/// CAMS 
