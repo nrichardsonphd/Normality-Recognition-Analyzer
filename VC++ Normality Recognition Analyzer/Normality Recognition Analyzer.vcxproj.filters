@@ -54,6 +54,9 @@
     <ClCompile Include="..\src\Analyze Number.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\analysis\Analyze_List.cpp">
+      <Filter>Analysis</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\setup.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Analyze Number.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\analysis\Analyze_List.h">
+      <Filter>Analysis</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -57,7 +57,7 @@ struct Analysis_Parameters
 
 
 
-void Default_Parameters(Analysis_Parameters ap);
+void Default_Parameters(Analysis_Parameters &ap);
 void Open_File(Analysis_Parameters ap);
 void Display_AP(Analysis_Parameters ap);
 

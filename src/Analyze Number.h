@@ -14,9 +14,10 @@ using namespace std;
 
 // Discrete analysis
 // analyze for N digits and gives results
-int *Analyze_Number( Sequence ( *Next_Sequence )(Read_Number &rn, int digits),							// return sequence of numbers for next group
-					 unsigned int( *Sequence_Value )( Sequence s ),				// return value of sequence
-					 Analysis_Parameters ap );									// stores various parameters about numbers and analysis
+// results are returned as an array, Each class value 0,1,2,..., N holds the number of sequences found in that class
+unsigned long long int *Analyze_Number( Sequence ( *Next_Sequence )(Read_Number &rn, int digits),							// return sequence of numbers for next group
+										unsigned int( *Sequence_Value )( Sequence s ),				// return value of sequence
+										Analysis_Parameters &ap );									// stores various parameters about numbers and analysis, will hold number of sequences tested after
 
 
 // Continuous analysis

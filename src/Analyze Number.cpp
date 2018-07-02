@@ -2,9 +2,9 @@
 #include "Analyze Number.h"
 
 // analyze a specific number
-int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )( Sequence s ), Analysis_Parameters ap )
+unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )( Sequence s ), Analysis_Parameters &ap )
 {
-	int *results = new int[ap.total_number_of_classes];
+	unsigned long long int *results = new unsigned long long int[ap.total_number_of_classes];
 	unsigned int value;
 	Sequence group;
 	Read_Number rn;
@@ -29,7 +29,18 @@ int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &rn, int digits), un
 
 		// Get the sequence value
 		value = Sequence_Value( group );
-		++results[value];
+
+		if ( 0 <= value && value <= ap.total_number_of_classes )
+			++results[value];
+		else
+		{
+			cout << "Error: Sequence Value is out of range" << endl;
+			//exit( 1 );
+			return results;
+		}
+
+		ap.blocks_tested_actual++;		// count number of sequences tested
+		ap.digits_tested += group.size;	// count number of digits tested
 	}
 
 

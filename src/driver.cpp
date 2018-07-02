@@ -27,7 +27,7 @@ string Git_Version_Number();
 #include "Get_Sequence_Value.h"
 
 #include "Analyze Number.h"
-
+#include "analysis\Analyze_List.h"
 int main()
 {
 	// Initialize for Version Control
@@ -40,20 +40,58 @@ int main()
 	cout << "Summary Test" << endl;
 	Test_All( false );
 	Analysis_Parameters ap;
+	Analyze_List al;
 
-	int *results;
-	//ap.number_of_groups = 1000000;
-	//ap.filename = "../data/Pi-Dec-1M.txt";
-	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+	unsigned long long int *results;
 
-	// Analyze the results
-	cout << "Results go here" << endl;
+	cout << "Digits\t";
 	for ( int i = 0; i < ap.total_number_of_classes; ++i )
-		cout << i << ": " << results[i] << "\t";
+		cout <<i << "\t";
 	cout << endl;
 
-	delete [] results;
+	double max = 0, min = 1000, chisq;
+	bool display = false;
 
+	for ( int i = 0; i <= 10000; ++i )
+	{
+		Default_Parameters( ap );
+		ap.number_of_sequences_to_test = 10 * i;
+		ap.filename = "../data/Pi-Dec-1M.txt";
+		results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+
+		// Analyze the results
+		al.Set_List( results, 10, 1 * i );
+		
+		chisq = al.Chi_Squared();
+		
+		if ( max < chisq )
+		{
+			max = chisq;
+			display = true;
+		}
+		if ( min > chisq )
+		{
+			min = chisq;
+			display = true;
+		}
+
+		if ( display || i % 1000 == 0)
+		{
+			cout << ap.digits_tested << "\t";
+			for ( int i = 0; i < ap.total_number_of_classes; ++i )
+				cout << results[i] << "\t";
+
+			cout << "\t\t" << chisq;
+			cout << endl;
+
+			display = false;
+		}
+
+		delete[] results;
+	}
+
+	cout << "Maximum Chi-Squared: " << max << endl;
+	cout << "Minimum Chi-Squared: " << min << endl;
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
 
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
