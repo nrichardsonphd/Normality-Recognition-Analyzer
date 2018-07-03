@@ -53,7 +53,7 @@ int main()
 	
 	//ap.filename = "../data/Pi-Dec-1M.txt";
 	ap.filename = "../data/pi1billion.txt";
-	ap.number_of_sequences_to_test = 1000000000;
+	ap.number_of_sequences_to_test = 10000;
 	//results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 	
 //	cout << ap.digits_tested << "\t";
@@ -70,7 +70,7 @@ int main()
 
 	//delete[] results;
 	//exit( 1 );
-	ap.number_of_sequences_to_test = 1000000000;
+	ap.number_of_sequences_to_test = 10000;
 	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1 );
 
 	time_t end = time( nullptr );

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Normality Recognition Analyzer", "VC++ Normality Recognition Analyzer\Normality Recognition Analyzer.vcxproj", "{A5EAE25D-580A-49C6-A99F-906A926656D1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Normality Recognition Analyzer", "..\VC++ Normality Recognition Analyzer\Normality Recognition Analyzer.vcxproj", "{A5EAE25D-580A-49C6-A99F-906A926656D1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "File Merger", "VC++\File Merger\File Merger.vcxproj", "{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "File Merger", "File Merger\File Merger.vcxproj", "{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

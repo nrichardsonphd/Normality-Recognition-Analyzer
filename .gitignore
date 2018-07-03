@@ -1,6 +1,8 @@
 VC++ Normality Recognition Analyzer/Debug/*
 VC++ Normality Recognition Analyzer/x64/*
 VC++/File Merger/x64/*
+VC++/.vs/*
+VC++/x64/*
 Debug/*
 .vs/*
 x64/*
