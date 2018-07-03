@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Normality Recognition Analyzer", "VC++ Normality Recognition Analyzer\Normality Recognition Analyzer.vcxproj", "{A5EAE25D-580A-49C6-A99F-906A926656D1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "File Merger", "VC++\File Merger\File Merger.vcxproj", "{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{A5EAE25D-580A-49C6-A99F-906A926656D1}.Release|x64.Build.0 = Release|x64
 		{A5EAE25D-580A-49C6-A99F-906A926656D1}.Release|x86.ActiveCfg = Release|Win32
 		{A5EAE25D-580A-49C6-A99F-906A926656D1}.Release|x86.Build.0 = Release|Win32
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Debug|x64.ActiveCfg = Debug|x64
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Debug|x64.Build.0 = Debug|x64
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Debug|x86.ActiveCfg = Debug|Win32
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Debug|x86.Build.0 = Debug|Win32
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Release|x64.ActiveCfg = Release|x64
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Release|x64.Build.0 = Release|x64
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Release|x86.ActiveCfg = Release|Win32
+		{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
