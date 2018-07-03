@@ -4,16 +4,16 @@
 void Default_Parameters( Analysis_Parameters &ap )
 {
 	//int base = 10;															///< base number to be tested, usually decimal or Hex tp binary
-	ap.max_digits = 1000;												///< number of digits to test, truncated, original base
+//	ap.max_digits = 1000;												///< number of digits to test, truncated, original base
 	ap.digits_tested = 0;												///< used to keep track of how many digits tested in sequences, calculate by #sequences * size of sequence - skipped
 	ap.remove_predecimal = true;											///< bypass any digits before the decimal ****.start
 
-	ap.block_size = 1;														///< number of digits to get for each class, 0 for variable size classes
-	ap.max_class_size = 1;													///< maximum size of a class, must be at least block_size
+	ap.max_sequence_size = 1;														///< number of digits to get for each class, 0 for variable size classes
+//	ap.max_class_size = 1;													///< maximum size of a class, must be at least block_size
 	ap.total_number_of_classes = 10;												///< total number of classes possible
 	ap.number_of_sequences_to_test = 1000;										// number of sequences to analyze		Total digits / block size
 
-	ap.blocks_tested_actual = 0;											/// incremented on every sucessfully tested block
+	ap.sequences_tested = 0;											/// incremented on every sucessfully tested block
 
 	ap.file_constant = true;												///< number in file
 	ap.filename = "../data/Pi1K-dec.txt";

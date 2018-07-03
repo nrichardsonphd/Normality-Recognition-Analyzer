@@ -14,17 +14,18 @@ using namespace std;
 
 struct Analysis_Parameters
 {
-	//int base = 10;															///< base number to be tested, usually decimal or Hex tp binary
-	int max_digits = 1000;												///< number of digits to test, truncated, original base
-	int digits_tested = 0;												///< used to keep track of how many digits tested in sequences, calculate by #sequences * size of sequence - skipped
+	//int base = 10;														///< base number to be tested, usually decimal or Hex tp binary
+	//int max_digits = 1000;												///< number of digits to test, truncated, original base
+
+	// used to count as testing
+	unsigned int digits_tested = 0;												///< used to keep track of how many digits tested in sequences, calculate by #sequences * size of sequence - skipped
+	unsigned int sequences_tested = 0;											/// incremented on every sucessfully tested block
+
+
+	unsigned int max_sequence_size = 1;														///< number of digits to get for each class, 0 for variable size classes
+	unsigned int total_number_of_classes = 10;												///< total number of classes possible
+	unsigned int number_of_sequences_to_test = 1000;										// number of sequences to analyze		Total digits / block size
 	bool remove_predecimal = true;											///< bypass any digits before the decimal ****.start
-
-	int block_size = 1;														///< number of digits to get for each class, 0 for variable size classes
-	int max_class_size = 1;													///< maximum size of a class, must be at least block_size
-	int total_number_of_classes = 10;												///< total number of classes possible
-	int number_of_sequences_to_test = 1000;										// number of sequences to analyze		Total digits / block size
-
-	int blocks_tested_actual = 0;											/// incremented on every sucessfully tested block
 
 	bool file_constant = true;												///< number in file
 	std::string filename = "../data/Pi1K-dec.txt";

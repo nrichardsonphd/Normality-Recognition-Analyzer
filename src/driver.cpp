@@ -54,24 +54,22 @@ int main()
 	//ap.filename = "../data/Pi-Dec-1M.txt";
 	ap.filename = "../../data/pi1billion.txt";
 	ap.number_of_sequences_to_test = 10000;
-	//results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
-	
-//	cout << ap.digits_tested << "\t";
-//	for ( int i = 0; i < ap.total_number_of_classes; ++i )
-//		cout << results[i] << "\t";
+	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 
-//	cout << "\t\t";
-//	al.Set_List( results, ap.total_number_of_classes );
-//	cout << al.Chi_Squared();
-//	cout << endl;
+	cout << ap.digits_tested << "\t";
+	for ( int i = 0; i < ap.total_number_of_classes; ++i )
+		cout << results[i] << "\t";
 
-
-	
-
+	cout << "\t\t";
+	al.Set_List( results, ap.total_number_of_classes );
+	cout << al.Chi_Squared();
+	cout << endl;
+		
+	cout << "***************************" << endl;
 	//delete[] results;
 	//exit( 1 );
-	ap.number_of_sequences_to_test = 10000;
-	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1 );
+	ap.number_of_sequences_to_test = 1000;
+	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25);
 
 	time_t end = time( nullptr );
 
