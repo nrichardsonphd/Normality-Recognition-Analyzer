@@ -17,19 +17,30 @@ Analyze_List::~Analyze_List()
 }
 
 
-void Analyze_List::Set_List( unsigned long long list_to_analyze[], int list_size, unsigned long long int expected_value )
+void Analyze_List::Set_List( unsigned long long list_to_analyze[], int list_size )
 {
 	if ( this->list != NULL )
 		delete[] this->list;
 
 	this->size = list_size;
 	this->list = new unsigned long long[this->size];
-	this->expected = expected_value;
-
+	
 	for ( int i = 0; i < this->size; ++i )
 		this->list[i] = list_to_analyze[i];
 
+	this->expected = this->Expected_Value();
 	this->median = false;
+}
+
+double Analyze_List::Expected_Value()
+{
+	this->expected = 0;
+	for ( int i = 0; i < this->size; ++i )
+		this->expected += this->list[i];
+
+	this->expected /= this->size;
+
+	return this->expected;
 }
 
 

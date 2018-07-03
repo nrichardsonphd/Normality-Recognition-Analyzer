@@ -3,10 +3,12 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <ctime>
 using namespace std;
 
 // Version Control Functions
@@ -44,54 +46,39 @@ int main()
 
 	unsigned long long int *results;
 
-	cout << "Digits\t";
-	for ( int i = 0; i < ap.total_number_of_classes; ++i )
-		cout <<i << "\t";
+	
+
+	time_t start = time(nullptr);
+	cout << "Start Time: " << ctime( &start ) << endl;
+	
+	//ap.filename = "../data/Pi-Dec-1M.txt";
+	ap.filename = "../data/pi1billion.txt";
+	ap.number_of_sequences_to_test = 1000000000;
+	//results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+	
+//	cout << ap.digits_tested << "\t";
+//	for ( int i = 0; i < ap.total_number_of_classes; ++i )
+//		cout << results[i] << "\t";
+
+//	cout << "\t\t";
+//	al.Set_List( results, ap.total_number_of_classes );
+//	cout << al.Chi_Squared();
+//	cout << endl;
+
+
+	
+
+	//delete[] results;
+	//exit( 1 );
+	ap.number_of_sequences_to_test = 1000000000;
+	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1 );
+
+	time_t end = time( nullptr );
+
+	cout << "Start Time: " << ctime( &start );
+	cout << "End Time: " << ctime( &end );
+	cout << "Total Time: " << end - start << endl;
 	cout << endl;
-
-	double max = 0, min = 1000, chisq;
-	bool display = false;
-
-	for ( int i = 0; i <= 10000; ++i )
-	{
-		Default_Parameters( ap );
-		ap.number_of_sequences_to_test = 10 * i;
-		ap.filename = "../data/Pi-Dec-1M.txt";
-		results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
-
-		// Analyze the results
-		al.Set_List( results, 10, 1 * i );
-		
-		chisq = al.Chi_Squared();
-		
-		if ( max < chisq )
-		{
-			max = chisq;
-			display = true;
-		}
-		if ( min > chisq )
-		{
-			min = chisq;
-			display = true;
-		}
-
-		if ( display || i % 1000 == 0)
-		{
-			cout << ap.digits_tested << "\t";
-			for ( int i = 0; i < ap.total_number_of_classes; ++i )
-				cout << results[i] << "\t";
-
-			cout << "\t\t" << chisq;
-			cout << endl;
-
-			display = false;
-		}
-
-		delete[] results;
-	}
-
-	cout << "Maximum Chi-Squared: " << max << endl;
-	cout << "Minimum Chi-Squared: " << min << endl;
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
 
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );

@@ -49,8 +49,9 @@ class Analyze_List
 		///
 		/// @note		Calling this function a second time will overwrite the current list.  Any other functions calls will use the new list.
 		/// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		void Set_List( unsigned long long list_to_analyze[], int list_size, unsigned long long int expected_value );
+		void Set_List( unsigned long long list_to_analyze[], int list_size );
 
+		double Expected_Value();
 		
 		unsigned long long Sum();								///< sum of list
 		unsigned long long Sum_Squared();						///< sum^2: sum list then square total
@@ -101,7 +102,7 @@ class Analyze_List
 	private:
 		unsigned long long *list;					///< keep a copy of a list of numbers
 		int size;									///< size of the list
-		unsigned long long int expected;								///< expected value used for chi squared
+		double expected;								///< expected value used for chi squared
 		bool median;								// flag to use when sorting list to find median
 
 		/// @details		Used to sort the list when calculating Q1, Q3, or Median
