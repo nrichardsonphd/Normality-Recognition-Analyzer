@@ -59,7 +59,7 @@ bool Test_Decimal_Sequence( bool detailed )
 	const int seq3[4] = { 1,122,340,1121 };
 	const int seq4[3] = { 11,2233,11121 };
 
-	rn.Set_File( "../data/testfiles/sequence.txt" );
+	rn.Set_File( "../../data/testfiles/sequence.txt" );
 	
 	for ( int k = 0; k < 14; ++k )
 	{
@@ -83,7 +83,7 @@ bool Test_Decimal_Sequence( bool detailed )
 			cout << "\t[FALSE]: Group Size 1" << endl;
 	}
 
-	rn.Set_File( "../data/testfiles/sequence.txt" );
+	rn.Set_File( "../../data/testfiles/sequence.txt" );
 	for ( int k = 0; k < 7; ++k )
 	{
 		s = Get_Block_Sequence( rn, 2 );
@@ -106,7 +106,7 @@ bool Test_Decimal_Sequence( bool detailed )
 			cout << "\t[FALSE]: Group Size 2" << endl;
 	}
 
-	rn.Set_File( "../data/testfiles/sequence.txt" );
+	rn.Set_File( "../../data/testfiles/sequence.txt" );
 	for ( int k = 0; k < 4; ++k )
 	{
 		s = Get_Block_Sequence( rn, 3 );
@@ -130,7 +130,7 @@ bool Test_Decimal_Sequence( bool detailed )
 	}
 
 
-	rn.Set_File( "../data/testfiles/sequence.txt" );
+	rn.Set_File( "../../data/testfiles/sequence.txt" );
 	for ( int k = 0; k < 3; ++k )
 	{
 		s = Get_Block_Sequence( rn, 4 );

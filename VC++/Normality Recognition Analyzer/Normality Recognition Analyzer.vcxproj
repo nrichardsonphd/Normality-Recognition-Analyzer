@@ -19,30 +19,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\analysis\analysis_parameters.cpp" />
-    <ClCompile Include="..\src\analysis\Analyze_List.cpp" />
-    <ClCompile Include="..\src\Analyze Number.cpp" />
-    <ClCompile Include="..\src\common\cams.cpp" />
-    <ClCompile Include="..\src\common\Read_Number.cpp" />
-    <ClCompile Include="..\src\driver.cpp" />
-    <ClCompile Include="..\src\Get_Next_Sequence.cpp" />
-    <ClCompile Include="..\src\Get_Sequence_Value.cpp" />
-    <ClCompile Include="..\src\setup.cpp" />
-    <ClCompile Include="..\src\testing\Read_Number-test.cpp" />
-    <ClCompile Include="..\src\testing\testing.cpp" />
+    <ClCompile Include="..\..\src\analysis\analysis_parameters.cpp" />
+    <ClCompile Include="..\..\src\analysis\Analyze_List.cpp" />
+    <ClCompile Include="..\..\src\Analyze Number.cpp" />
+    <ClCompile Include="..\..\src\common\cams.cpp" />
+    <ClCompile Include="..\..\src\common\Read_Number.cpp" />
+    <ClCompile Include="..\..\src\driver.cpp" />
+    <ClCompile Include="..\..\src\Get_Next_Sequence.cpp" />
+    <ClCompile Include="..\..\src\Get_Sequence_Value.cpp" />
+    <ClCompile Include="..\..\src\setup.cpp" />
+    <ClCompile Include="..\..\src\testing\Read_Number-test.cpp" />
+    <ClCompile Include="..\..\src\testing\testing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\analysis\analysis_parameters.h" />
-    <ClInclude Include="..\src\analysis\Analyze_List.h" />
-    <ClInclude Include="..\src\Analyze Number.h" />
-    <ClInclude Include="..\src\common\cams.h" />
-    <ClInclude Include="..\src\common\Read_Number.h" />
-    <ClInclude Include="..\src\Get_Next_Sequence.h" />
-    <ClInclude Include="..\src\Get_Sequence_Value.h" />
-    <ClInclude Include="..\src\Sequence.h" />
-    <ClInclude Include="..\src\setup.h" />
-    <ClInclude Include="..\src\testing\Read_Number-test.h" />
-    <ClInclude Include="..\src\testing\testing.h" />
+    <ClInclude Include="..\..\src\analysis\analysis_parameters.h" />
+    <ClInclude Include="..\..\src\analysis\Analyze_List.h" />
+    <ClInclude Include="..\..\src\Analyze Number.h" />
+    <ClInclude Include="..\..\src\common\cams.h" />
+    <ClInclude Include="..\..\src\common\Read_Number.h" />
+    <ClInclude Include="..\..\src\Get_Next_Sequence.h" />
+    <ClInclude Include="..\..\src\Get_Sequence_Value.h" />
+    <ClInclude Include="..\..\src\Sequence.h" />
+    <ClInclude Include="..\..\src\setup.h" />
+    <ClInclude Include="..\..\src\testing\Read_Number-test.h" />
+    <ClInclude Include="..\..\src\testing\testing.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

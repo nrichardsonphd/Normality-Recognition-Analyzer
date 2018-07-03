@@ -52,7 +52,7 @@ int main()
 	cout << "Start Time: " << ctime( &start ) << endl;
 	
 	//ap.filename = "../data/Pi-Dec-1M.txt";
-	ap.filename = "../data/pi1billion.txt";
+	ap.filename = "../../data/pi1billion.txt";
 	ap.number_of_sequences_to_test = 10000;
 	//results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 	
@@ -144,7 +144,7 @@ string Git_Version_Number()
 	// format of versions
 	// <Version>.<Revision>.<Commit>.<Build>
 
-	ifstream in("../logs/buildno.txt", ios::in);
+	ifstream in("../../logs/buildno.txt", ios::in);
 	if (!in)
 	{
 		cout << "Unable to open buildno.txt" << endl;
@@ -172,7 +172,7 @@ string Git_Version_Number()
 	tmp += ".";
 	tmp += to_string(++build);
 
-	ofstream out("../logs/buildno.txt", ios::out);
+	ofstream out("../../logs/buildno.txt", ios::out);
 	if (!out)
 	{
 		cout << "Unable to write buildno.txt" << endl;

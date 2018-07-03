@@ -24,72 +24,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\driver.cpp">
+    <ClCompile Include="..\..\src\driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\setup.cpp">
+    <ClCompile Include="..\..\src\setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\testing\testing.cpp">
+    <ClCompile Include="..\..\src\testing\testing.cpp">
       <Filter>Testing</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\testing\Read_Number-test.cpp">
+    <ClCompile Include="..\..\src\testing\Read_Number-test.cpp">
       <Filter>Testing</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\analysis\analysis_parameters.cpp">
+    <ClCompile Include="..\..\src\analysis\analysis_parameters.cpp">
       <Filter>Analysis</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\common\cams.cpp">
+    <ClCompile Include="..\..\src\common\cams.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\common\Read_Number.cpp">
+    <ClCompile Include="..\..\src\common\Read_Number.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Get_Next_Sequence.cpp">
+    <ClCompile Include="..\..\src\Get_Next_Sequence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Get_Sequence_Value.cpp">
+    <ClCompile Include="..\..\src\Get_Sequence_Value.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Analyze Number.cpp">
+    <ClCompile Include="..\..\src\Analyze Number.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\analysis\Analyze_List.cpp">
+    <ClCompile Include="..\..\src\analysis\Analyze_List.cpp">
       <Filter>Analysis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\setup.h">
+    <ClInclude Include="..\..\src\setup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\testing\testing.h">
+    <ClInclude Include="..\..\src\testing\testing.h">
       <Filter>Testing</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\testing\Read_Number-test.h">
+    <ClInclude Include="..\..\src\testing\Read_Number-test.h">
       <Filter>Testing</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\analysis\analysis_parameters.h">
+    <ClInclude Include="..\..\src\analysis\analysis_parameters.h">
       <Filter>Analysis</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\common\cams.h">
+    <ClInclude Include="..\..\src\common\cams.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\common\Read_Number.h">
+    <ClInclude Include="..\..\src\common\Read_Number.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Get_Next_Sequence.h">
+    <ClInclude Include="..\..\src\Get_Next_Sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Get_Sequence_Value.h">
+    <ClInclude Include="..\..\src\Get_Sequence_Value.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Sequence.h">
+    <ClInclude Include="..\..\src\Sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Analyze Number.h">
+    <ClInclude Include="..\..\src\Analyze Number.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\analysis\Analyze_List.h">
+    <ClInclude Include="..\..\src\analysis\Analyze_List.h">
       <Filter>Analysis</Filter>
     </ClInclude>
   </ItemGroup>

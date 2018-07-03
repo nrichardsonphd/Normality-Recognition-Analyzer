@@ -9,9 +9,9 @@
 bool Test_Read_Number( bool detailed )
 {
 	bool pass = true;	// Assume all tests are passed, set to false when failed
-	string decimal_file = "../data/testfiles/Pi1K-dec.txt";
-	string hex2bin_file = "../data/testfiles/hex2bin.txt";
-	string digit_file = "../data/testfiles/digit.txt";
+	string decimal_file = "../../data/testfiles/Pi1K-dec.txt";
+	string hex2bin_file = "../../data/testfiles/hex2bin.txt";
+	string digit_file = "../../data/testfiles/digit.txt";
 	string no_file = "junk.does.not.exist.txt";
 
 	if ( !RN_Test_Nofile( no_file, detailed ) )
