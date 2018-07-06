@@ -1,6 +1,7 @@
 /// @file
 #include "analysis_parameters.h"
 
+
 void Default_Parameters( Analysis_Parameters &ap )
 {
 	//int base = 10;															///< base number to be tested, usually decimal or Hex tp binary
@@ -19,10 +20,38 @@ void Default_Parameters( Analysis_Parameters &ap )
 	ap.filename = "../data/Pi1K-dec.txt";
 }
 
-void Display_AP(Analysis_Parameters ap)
+void Display_AP( Analysis_Parameters ap)
 {
-	
-	cout << "Analysis Parameters" << endl;
+	Display_AP( ap, cout );
+}
+
+
+void Display_AP(Analysis_Parameters ap, ostream &out )
+{
+	out << "*********************************************************************" << endl;
+	out << "Analysis of Parameters" << endl;
+
+	out << "Description of test" << endl;
+	out << "\tConstant: " << ap.desc_constant << endl;
+	if ( ap.file_constant ) out << "\tFilename: " << ap.filename << endl;
+	out << "\tNext Sequence: " << ap.desc_next_sequence << endl;
+	out << "\tSequence Classification: " << ap.desc_classification << endl << endl;
+
+	out << "Selected Options" << endl;
+	out << "\tRemove pre decimal: " << ((ap.remove_predecimal == true) ? ("TRUE") : ("FALSE")) << endl;
+	out << "\tMaximum Sequence Size: " << ap.max_sequence_size << endl;
+	out << "\tNumber of Classes: " << ap.total_number_of_classes << endl;
+	out << "\tNumber of Sequences to test: " << ap.number_of_sequences_to_test << endl << endl;
+
+	out << "Results of test" << endl;
+	out << "\tDigits Tested: " << ap.digits_tested << endl;
+	out << "\tSequences Tested: " << ap.sequences_tested << endl;
+
+
+
+
+
+	out << "*********************************************************************" << endl;
 	/*
 	cout << "\tBase: " << ap.base;			cout << "\t\t\tTest Digits: " << ap.total_digits;			cout << "\t\t\tRemove pre decimal: " << ((ap.remove_predecimal==true) ? ("TRUE") : ("FALSE")) << endl;
 	cout << endl;

@@ -30,6 +30,7 @@ string Git_Version_Number();
 
 #include "Analyze Number.h"
 #include "analysis\Analyze_List.h"
+
 int main()
 {
 	// Initialize for Version Control
@@ -38,7 +39,6 @@ int main()
 	cout << "Detailed Test: " << endl;
 	Test_All( true );
 	cout << endl;
-	cout << endl << "*****************" << endl;
 	cout << "Summary Test" << endl;
 	Test_All( false );
 	Analysis_Parameters ap;
@@ -54,10 +54,13 @@ int main()
 	//ap.filename = "../data/Pi-Dec-1M.txt";
 	ap.filename = "../../data/pi1billion.txt";
 	ap.number_of_sequences_to_test = 10000;
-	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 
+	Display_AP( ap );
+	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+	Display_AP( ap );
+	
 	cout << ap.digits_tested << "\t";
-	for ( int i = 0; i < ap.total_number_of_classes; ++i )
+	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
 		cout << results[i] << "\t";
 
 	cout << "\t\t";
@@ -65,11 +68,14 @@ int main()
 	cout << al.Chi_Squared();
 	cout << endl;
 		
-	cout << "***************************" << endl;
 	//delete[] results;
 	//exit( 1 );
-	ap.number_of_sequences_to_test = 1000;
-	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25);
+	//ap.number_of_sequences_to_test = 1000;
+	//Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, cout);
+
+	ofstream outfile( "../../logs/tmp123.txt", ios::out );
+	Display_AP( ap );
+	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, outfile );
 
 	time_t end = time( nullptr );
 

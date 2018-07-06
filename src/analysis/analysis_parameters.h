@@ -36,7 +36,7 @@ struct Analysis_Parameters
 	/// function pointer to class value description
 	string desc_classification = "Description of classifications of sequences";
 	
-
+	string desc_constant = "Description of constant being tested";
 
 	/// @note: Block and stream are mutually exclusive
 	//bool block = true;														///< group by nonoverlapping blocks	14 15 92 65 ...
@@ -61,6 +61,7 @@ struct Analysis_Parameters
 void Default_Parameters(Analysis_Parameters &ap);
 void Open_File(Analysis_Parameters ap);
 void Display_AP(Analysis_Parameters ap);
+void Display_AP( Analysis_Parameters ap, ostream &out );
 
 
 // Add functions to setup specific variables for different constants, bases, block sizes, options, etc

@@ -2,7 +2,7 @@
 #include "Analyze Number.h"
 
 unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
-													Analysis_Parameters &ap, Read_Number &rn, int number_of_sequences )
+													Analysis_Parameters &ap, Read_Number &rn, unsigned int number_of_sequences )
 {
 	unsigned long long int *tmp_results = new unsigned long long int[ap.total_number_of_classes];
 	unsigned int value;
@@ -25,7 +25,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 			++tmp_results[value];
 		else
 		{
-			cout << "ERROR: Sequence Value is out of range" << endl;
+			cout << "ERROR: Sequence Value is out of range.  0 <= Value Returned <= Total Number of Classes.\nCheck that Sequence_Value is correct." << endl;
 			exit( 1 );
 			return tmp_results;
 		}
@@ -93,7 +93,8 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 
 
 
-void Analyze_Number_Continuously( Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), Analysis_Parameters &ap, unsigned int granularity, unsigned int progress )
+void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
+									Analysis_Parameters &ap, unsigned int granularity, unsigned int progress, ostream &out )
 {
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
@@ -108,10 +109,10 @@ void Analyze_Number_Continuously( Sequence( *Next_Sequence )(Read_Number &rn, in
 	Sequence group;
 	Read_Number rn;
 
-	cout << "Digits\t";
+	out << "Digits\t";
 	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
-		cout << i << "\t";
-	cout << endl;
+		out << i << "\t";
+	out << endl;
 
 	// initialize results
 	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
@@ -130,7 +131,7 @@ void Analyze_Number_Continuously( Sequence( *Next_Sequence )(Read_Number &rn, in
 	{
 		tmp_results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, granularity );
 
-		for ( int i = 0; i < ap.total_number_of_classes; ++i )
+		for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
 			results[i] += tmp_results[i];
 
 		delete [] tmp_results;
@@ -151,18 +152,18 @@ void Analyze_Number_Continuously( Sequence( *Next_Sequence )(Read_Number &rn, in
 
 		if ( display || ap.sequences_tested % progress == 0 )
 		{
-			cout << ap.digits_tested << "\t";
+			out << ap.digits_tested << "\t";
 			for ( unsigned int j = 0; j < ap.total_number_of_classes; ++j )
-				cout << results[j] << "\t";
+				out << results[j] << "\t";
 
-			cout << "\t\t";
+			out << "\t\t";
 			if ( abs( max - chisq ) < .00001 )
-				cout << "/\\";
+				out << "/\\";
 			if ( abs( min - chisq ) < .00001 )
-				cout << "\\/";
+				out << "\\/";
 
-			cout << chisq;
-			cout << endl;
+			out << chisq;
+			out << endl;
 
 			display = false;
 		}
@@ -234,9 +235,9 @@ void Analyze_Number_Continuously( Sequence( *Next_Sequence )(Read_Number &rn, in
 	*/
 	
 
-	cout << "Maximum Chi-Squared: " << max << endl;
-	cout << "Minimum Chi-Squared: " << min << endl;
-	cout << endl;
+	out << "Maximum Chi-Squared: " << max << endl;
+	out << "Minimum Chi-Squared: " << min << endl;
+	out << endl;
 
 	delete[] results;
 }
