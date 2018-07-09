@@ -92,5 +92,11 @@
     <ClInclude Include="..\..\src\analysis\Analyze_List.h">
       <Filter>Analysis</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\analysis\Continuous_Analysis.h">
+      <Filter>Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\analysis\Result Analysis.h">
+      <Filter>Analysis</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

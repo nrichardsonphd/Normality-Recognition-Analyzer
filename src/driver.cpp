@@ -16,6 +16,8 @@ string VERSION;				// store current version of program
 void Git_Init();
 string Git_Version_Number();
 
+void Command_Arguments( int argc, char *argv );
+void Full_Testing( bool detail );
 
 
 // Setting up program
@@ -31,34 +33,42 @@ string Git_Version_Number();
 #include "Analyze Number.h"
 #include "analysis\Analyze_List.h"
 
-int main()
+// *** TODO Add Command line arguments
+
+int main( int argc, char *argv)
 {
 	// Initialize for Version Control
 	Git_Init();
 
-	cout << "Detailed Test: " << endl;
-	Test_All( true );
-	cout << endl;
-	cout << "Summary Test" << endl;
-	Test_All( false );
+	// command line arguments
+	Command_Arguments( argc, argv );
+
+	return 0;
+}
+
+void Command_Arguments( int argc, char *argv )
+{
+	// check testing parameters
+	if ( false )
+		Full_Testing( true );
+	
 	Analysis_Parameters ap;
 	Analyze_List al;
 
 	unsigned long long int *results;
 
-	
 
-	time_t start = time(nullptr);
+
+	time_t start = time( nullptr );
 	cout << "Start Time: " << ctime( &start ) << endl;
 	
 	//ap.filename = "../data/Pi-Dec-1M.txt";
 	ap.filename = "../../data/pi1billion.txt";
 	ap.number_of_sequences_to_test = 10000;
 
-	Display_AP( ap );
 	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 	Display_AP( ap );
-	
+
 	cout << ap.digits_tested << "\t";
 	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
 		cout << results[i] << "\t";
@@ -67,16 +77,15 @@ int main()
 	al.Set_List( results, ap.total_number_of_classes );
 	cout << al.Chi_Squared();
 	cout << endl;
-		
-	//delete[] results;
-	//exit( 1 );
+	delete[] results;
+/*
 	//ap.number_of_sequences_to_test = 1000;
 	//Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, cout);
 
 	ofstream outfile( "../../logs/tmp123.txt", ios::out );
 	Display_AP( ap );
 	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, outfile );
-
+	*/
 	time_t end = time( nullptr );
 
 	cout << "Start Time: " << ctime( &start );
@@ -86,10 +95,10 @@ int main()
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
 
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
-	
+
 	/// CAMS 
 	//ap = Setup_Parameters();				// TBD
-	
+
 	// Start Project
 	/// select parallelization
 	//Select_Parallel(ap);				// CAMS
@@ -128,7 +137,22 @@ int main()
 	// other statistics based on classifications
 
 	/// verify testing correct?
-	return 0;
+}
+
+void Full_Testing( bool detail )
+{
+	if ( detail )
+	{
+		cout << "Detailed Test: " << endl;
+		Test_All( true );
+		cout << endl;
+	}
+	else
+	{
+		cout << "Summary Test" << endl;
+		Test_All( false );
+		cout << endl;
+	}
 }
 
 void Git_Init()

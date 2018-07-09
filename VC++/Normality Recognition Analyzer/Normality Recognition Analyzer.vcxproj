@@ -34,6 +34,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\analysis\analysis_parameters.h" />
     <ClInclude Include="..\..\src\analysis\Analyze_List.h" />
+    <ClInclude Include="..\..\src\analysis\Continuous_Analysis.h" />
+    <ClInclude Include="..\..\src\analysis\Result Analysis.h" />
     <ClInclude Include="..\..\src\Analyze Number.h" />
     <ClInclude Include="..\..\src\common\cams.h" />
     <ClInclude Include="..\..\src\common\Read_Number.h" />
