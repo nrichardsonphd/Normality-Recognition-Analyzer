@@ -10,19 +10,6 @@
 #include <string>
 #include <ctime>
 using namespace std;
-
-// Version Control Functions
-string VERSION;				// store current version of program
-void Git_Init();
-string Git_Version_Number();
-
-void Command_Arguments( int argc, char **argv );	
-void Command_Help();
-void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file ); 
-void Command_Execute( int, int, int );
-void Full_Testing( bool detail );
-
-
 // Setting up program
 #include "analysis\analysis_parameters.h"
 #include "common\cams.h"
@@ -35,6 +22,23 @@ void Full_Testing( bool detail );
 
 #include "Analyze Number.h"
 #include "analysis\Analyze_List.h"
+
+
+// Version Control Functions
+string VERSION;				// store current version of program
+void Git_Init();
+string Git_Version_Number();
+
+void Command_Arguments( int argc, char **argv );	
+void Command_Help();
+void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file ); 
+void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file );
+
+void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out );
+void Full_Testing( bool detail );
+
+
+
 
 // *** TODO Add Command line arguments
 
@@ -95,7 +99,8 @@ void Command_Arguments( int argc, char **argv )
 	bool opt_test = false,
 		 opt_detail = false,
 		 opt_pre = false,
-		 opt_cont = false;
+		 opt_cont = false,
+		 opt_file = false;
 
 	int next_seq = 1;
 	int seq_val = 1;
@@ -152,6 +157,7 @@ void Command_Arguments( int argc, char **argv )
 					break;
 
 				case 'r':
+					opt_file = true;
 					output_file = argv[++i];
 					break;
 				default:
@@ -168,47 +174,12 @@ void Command_Arguments( int argc, char **argv )
 	}
 	else
 	{
-		Command_Summarry( opt_test, opt_detail, opt_pre, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
+		Command_Summarry( opt_test, opt_detail, opt_pre, opt_file, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
 		
-
-
-	// check testing parameters
-		if ( opt_test )
-			Full_Testing( opt_detail );
-
-		Analysis_Parameters ap;
-		ap.remove_predecimal = opt_pre;
-		ap.number_of_sequences_to_test = seq_tests;
-		ap.max_sequence_size = block_size;
-		ap.filename = input_file;
-
-		//ofstream outfile( output_file, ios::out );
-
-		// setup different function pointers based on arguments
-		unsigned long long int *results;
-
-		ap.total_number_of_classes = pow(10, ap.max_sequence_size );
-		results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
-
-		//outfile.close();
-
-		cout << ap.digits_tested << "\t";
-		for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
-			cout << results[i] << "\t";
-
-		cout << "\t\t";
-
-		Analyze_List al;
-		al.Set_List( results, ap.total_number_of_classes );
-		cout << al.Chi_Squared();
-		cout << endl;
-		delete[] results;
-	}
-	exit( 1 );
-
+		Command_Execute( opt_test, opt_detail, opt_pre, opt_file, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
 
 	
-
+	}
 	
 	
 	
@@ -295,21 +266,69 @@ void Command_Help()
 
 }
 
-void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file )
+void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file )
 {
 	cout << "Command Setup" << endl;
 	cout << "\tRun Tests: " << ((opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((opt_detail) ? "TRUE" : "FALSE") << endl;
 	cout << "\tRemove Pre Decimal: " << ((opt_pre) ? "TRUE" : "FALSE") << endl;
+	
 	cout << "\tNext Sequence: " << next_seq << endl;
 	cout << "\tSequence Value: " << seq_val << endl;
+	
 	cout << "\tSequence Tests: " << seq_tests << endl;
 	cout << "\tBlock Size: " << block_size << endl;
+	
 	cout << "\tInput File: " << input_file << endl;
+	cout << "\tOutput File: " << ((opt_file) ? "TRUE" : "FALSE") << endl;
 	cout << "\tOutput File: " << output_file << endl;
 }
 
-void Command_Execute( int, int, int )
+void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file )
 {
+	// check testing parameters
+	if ( opt_test )
+		Full_Testing( opt_detail );
+
+	Analysis_Parameters ap;
+	ap.remove_predecimal = opt_pre;
+	ap.number_of_sequences_to_test = seq_tests;
+	ap.max_sequence_size = block_size;
+	ap.filename = input_file;
+
+	
+	// setup different function pointers based on arguments
+	unsigned long long int *results;
+	ap.total_number_of_classes = (unsigned int )pow( 10, ap.max_sequence_size );
+
+	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+
+	if ( !opt_file )		// no output file, display to screen
+	{
+		Display_Results( results, ap, cout );		
+	}
+	else	// output file exists
+	{
+		ofstream outfile( output_file, ios::out );
+		Display_Results( results, ap, outfile );		
+		outfile.close();
+	}
+
+	delete[] results;
+}
+
+void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )
+{
+	out << ap.digits_tested << "\t";
+	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+		out << results[i] << "\t";
+
+	out << "\t\t";
+
+	Analyze_List al;
+	al.Set_List( results, ap.total_number_of_classes );
+	out << al.Chi_Squared();
+	out << endl;
+
 }
 
 void Full_Testing( bool detail )
