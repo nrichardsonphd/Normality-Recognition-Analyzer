@@ -16,7 +16,7 @@ string VERSION;				// store current version of program
 void Git_Init();
 string Git_Version_Number();
 
-void Command_Arguments( int argc, char *argv );
+void Command_Arguments( int argc, char **argv );
 void Full_Testing( bool detail );
 
 
@@ -35,49 +35,206 @@ void Full_Testing( bool detail );
 
 // *** TODO Add Command line arguments
 
-int main( int argc, char *argv)
+int main( int argc, char **argv)
 {
 	// Initialize for Version Control
 	Git_Init();
 
-	// command line arguments
-	Command_Arguments( argc, argv );
-
-	return 0;
-}
-
-void Command_Arguments( int argc, char *argv )
-{
-	// check testing parameters
-	if ( false )
-		Full_Testing( true );
-	
-	Analysis_Parameters ap;
-	Analyze_List al;
-
-	unsigned long long int *results;
-
-
-
 	time_t start = time( nullptr );
 	cout << "Start Time: " << ctime( &start ) << endl;
 	
-	//ap.filename = "../data/Pi-Dec-1M.txt";
-	ap.filename = "../../data/pi1billion.txt";
-	ap.number_of_sequences_to_test = 10000;
+	// command line arguments
+	Command_Arguments( argc, argv );
 
-	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
-	Display_AP( ap );
 
-	cout << ap.digits_tested << "\t";
-	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
-		cout << results[i] << "\t";
 
-	cout << "\t\t";
-	al.Set_List( results, ap.total_number_of_classes );
-	cout << al.Chi_Squared();
+	// end of program
+	time_t end = time( nullptr );
+
+	cout << "Start Time: " << ctime( &start );
+	cout << "End Time: " << ctime( &end );
+	cout << "Total Time: " << end - start << endl;
 	cout << endl;
-	delete[] results;
+	return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Command Line Arguments
+// This is a rough setup, no combining arguments
+// Only use known sequence functions
+// 
+// nra.exe -t -T -N 2 -V 2 -p -s 5 -b 8 -f ../../data/Pi1K-dec.txt -r tmp.out
+//
+// -t		Run all tests to ensure program is correct (quiet)
+// -T		same as -t except detailed
+//
+// -N #		Select numbered Next Sequence
+// -V #		Select numbered Sequence Value
+//
+// -p		remove predecimal
+// -s #		number of sequences to test
+// -b #		size of each sequence
+//
+// -?		nonoverlapping blocks of digits
+// -?		stream digits with overlapping blocks
+// 
+// -f <filename>		select input file for test
+// -r <filename>		select output file for test
+//
+// granularity for continuous testing
+///////////////////////////////////////////////////////////////////////////////////////////////////
+void Command_Arguments( int argc, char **argv )
+{
+	
+	bool menu = true;		// default, no options use cams
+
+	bool opt_test = false,
+		opt_detail = false,
+		opt_pre = false;
+
+	int next_seq = 1;
+	int seq_val = 1;
+	int seq_tests = 1000;
+	int block_size = 1;
+
+	string input_file = "default.in";
+	string output_file = "constant_analyzer.out";
+
+	// parse command arguments
+	for ( int i = 0; i < argc; ++i )
+	{
+		//cout << "Command " << i << ":" << argv[i] << endl;
+
+		if ( argv[i][0] == '-' )
+		{
+			menu = false;
+
+			switch ( argv[i][1] )
+			{
+				case 'T':			// detailed test
+					opt_test = true;
+					opt_detail = true;
+					break;
+
+				case 't':			// quiet output
+					opt_detail = false;
+					opt_test = true;
+					break;
+
+				case 'p':			// remove pre decimal
+					opt_pre = true;
+					break;
+
+				case 's':			// select number of sequence 
+					seq_tests = atoi( argv[++i] );
+					break;
+
+				case 'b':			// select maximum size of blocks
+					block_size = atoi( argv[++i] );
+					break;
+
+				case 'N':			// select Next Sequence
+					next_seq = atoi( argv[++i] );
+					break;
+
+				case 'V':			// select Sequence Value
+					seq_val = atoi( argv[++i] );
+					break;
+
+				case 'f':
+					input_file = argv[++i];
+					break;
+
+				case 'r':
+					output_file = argv[++i];
+					break;
+				default:
+					cout << "ERROR: Unknown Command:" << argv[i] << endl;
+			};
+		}
+	}
+
+	if ( menu )
+	{
+		// go to cams menu setup
+		cout << "Menu not implemented, use command line arguments" << endl;
+		
+		cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
+		cout << " -T\t\tsame as -t except detailed" << endl;
+		
+		cout << " -N #\t\tSelect numbered Next Sequence" << endl;
+		cout << "\t 1. Digit Test" << endl;
+		cout << " -V #\t\tSelect numbered Sequence Value" << endl;
+		cout << "\t 1. Digit Value" << endl;
+
+		cout << " -p \t\tremove predecimal" << endl;
+		cout << " -s # \t\tnumber of sequences to test" << endl;
+		cout << " -b # \t\tsize of each sequence" << endl;
+		
+		cout << " -f <filename> \tselect input file for test" << endl;
+		cout << " -r <filename> \tselect output file for test" << endl;
+
+		return;
+	}
+	else
+	{
+		cout << "**************" << endl;
+		cout << "Command Setup" << endl;
+		cout << "\tRun Tests: " << ((opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((opt_detail) ? "TRUE" : "FALSE") << endl;
+		cout << "\tRemove Pre Decimal: " << ((opt_pre) ? "TRUE" : "FALSE") << endl;
+		cout << "\tNext Sequence: " << next_seq << endl;
+		cout << "\tSequence Value: " << seq_val << endl;
+		cout << "\tSequence Tests: " << seq_tests << endl;
+		cout << "\tBlock Size: " << block_size << endl;
+		cout << "\tInput File: " << input_file << endl;
+		cout << "\tOutput File: " << output_file << endl;
+
+	// check testing parameters
+		if ( opt_test )
+			Full_Testing( opt_detail );
+
+		Analysis_Parameters ap;
+		ap.remove_predecimal = opt_pre;
+		ap.number_of_sequences_to_test = seq_tests;
+		ap.max_sequence_size = block_size;
+		ap.filename = input_file;
+
+		//ofstream outfile( output_file, ios::out );
+
+		// setup different function pointers based on arguments
+		unsigned long long int *results;
+		results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+
+		//outfile.close();
+
+		cout << ap.digits_tested << "\t";
+		for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+			cout << results[i] << "\t";
+
+		cout << "\t\t";
+
+		Analyze_List al;
+		al.Set_List( results, ap.total_number_of_classes );
+		cout << al.Chi_Squared();
+		cout << endl;
+		delete[] results;
+	}
+	exit( 1 );
+
+
+	
+
+	
+	
+	
+	//ap.filename = "../data/Pi-Dec-1M.txt";
+	//ap.filename = "../../data/pi1billion.txt";
+	//ap.number_of_sequences_to_test = 10000;
+
+//	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+//	Display_AP( ap );
+
+
 /*
 	//ap.number_of_sequences_to_test = 1000;
 	//Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, cout);
@@ -86,12 +243,7 @@ void Command_Arguments( int argc, char *argv )
 	Display_AP( ap );
 	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, outfile );
 	*/
-	time_t end = time( nullptr );
 
-	cout << "Start Time: " << ctime( &start );
-	cout << "End Time: " << ctime( &end );
-	cout << "Total Time: " << end - start << endl;
-	cout << endl;
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
 
 	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
