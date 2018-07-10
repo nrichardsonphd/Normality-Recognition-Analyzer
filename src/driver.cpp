@@ -16,7 +16,10 @@ string VERSION;				// store current version of program
 void Git_Init();
 string Git_Version_Number();
 
-void Command_Arguments( int argc, char **argv );
+void Command_Arguments( int argc, char **argv );	
+void Command_Help();
+void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file ); 
+void Command_Execute( int, int, int );
 void Full_Testing( bool detail );
 
 
@@ -81,7 +84,8 @@ int main( int argc, char **argv)
 // -f <filename>		select input file for test
 // -r <filename>		select output file for test
 //
-// granularity for continuous testing
+// -c		Continuous Testing
+// -g #		granularity for continuous testing
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void Command_Arguments( int argc, char **argv )
 {
@@ -89,13 +93,15 @@ void Command_Arguments( int argc, char **argv )
 	bool menu = true;		// default, no options use cams
 
 	bool opt_test = false,
-		opt_detail = false,
-		opt_pre = false;
+		 opt_detail = false,
+		 opt_pre = false,
+		 opt_cont = false;
 
 	int next_seq = 1;
 	int seq_val = 1;
 	int seq_tests = 1000;
 	int block_size = 1;
+	int granularity = 1;
 
 	string input_file = "default.in";
 	string output_file = "constant_analyzer.out";
@@ -158,36 +164,13 @@ void Command_Arguments( int argc, char **argv )
 	{
 		// go to cams menu setup
 		cout << "Menu not implemented, use command line arguments" << endl;
-		
-		cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
-		cout << " -T\t\tsame as -t except detailed" << endl;
-		
-		cout << " -N #\t\tSelect numbered Next Sequence" << endl;
-		cout << "\t 1. Digit Test" << endl;
-		cout << " -V #\t\tSelect numbered Sequence Value" << endl;
-		cout << "\t 1. Digit Value" << endl;
-
-		cout << " -p \t\tremove predecimal" << endl;
-		cout << " -s # \t\tnumber of sequences to test" << endl;
-		cout << " -b # \t\tsize of each sequence" << endl;
-		
-		cout << " -f <filename> \tselect input file for test" << endl;
-		cout << " -r <filename> \tselect output file for test" << endl;
-
-		return;
+		Command_Help();
 	}
 	else
 	{
-		cout << "**************" << endl;
-		cout << "Command Setup" << endl;
-		cout << "\tRun Tests: " << ((opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((opt_detail) ? "TRUE" : "FALSE") << endl;
-		cout << "\tRemove Pre Decimal: " << ((opt_pre) ? "TRUE" : "FALSE") << endl;
-		cout << "\tNext Sequence: " << next_seq << endl;
-		cout << "\tSequence Value: " << seq_val << endl;
-		cout << "\tSequence Tests: " << seq_tests << endl;
-		cout << "\tBlock Size: " << block_size << endl;
-		cout << "\tInput File: " << input_file << endl;
-		cout << "\tOutput File: " << output_file << endl;
+		Command_Summarry( opt_test, opt_detail, opt_pre, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
+		
+
 
 	// check testing parameters
 		if ( opt_test )
@@ -203,6 +186,8 @@ void Command_Arguments( int argc, char **argv )
 
 		// setup different function pointers based on arguments
 		unsigned long long int *results;
+
+		ap.total_number_of_classes = pow(10, ap.max_sequence_size );
 		results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 
 		//outfile.close();
@@ -289,6 +274,42 @@ void Command_Arguments( int argc, char **argv )
 	// other statistics based on classifications
 
 	/// verify testing correct?
+}
+
+void Command_Help()
+{
+	cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
+	cout << " -T\t\tsame as -t except detailed" << endl;
+
+	cout << " -N #\t\tSelect numbered Next Sequence" << endl;
+	cout << "\t 1. Digit Test" << endl;
+	cout << " -V #\t\tSelect numbered Sequence Value" << endl;
+	cout << "\t 1. Digit Value" << endl;
+
+	cout << " -p \t\tremove predecimal" << endl;
+	cout << " -s # \t\tnumber of sequences to test" << endl;
+	cout << " -b # \t\tsize of each sequence" << endl;
+
+	cout << " -f <filename> \tselect input file for test" << endl;
+	cout << " -r <filename> \tselect output file for test" << endl;
+
+}
+
+void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file )
+{
+	cout << "Command Setup" << endl;
+	cout << "\tRun Tests: " << ((opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((opt_detail) ? "TRUE" : "FALSE") << endl;
+	cout << "\tRemove Pre Decimal: " << ((opt_pre) ? "TRUE" : "FALSE") << endl;
+	cout << "\tNext Sequence: " << next_seq << endl;
+	cout << "\tSequence Value: " << seq_val << endl;
+	cout << "\tSequence Tests: " << seq_tests << endl;
+	cout << "\tBlock Size: " << block_size << endl;
+	cout << "\tInput File: " << input_file << endl;
+	cout << "\tOutput File: " << output_file << endl;
+}
+
+void Command_Execute( int, int, int )
+{
 }
 
 void Full_Testing( bool detail )

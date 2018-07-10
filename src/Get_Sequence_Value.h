@@ -1,6 +1,7 @@
 #ifndef GET_SEQUENCE_VALUE_H
 #define GET_SEQUENCE_VALUE_H
 #include <string>
+#include <cmath>
 #include <iostream>
 using namespace std;
 

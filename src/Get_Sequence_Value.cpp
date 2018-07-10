@@ -10,16 +10,16 @@ unsigned int Get_Sequence_Digits_Base_10( Sequence s )
 	return Get_Sequence_Digits( s, 10 );
 }
 
+
 int Get_Sequence_Digits_Base_16( Sequence s )
 {
-	return Get_Sequence_Digits( s, 16 );
+	return Get_Sequence_Digits( s, (int)pow(16,s.size ));
 }
 
 int Get_Sequence_Digits( Sequence s, int base )
 {
 	// read each digit in s and build a number.
 	// a digits in s should be in the base
-
 	int tmp = 0;
 
 	for ( int i = 0; i < s.size; ++i )
