@@ -32,8 +32,6 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 				else
 					cout << ".";
 			}
-				
-
 		}
 
 		// Get the next sequence
@@ -74,10 +72,6 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 	Sequence group;
 	Read_Number rn;
 
-	// initialize results
-	//for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
-	//	results[i] = 0;
-	
 	// setup read number input
 	if ( ap.file_constant )
 		rn.Set_File( ap.filename );		// set file to read from
@@ -87,30 +81,6 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 		rn.Remove_Decimal();
 
 	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_sequences_to_test );
-
-	/*
-	// run analysis of the digits
-	for ( unsigned int i = 0; i < ap.number_of_sequences_to_test; ++i )
-	{
-		// Get the next sequence
-		group = Next_Sequence( rn, ap.max_sequence_size );
-
-		// Get the sequence value
-		value = Sequence_Value( group );
-
-		if ( 0 <= value && value <= ap.total_number_of_classes )
-			++results[value];
-		else
-		{
-			cout << "Error: Sequence Value is out of range" << endl;
-			//exit( 1 );
-			return results;
-		}
-
-		ap.sequences_tested++;		// count number of sequences tested
-		ap.digits_tested += group.size;	// count number of digits tested
-	}
-	*/
 
 	return results;
 }
@@ -193,71 +163,6 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 		}
 
 	}
-
-
-	/*
-	// run analysis of the digits
-	for ( unsigned int i = 0; i < ap.number_of_sequences_to_test; ++i )
-	{
-		// Get the next sequence
-		group = Next_Sequence( rn, ap.max_sequence_size );
-
-		// Get the sequence value
-		value = Sequence_Value( group );
-
-		if ( 0 <= value && value <= ap.total_number_of_classes )
-			++results[value];
-		else
-		{
-			cout << "Error: Sequence Value is out of range" << endl;
-			exit( 1 );
-			//return results;
-		}
-
-		ap.sequences_tested++;		// count number of sequences tested
-		ap.digits_tested += group.size;	// count number of digits tested
-
-
-		// Analyze the results continuosly based on granularity
-		if ( ap.sequences_tested % granularity == 0 )
-		{
-			al.Set_List( results, ap.total_number_of_classes );
-			chisq = al.Chi_Squared();
-
-			if ( max < chisq )
-			{
-				max = chisq;
-				display = true;
-			}
-			if ( min > chisq )
-			{
-				min = chisq;
-				display = true;
-			}
-
-			if ( display || ap.sequences_tested % 100 == 0)
-			{
-				cout << ap.digits_tested << "\t";
-				for ( unsigned  int j = 0; j < ap.total_number_of_classes; ++j )
-					cout << results[j] << "\t";
-
-				cout << "\t\t";
-				if ( abs( max - chisq ) < .00001 )
-					cout << "/\\";
-				if ( abs( min - chisq ) < .00001 )
-					cout << "\\/";
-
-				cout << chisq;
-				cout << endl;
-
-				display = false;
-			}
-
-		}
-		
-	}
-	*/
-	
 
 	out << "Maximum Chi-Squared: " << max << endl;
 	out << "Minimum Chi-Squared: " << min << endl;

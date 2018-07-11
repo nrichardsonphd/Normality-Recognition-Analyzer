@@ -229,21 +229,31 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 	ap.max_sequence_size = block_size;
 	ap.filename = input_file;
 
-	
+
 	// setup different function pointers based on arguments
 	unsigned long long int *results;
-	ap.total_number_of_classes = (unsigned int )pow( 10, ap.max_sequence_size );
+	ap.total_number_of_classes = (unsigned int) pow( 10, ap.max_sequence_size );
 
 	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
-
 	
-	Display_Results( results, ap, cout );		
+	if ( ap.total_number_of_classes <= 20 )
+		Display_Results( results, ap, cout );
+	else
+		if ( !opt_file )
+		{
+			string filename = "../../logs/tmp.txt";
+			cout << "Results are in file " << filename << " due to large number of classes." << endl;
+			
+			ofstream outfile( filename, ios::out );
+			Display_Results( results, ap, outfile );
+			outfile.close();
+		}
 	
 	if ( opt_file )	// output file exists
 	{
-		ofstream outfile( output_file, ios::out );
-		Display_Results( results, ap, outfile );		
-		outfile.close();
+		ofstream cloutfile( output_file, ios::out );
+		Display_Results( results, ap, cloutfile );		
+		cloutfile.close();
 	}
 
 	delete[] results;
