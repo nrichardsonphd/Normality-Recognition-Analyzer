@@ -52,14 +52,12 @@ int main( int argc, char **argv)
 	
 	// command line arguments
 	Command_Arguments( argc, argv );
-
-
-
+	
 	// end of program
 	time_t end = time( nullptr );
 
-	cout << "Start Time: " << ctime( &start );
-	cout << "End Time: " << ctime( &end );
+	cout << "Start Time:\t" << ctime( &start );
+	cout << "End Time:\t" << ctime( &end );
 	cout << "Total Time: " << end - start << endl;
 	cout << endl;
 	return 0;
@@ -93,14 +91,14 @@ int main( int argc, char **argv)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void Command_Arguments( int argc, char **argv )
 {
-	
+
 	bool menu = true;		// default, no options use cams
 
 	bool opt_test = false,
-		 opt_detail = false,
-		 opt_pre = false,
-		 opt_cont = false,
-		 opt_file = false;
+		opt_detail = false,
+		opt_pre = false,
+		opt_cont = false,
+		opt_file = false;
 
 	int next_seq = 1;
 	int seq_val = 1;
@@ -160,6 +158,11 @@ void Command_Arguments( int argc, char **argv )
 					opt_file = true;
 					output_file = argv[++i];
 					break;
+
+				case 'q':
+					// ignore remaing arguments
+					i = argc + 1;
+					break;
 				default:
 					cout << "ERROR: Unknown Command:" << argv[i] << endl;
 			};
@@ -175,76 +178,11 @@ void Command_Arguments( int argc, char **argv )
 	else
 	{
 		Command_Summarry( opt_test, opt_detail, opt_pre, opt_file, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
-		
+
 		Command_Execute( opt_test, opt_detail, opt_pre, opt_file, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
 
-	
+
 	}
-	
-	
-	
-	//ap.filename = "../data/Pi-Dec-1M.txt";
-	//ap.filename = "../../data/pi1billion.txt";
-	//ap.number_of_sequences_to_test = 10000;
-
-//	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
-//	Display_AP( ap );
-
-
-/*
-	//ap.number_of_sequences_to_test = 1000;
-	//Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, cout);
-
-	ofstream outfile( "../../logs/tmp123.txt", ios::out );
-	Display_AP( ap );
-	Analyze_Number_Continuously( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap, 1, 25, outfile );
-	*/
-
-	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
-
-	//Analyze_Number( Get_Block_Sequence_Digits, Get_Sequence_Digits_Base_10, ap );
-
-	/// CAMS 
-	//ap = Setup_Parameters();				// TBD
-
-	// Start Project
-	/// select parallelization
-	//Select_Parallel(ap);				// CAMS
-
-	/// select constant to analyze
-	//Select_Constant(ap);				// CAMS
-	// pi, e, other, .. decimal/hex
-	// file / generated
-	// primes
-
-	// setup get next digit
-
-
-	/// select method how to analyze
-	//Select_Analysis_Method(ap);		// CAMS
-	// N-digit, poker, other ...
-	// random search
-	// check/compare
-	// display only
-
-	// setup get next group/class
-
-	//cout << "Current Analysis Parameters" << endl;
-	//Display_AP(ap);
-
-	/// process
-	// do analysis
-	//Select_Process_Interval(ap);
-	// one time run for N digits
-	// report every kth digit ( complete analysis on up to k digits each time )
-	// report every digit with continuous calculation ( save time, some calculations not possible ie median/mode)
-
-	/// display results
-	//Display_Results(ap);
-	// chi, mead median, ....
-	// other statistics based on classifications
-
-	/// verify testing correct?
 }
 
 void Command_Help()
@@ -314,20 +252,72 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 	}
 
 	delete[] results;
+
+	// Start Project
+	/// select parallelization
+	//Select_Parallel(ap);				// CAMS
+
+	/// select constant to analyze
+	//Select_Constant(ap);				// CAMS
+	// pi, e, other, .. decimal/hex
+	// file / generated
+	// primes
+
+	// setup get next digit
+
+
+	/// select method how to analyze
+	//Select_Analysis_Method(ap);		// CAMS
+	// N-digit, poker, other ...
+	// random search
+	// check/compare
+	// display only
+
+	// setup get next group/class
+
+	//cout << "Current Analysis Parameters" << endl;
+	//Display_AP(ap);
+
+	/// process
+	// do analysis
+	//Select_Process_Interval(ap);
+	// one time run for N digits
+	// report every kth digit ( complete analysis on up to k digits each time )
+	// report every digit with continuous calculation ( save time, some calculations not possible ie median/mode)
+
+	/// display results
+	//Display_Results(ap);
+	// chi, mead median, ....
+	// other statistics based on classifications
+
+	/// verify testing correct?
 }
 
 void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )
 {
-	out << ap.digits_tested << "\t";
-	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
-		out << results[i] << "\t";
+	out << "Digits\t";
+	if ( ap.digits_tested >= 10000000 ) out << "\t";
+	out << "|\t";
 
-	out << "\t\t";
+	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+	{
+		out << i << "\t";
+		if ( ap.digits_tested >= 10000000 ) out << "\t";
+	}
+	out << "\t\t| Chi Squared" << endl;
+	
+
+	out << ap.digits_tested << "\t|\t";
+	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+	{
+		out << results[i] << "\t";
+		if ( ap.digits_tested >= 10000000  && results[i] < 10000000 ) out << "\t";
+	}
+	out << "\t\t| ";
 
 	Analyze_List al;
 	al.Set_List( results, ap.total_number_of_classes );
-	out << al.Chi_Squared();
-	out << endl;
+	out << al.Chi_Squared() << endl;
 
 }
 

@@ -13,8 +13,17 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		tmp_results[i] = 0;
 
 	// run analysis of the digits
-	for ( unsigned int i = 0; i < number_of_sequences; ++i )		// only test partial set of entire number
+	for ( unsigned int i = 1; i <= number_of_sequences; ++i )		// only test partial set of entire number
 	{
+		
+		if ( ap.number_of_sequences_to_test > 1000000 )
+		{
+			if ( ap.digits_tested % (ap.number_of_sequences_to_test / 10) == 0 )
+				cout << (float) ap.digits_tested / ap.number_of_sequences_to_test * 100 << "% complete" << endl;
+			else if ( ap.digits_tested % (ap.number_of_sequences_to_test / 1000) == 0 )
+				cout << ".";
+		}
+
 		// Get the next sequence
 		group = Next_Sequence( rn, ap.max_sequence_size );
 
@@ -33,6 +42,9 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		ap.sequences_tested++;		// count number of sequences tested
 		ap.digits_tested += group.size;	// count number of digits tested
 	}
+
+	if ( ap.number_of_sequences_to_test > 1000000 )
+		cout << "100% complete" << endl;
 
 	return tmp_results;
 
