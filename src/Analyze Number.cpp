@@ -12,16 +12,28 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
 		tmp_results[i] = 0;
 
+	int progress = ap.number_of_sequences_to_test * ap.max_sequence_size / 1000;
+	int percent = progress * 100;
+	int pct = 0;
+
 	// run analysis of the digits
-	for ( unsigned int i = 1; i <= number_of_sequences; ++i )		// only test partial set of entire number
+	for ( unsigned int i = 0; i <= number_of_sequences; ++i )		// only test partial set of entire number
 	{
 		
-		if ( ap.number_of_sequences_to_test > 1000000 )
+		if ( ap.number_of_sequences_to_test * ap.max_sequence_size > 1000000 )
 		{
-			if ( ap.digits_tested % (ap.number_of_sequences_to_test / 10) == 0 )
-				cout << (float) ap.digits_tested / ap.number_of_sequences_to_test * 100 << "% complete" << endl;
-			else if ( ap.digits_tested % (ap.number_of_sequences_to_test / 1000) == 0 )
-				cout << ".";
+			if ( ap.digits_tested % progress == 0 )
+			{
+				if ( ap.digits_tested % percent == 0 )
+				{
+					cout << pct << "% complete" << endl;
+					pct += 10;
+				}
+				else
+					cout << ".";
+			}
+				
+
 		}
 
 		// Get the next sequence

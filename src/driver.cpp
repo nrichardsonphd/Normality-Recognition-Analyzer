@@ -159,10 +159,6 @@ void Command_Arguments( int argc, char **argv )
 					output_file = argv[++i];
 					break;
 
-				case 'q':
-					// ignore remaing arguments
-					i = argc + 1;
-					break;
 				default:
 					cout << "ERROR: Unknown Command:" << argv[i] << endl;
 			};
@@ -240,11 +236,10 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 
 	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
 
-	if ( !opt_file )		// no output file, display to screen
-	{
-		Display_Results( results, ap, cout );		
-	}
-	else	// output file exists
+	
+	Display_Results( results, ap, cout );		
+	
+	if ( opt_file )	// output file exists
 	{
 		ofstream outfile( output_file, ios::out );
 		Display_Results( results, ap, outfile );		
