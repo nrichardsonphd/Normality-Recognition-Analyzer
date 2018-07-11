@@ -17,7 +17,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 	int pct = 0;
 
 	// run analysis of the digits
-	for ( unsigned int i = 0; i <= number_of_sequences; ++i )		// only test partial set of entire number
+	for ( unsigned int i = 0; i < number_of_sequences; ++i )		// only test partial set of entire number
 	{
 		
 		if ( ap.number_of_sequences_to_test * ap.max_sequence_size > 1000000 )
