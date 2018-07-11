@@ -5,10 +5,6 @@
 	//return Get_Block_Sequence( rn, digits );
 //}
 
-
-
-
-
 // Grabs N digits in a row.  Next set will start after last digit, nonoverlapping
 Sequence Get_Block_Sequence( Read_Number &rn, int digits )
 {
@@ -22,9 +18,15 @@ Sequence Get_Block_Sequence( Read_Number &rn, int digits )
 }
 
 // Grab N digits in a row.  Next set starts at 2nd digit.  Overlapping
-Sequence Get_Stream_Sequence( Read_Number rn, int digits )
+Sequence Get_Stream_Sequence( Read_Number &rn, int digits )
 {
+	// stream should remember the last digits - 1 used
 	Sequence s;
+	s.size = digits;
+	static int *stream = new int[digits];
+
+	cout << "stream" << endl;
+	exit( 1 );
 	return s;
 }
 
@@ -34,7 +36,11 @@ Sequence Get_Stream_Sequence( Read_Number rn, int digits )
 
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 // Testing
 bool Test_Next_Sequence( bool detailed )
 {

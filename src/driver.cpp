@@ -234,7 +234,22 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 	unsigned long long int *results;
 	ap.total_number_of_classes = (unsigned int) pow( 10, ap.max_sequence_size );
 
-	results = Analyze_Number( Get_Block_Sequence, Get_Sequence_Digits_Base_10, ap );
+	Sequence( *Next_Sequence )(Read_Number &rn, int digits);
+	unsigned int( *Sequence_Value )(Sequence s);
+	
+	// default sequence function pointers
+	Next_Sequence = &Get_Block_Sequence;
+	Sequence_Value = &Get_Sequence_Digits_Base_10;
+
+	if ( next_seq == 1 )
+		Next_Sequence = &Get_Block_Sequence;
+	else if ( next_seq == 2 )
+		Next_Sequence = &Get_Stream_Sequence;
+
+	if ( seq_val == 1 )
+		Sequence_Value = &Get_Sequence_Digits_Base_10;
+
+	results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
 	
 	if ( ap.total_number_of_classes <= 20 )
 		Display_Results( results, ap, cout );
