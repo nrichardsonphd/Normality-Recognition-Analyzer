@@ -1,5 +1,12 @@
 #include "Get_Next_Sequence.h"
 
+bool first = true;
+
+void Initialize_Next_Sequence_Functions()
+{
+	first = true;
+}
+
 //Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits )
 //{
 	//return Get_Block_Sequence( rn, digits );
@@ -21,12 +28,26 @@ Sequence Get_Block_Sequence( Read_Number &rn, int digits )
 Sequence Get_Stream_Sequence( Read_Number &rn, int digits )
 {
 	// stream should remember the last digits - 1 used
-	Sequence s;
-	s.size = digits;
-	static int *stream = new int[digits];
+	static Sequence s;
 
-	cout << "stream" << endl;
-	exit( 1 );
+	if ( first )
+	{	
+		// First time setup initial sequence
+		first = false;
+		s.size = digits;
+		
+		for ( int i = 0; i < s.size; ++i )
+			s.seq[i] = rn.Get_Next_Digit();
+	}
+	else
+	{
+		for ( int i = 0; i < s.size - 1; ++i )
+			s.seq[i] = s.seq[i + 1];
+
+		s.seq[s.size - 1] = rn.Get_Next_Digit();
+	}
+	
+	
 	return s;
 }
 

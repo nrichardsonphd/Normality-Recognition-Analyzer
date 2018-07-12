@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\src\analysis\Analyze_List.cpp">
       <Filter>Analysis</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\setup.h">
