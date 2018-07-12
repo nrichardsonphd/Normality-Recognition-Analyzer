@@ -53,7 +53,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		ap.digits_tested += group.size;	// count number of digits tested
 	}
 
-	if ( ap.number_of_sequences_to_test > 1000000 )
+	if ( ap.number_of_sequences_to_test >= 1000000 )
 		cout << "100% complete" << endl;
 
 	return tmp_results;
