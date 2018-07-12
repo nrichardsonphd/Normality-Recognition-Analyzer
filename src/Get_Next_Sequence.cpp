@@ -53,7 +53,43 @@ Sequence Get_Stream_Sequence( Read_Number &rn, int digits )
 
 
 
+Sequence Get_Bin_Block_Sequence( Read_Number &rn, int digits )
+{
+	Sequence s;
+	s.size = digits;
 
+	for ( int i = 0; i < digits; ++i )
+		s.seq[i] = rn.Get_Next_Binary_Digit();
+
+	return s;
+
+}
+
+Sequence Get_Bin_Stream_Sequence( Read_Number &rn, int digits )
+{
+	// stream should remember the last digits - 1 used
+	static Sequence s;
+
+	if ( first )
+	{
+		// First time setup initial sequence
+		first = false;
+		s.size = digits;
+
+		for ( int i = 0; i < s.size; ++i )
+			s.seq[i] = rn.Get_Next_Binary_Digit();
+	}
+	else
+	{
+		for ( int i = 0; i < s.size - 1; ++i )
+			s.seq[i] = s.seq[i + 1];
+
+		s.seq[s.size - 1] = rn.Get_Next_Binary_Digit();
+	}
+
+	return s;
+
+}
 
 
 
@@ -192,10 +228,9 @@ bool Test_Binary_Sequence( bool detailed )
 
 void Sequence_Test()
 {
-
 	Sequence q;
 	Read_Number rn;
-	rn.Set_File( "../../data/pi1billion.txt" );
+/*	rn.Set_File( "../../data/Pi1K-dec.txt" );
 
 	for ( int j = 0; j < 5; ++j )
 	{
@@ -205,9 +240,9 @@ void Sequence_Test()
 
 
 	}
-
 	cout << endl;
-	rn.Set_File( "../../data/pi1billion.txt" );
+
+	rn.Set_File( "../../data/Pi1K-dec.txt" );
 	Initialize_Next_Sequence_Functions();
 
 	for ( int j = 0; j < 5; ++j )
@@ -215,8 +250,29 @@ void Sequence_Test()
 		q = Get_Stream_Sequence( rn, 5 );
 		cout << "Q " << j << " => ";
 		Display_Sequence( q );
-
-
 	}
+	cout << endl;
+	*/
+	rn.Set_File( "../../data/Pi1K-hex.txt" );
+	Initialize_Next_Sequence_Functions();
+
+	for ( int j = 0; j < 5; ++j )
+	{
+		q = Get_Bin_Block_Sequence( rn, 5 );
+		cout << "Q " << j << " => ";
+		Display_Sequence( q );
+	}
+	cout << endl;
+
+	rn.Set_File( "../../data/Pi1K-hex.txt" );
+	Initialize_Next_Sequence_Functions();
+
+	for ( int j = 0; j < 5; ++j )
+	{
+		q = Get_Bin_Stream_Sequence( rn, 5 );
+		cout << "Q " << j << " => ";
+		Display_Sequence( q );
+	}
+	cout << endl;
 }
 

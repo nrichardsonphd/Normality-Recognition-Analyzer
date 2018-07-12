@@ -49,6 +49,8 @@ int main( int argc, char **argv)
 	// Initialize for Version Control
 	Git_Init();
 	
+	Sequence_Test();
+	exit( 1 );
 	time_t start = time( nullptr );
 	cout << "Start Time: " << ctime( &start ) << endl;
 	

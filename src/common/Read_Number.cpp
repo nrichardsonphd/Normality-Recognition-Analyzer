@@ -48,6 +48,7 @@ bool Read_Number::Set_File( string filename )
 
 	this->digits_read = 0;
 	this->buffer_pos = STREAM_SIZE - 1;
+	this->position = 0;
 
 	fopen_s(&fp, this->filename.c_str(), "r" );
 	if ( !fp )
