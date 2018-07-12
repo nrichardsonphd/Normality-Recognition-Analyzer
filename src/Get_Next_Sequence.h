@@ -7,9 +7,11 @@ using namespace std;
 #include "common/Read_Number.h"
 #include "Sequence.h"
 
+// used for global/static variables in function. 
 extern bool first;
 
-void Initialize_Next_Sequence_Functions();
+// used to reset any global/static variables between testing different numbers
+void Initialize_Next_Sequence_Functions();				
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -46,4 +48,7 @@ bool Test_Next_Sequence( bool detailed );
 
 bool Test_Decimal_Sequence( bool detailed );
 bool Test_Binary_Sequence( bool detailed );
+
+void Sequence_Test();
+
 #endif

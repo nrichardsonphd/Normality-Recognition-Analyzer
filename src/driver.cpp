@@ -48,31 +48,7 @@ int main( int argc, char **argv)
 {
 	// Initialize for Version Control
 	Git_Init();
-
-	Sequence q;
-	Read_Number rn;
-	rn.Set_File( "../../data/pi1billion.txt" );
-	
-	for ( int j = 0; j < 5; ++j )
-	{
-		q = Get_Stream_Sequence( rn, 5 );
-		cout << "Q " << j << " => ";
-		Display_Sequence( q );
-		
-
-	}
-
-	rn.Set_File( "../../data/pi1billion.txt" );
-	Initialize_Next_Sequence_Functions();
-
-	for ( int j = 0; j < 5; ++j )
-	{
-		q = Get_Stream_Sequence( rn, 5 );
-		cout << "Q " << j << " => ";
-		Display_Sequence( q );
-
-
-	}
+	Sequence_Test();
 	exit( 1 );
 	time_t start = time( nullptr );
 	cout << "Start Time: " << ctime( &start ) << endl;
