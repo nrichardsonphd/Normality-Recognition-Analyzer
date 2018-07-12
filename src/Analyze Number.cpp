@@ -12,28 +12,9 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
 		tmp_results[i] = 0;
 
-	int progress = ap.number_of_sequences_to_test * ap.max_sequence_size / 1000;
-	int percent = progress * 100;
-	int pct = 0;
-
 	// run analysis of the digits
 	for ( unsigned int i = 0; i < number_of_sequences; ++i )		// only test partial set of entire number
 	{
-		
-		if ( ap.number_of_sequences_to_test * ap.max_sequence_size > 1000000 )
-		{
-			if ( ap.digits_tested % progress == 0 )
-			{
-				if ( ap.digits_tested % percent == 0 )
-				{
-					cout << pct << "% complete" << endl;
-					pct += 10;
-				}
-				else
-					cout << ".";
-			}
-		}
-
 		// Get the next sequence
 		group = Next_Sequence( rn, ap.max_sequence_size );
 
@@ -53,8 +34,8 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		ap.digits_tested += group.size;	// count number of digits tested
 	}
 
-	if ( ap.number_of_sequences_to_test >= 1000000 )
-		cout << "100% complete" << endl;
+	//if ( ap.number_of_sequences_to_test  == ap.sequences_tested )
+	//	cout << "100% complete" << endl;
 
 	return tmp_results;
 
@@ -87,8 +68,8 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 
 
 
-void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
-									Analysis_Parameters &ap, unsigned int granularity, unsigned int progress, ostream &out )
+unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
+														Analysis_Parameters &ap, unsigned int granularity, unsigned int progress, ostream &out )
 {
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
@@ -97,15 +78,11 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 	unsigned long long int* results = new unsigned long long int[ap.total_number_of_classes];
 	unsigned long long int* tmp_results;
 
-	
+	Constant_Analysis ca(ap);
+
 //	unsigned int value;
 	Sequence group;
 	Read_Number rn;
-
-	out << "Digits\t";
-	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
-		out << i << "\t";
-	out << endl;
 
 	// initialize results
 	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
@@ -119,6 +96,11 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 	if ( ap.remove_predecimal )			
 		rn.Remove_Decimal();
 
+	ca.Continuous_Analysis_Initial( results, out );
+
+	int pctprogress = ap.number_of_sequences_to_test * ap.max_sequence_size / 1000;
+	int percent = pctprogress * 100;
+	int pct = 0;
 
 	while ( ap.sequences_tested < ap.number_of_sequences_to_test )
 	{
@@ -128,6 +110,25 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 			results[i] += tmp_results[i];
 
 		delete [] tmp_results;
+
+
+		if ( ap.number_of_sequences_to_test * ap.max_sequence_size > 1000000 )
+		{
+			if ( ap.digits_tested % pctprogress == 0 )
+			{
+				if ( ap.digits_tested % percent == 0 )
+				{
+					cout << pct << "% complete" << endl;
+					pct += 10;
+				}
+				else
+					cout << ".";
+			}
+		}
+
+		if ( ap.sequences_tested % progress == 0 )
+			ca.Continuous_Analysis_Interval( results, out );
+
 
 		/*
 
@@ -169,10 +170,11 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 
 	}
 
+	ca.Continuous_Analysis_Summary( results, out );
 	//out << "Maximum Chi-Squared: " << max << endl;
 	//out << "Minimum Chi-Squared: " << min << endl;
 	//out << endl;
-
-	delete[] results;
+	cout << "100% Complete Analysis." << endl;
+	return results;
 }
 
