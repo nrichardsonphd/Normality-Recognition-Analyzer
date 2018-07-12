@@ -60,7 +60,10 @@
     <ClCompile Include="..\..\src\Sequence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\analysis\Continuous_Analysis.cpp">
+    <ClCompile Include="tmp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\analysis\Constant_Analysis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,11 +101,14 @@
     <ClInclude Include="..\..\src\analysis\Analyze_List.h">
       <Filter>Analysis</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\analysis\Continuous_Analysis.h">
-      <Filter>Analysis</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\analysis\Result Analysis.h">
       <Filter>Analysis</Filter>
+    </ClInclude>
+    <ClInclude Include="tmp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\analysis\Constant_Analysis.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

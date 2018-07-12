@@ -251,17 +251,30 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 	if ( seq_val == 1 )
 		Sequence_Value = &Get_Sequence_Digits_Base_10;
 
-	results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
 	
+	string filename = "../../logs/tmp.txt";
+	ofstream outfile;
+	
+	if ( ap.total_number_of_classes > 20 )
+	{
+			if ( !opt_file ) 
+				cout << "Results are in file " << filename << " due to large number of classes." << endl;
+
+			outfile.open( filename, ios::out );			
+	}
+	
+	
+	//results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
+	results = Analyze_Number_Continuously( Next_Sequence, Get_Sequence_Digits_Base_10, ap, 1000, 10, outfile );
+	
+	//exit( 1 );
 	if ( ap.total_number_of_classes <= 20 )
 		Display_Results( results, ap, cout );
 	else
 		if ( !opt_file )
-		{
-			string filename = "../../logs/tmp.txt";
-			cout << "Results are in file " << filename << " due to large number of classes." << endl;
-			
-			ofstream outfile( filename, ios::out );
+		{			
+			outfile << "********************************************************" << endl;
+			outfile << "Final Results" << endl;
 			Display_Results( results, ap, outfile );
 			outfile.close();
 		}

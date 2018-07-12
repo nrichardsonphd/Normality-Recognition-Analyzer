@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\analysis\analysis_parameters.cpp" />
     <ClCompile Include="..\..\src\analysis\Analyze_List.cpp" />
-    <ClCompile Include="..\..\src\analysis\Continuous_Analysis.cpp" />
+    <ClCompile Include="..\..\src\analysis\Constant_Analysis.cpp" />
     <ClCompile Include="..\..\src\Analyze Number.cpp" />
     <ClCompile Include="..\..\src\common\cams.cpp" />
     <ClCompile Include="..\..\src\common\Read_Number.cpp" />
@@ -32,11 +32,12 @@
     <ClCompile Include="..\..\src\setup.cpp" />
     <ClCompile Include="..\..\src\testing\Read_Number-test.cpp" />
     <ClCompile Include="..\..\src\testing\testing.cpp" />
+    <ClCompile Include="tmp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\analysis\analysis_parameters.h" />
     <ClInclude Include="..\..\src\analysis\Analyze_List.h" />
-    <ClInclude Include="..\..\src\analysis\Continuous_Analysis.h" />
+    <ClInclude Include="..\..\src\analysis\Constant_Analysis.h" />
     <ClInclude Include="..\..\src\analysis\Result Analysis.h" />
     <ClInclude Include="..\..\src\Analyze Number.h" />
     <ClInclude Include="..\..\src\common\cams.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="..\..\src\setup.h" />
     <ClInclude Include="..\..\src\testing\Read_Number-test.h" />
     <ClInclude Include="..\..\src\testing\testing.h" />
+    <ClInclude Include="tmp.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

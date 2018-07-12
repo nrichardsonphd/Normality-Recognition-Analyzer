@@ -3,6 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>$(TargetPath)</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-N 2 -V 1 -p -s 1000000 -b 3 -f ../../data/pi1billion.txt ../../logs/tempcl.txt</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-N 1 -V 1 -p -s 1000000000 -b 1 -f ../../data/pi1billion.txt ../../logs/tempcl.txt</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
