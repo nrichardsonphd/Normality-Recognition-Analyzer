@@ -14,6 +14,8 @@ using namespace std;
 
 #include "analysis\Analyze_List.h"
 
+#include "analysis\Continuous_Analysis.h"
+
 // Discrete analysis
 // analyze for N digits and gives results
 // results are returned as an array, Each class value 0,1,2,..., N holds the number of sequences found in that class

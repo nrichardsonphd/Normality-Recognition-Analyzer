@@ -96,8 +96,7 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 	Analyze_List al;
 	unsigned long long int* results = new unsigned long long int[ap.total_number_of_classes];
 	unsigned long long int* tmp_results;
-	double max = 0, min = 1000, chisq;
-	bool display = false;
+
 	
 //	unsigned int value;
 	Sequence group;
@@ -130,6 +129,11 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 
 		delete [] tmp_results;
 
+		/*
+
+		double max = 0, min = 1000, chisq;
+		bool display = false;
+
 		al.Set_List( results, ap.total_number_of_classes );
 		chisq = al.Chi_Squared();
 
@@ -161,12 +165,13 @@ void Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, in
 
 			display = false;
 		}
+		*/
 
 	}
 
-	out << "Maximum Chi-Squared: " << max << endl;
-	out << "Minimum Chi-Squared: " << min << endl;
-	out << endl;
+	//out << "Maximum Chi-Squared: " << max << endl;
+	//out << "Minimum Chi-Squared: " << min << endl;
+	//out << endl;
 
 	delete[] results;
 }

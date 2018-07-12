@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\analysis\analysis_parameters.cpp" />
     <ClCompile Include="..\..\src\analysis\Analyze_List.cpp" />
+    <ClCompile Include="..\..\src\analysis\Continuous_Analysis.cpp" />
     <ClCompile Include="..\..\src\Analyze Number.cpp" />
     <ClCompile Include="..\..\src\common\cams.cpp" />
     <ClCompile Include="..\..\src\common\Read_Number.cpp" />
