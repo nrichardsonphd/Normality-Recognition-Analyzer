@@ -11,8 +11,8 @@ void Default_Parameters( Analysis_Parameters &ap )
 
 	ap.max_sequence_size = 1;														///< number of digits to get for each class, 0 for variable size classes
 //	ap.max_class_size = 1;													///< maximum size of a class, must be at least block_size
-	ap.total_number_of_classes = 10;												///< total number of classes possible
-	ap.number_of_sequences_to_test = 1000;										// number of sequences to analyze		Total digits / block size
+//	ap.total_number_of_classes = 10;												///< total number of classes possible
+//	ap.number_of_sequences_to_test = 1000;										// number of sequences to analyze		Total digits / block size
 
 	ap.sequences_tested = 0;											/// incremented on every sucessfully tested block
 
@@ -40,8 +40,8 @@ void Display_AP(Analysis_Parameters ap, ostream &out )
 	out << "Selected Options" << endl;
 	out << "\tRemove pre decimal: " << ((ap.remove_predecimal == true) ? ("TRUE") : ("FALSE")) << endl;
 	out << "\tMaximum Sequence Size: " << ap.max_sequence_size << endl;
-	out << "\tNumber of Classes: " << ap.total_number_of_classes << endl;
-	out << "\tNumber of Sequences to test: " << ap.number_of_sequences_to_test << endl << endl;
+//	out << "\tNumber of Classes: " << ap.total_number_of_classes << endl;
+//	out << "\tNumber of Sequences to test: " << ap.number_of_sequences_to_test << endl << endl;
 
 	out << "Results of test" << endl;
 	out << "\tDigits Tested: " << ap.digits_tested << endl;

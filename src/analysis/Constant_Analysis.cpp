@@ -52,7 +52,7 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 
 
 	out << "Digits\t";
-		for ( unsigned int i = 0; i < this->ap->total_number_of_classes; ++i )
+		for ( unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i )
 			out << i << "\t";
 	out << endl;
 
@@ -66,7 +66,7 @@ void Constant_Analysis::Default_Interval( unsigned long long int *initial_result
 	double chisq;
 	bool display = false;
 
-	al.Set_List( initial_results, this->ap->total_number_of_classes );
+	al.Set_List( initial_results, this->ap->number_of_classes_possible );
 	chisq = al.Chi_Squared();
 
 	if ( this->max < chisq )
@@ -84,7 +84,7 @@ void Constant_Analysis::Default_Interval( unsigned long long int *initial_result
 	{
 		out << "Interval Results ";
 //	out << ap.digits_tested << "\t";
-	for ( unsigned int j = 0; j < this->ap->total_number_of_classes; ++j )
+	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
 		out << initial_results[j] << "\t";
 
 		out << "\t\t";

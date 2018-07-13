@@ -253,14 +253,14 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 
 	Analysis_Parameters ap;
 	ap.remove_predecimal = co.opt_pre;
-	ap.number_of_sequences_to_test = co.seq_tests;
+//	ap.number_of_sequences_to_test = co.seq_tests;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = input_file;
 
 
 	// setup different function pointers based on arguments
 	unsigned long long int *results;
-	ap.total_number_of_classes = (unsigned int) pow( 10, ap.max_sequence_size );
+	ap.number_of_classes_possible = (unsigned int) pow( 10, ap.max_sequence_size );
 
 	Sequence( *Next_Sequence )(Read_Number &rn, int digits);
 	unsigned int( *Sequence_Value )(Sequence s);
@@ -289,7 +289,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	}
 	else
 	{
-		cout << "Unknown Get_Next_Sequence Function" << endl;
+		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
 		exit( 1 );
 	}
 
@@ -300,7 +300,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	string filename = "../../logs/tmp.txt";
 	ofstream outfile;
 	
-	if ( ap.total_number_of_classes > 20 )
+	if ( ap.number_of_classes_possible > 20 )
 	{
 			if ( !co.opt_file )
 				cout << "Results are in file " << filename << " due to large number of classes." << endl;
@@ -313,7 +313,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	//results = Analyze_Number_Continuously( Next_Sequence, Get_Sequence_Digits_Base_10, ap, 1000, 10, outfile );
 	
 	//exit( 1 );
-	if ( ap.total_number_of_classes <= 20 )
+	if ( ap.number_of_classes_possible <= 200 )
 		Display_Results( results, ap, cout );
 	else
 		if ( !co.opt_file )
@@ -375,12 +375,15 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 
 void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )
 {
+	unsigned long long int sum = 0;
+
 	out << "Digits\t";
 	if ( ap.digits_tested >= 10000000 ) out << "\t";
 	out << "|\t";
 
-	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 	{
+		sum += results[i];
 		out << i << "\t";
 		if ( ap.digits_tested >= 10000000 ) out << "\t";
 	}
@@ -388,7 +391,7 @@ void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, 
 	
 
 	out << ap.digits_tested << "\t|\t";
-	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 	{
 		out << results[i] << "\t";
 		if ( ap.digits_tested >= 10000000  && results[i] < 10000000 ) out << "\t";
@@ -396,8 +399,10 @@ void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, 
 	out << "\t\t| ";
 
 	Analyze_List al;
-	al.Set_List( results, ap.total_number_of_classes );
-	out << al.Chi_Squared() << endl;
+	al.Set_List( results, ap.number_of_classes_possible );
+	out << al.Chi_Squared() << ": total " << sum << endl;
+
+
 
 }
 

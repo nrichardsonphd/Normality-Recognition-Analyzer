@@ -2,18 +2,18 @@
 #include "Analyze Number.h"
 
 unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
-													Analysis_Parameters &ap, Read_Number &rn, unsigned int number_of_sequences )
+													Analysis_Parameters &ap, Read_Number &rn, unsigned long long int number_of_digits )
 {
-	unsigned long long int *tmp_results = new unsigned long long int[ap.total_number_of_classes];
+	unsigned long long int *tmp_results = new unsigned long long int[ap.number_of_classes_possible];
 	unsigned int value;
 	Sequence group;
 
 	// initialize results
-	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 		tmp_results[i] = 0;
 
 	// run analysis of the digits
-	for ( unsigned int i = 0; i < number_of_sequences; ++i )		// only test partial set of entire number
+	for ( unsigned int i = 0; i < number_of_digits; ++i )		// only test partial set of entire number
 	{
 		// Get the next sequence
 		group = Next_Sequence( rn, ap.max_sequence_size );
@@ -21,7 +21,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		// Get the sequence value
 		value = Sequence_Value( group );
 
-		if ( 0 <= value && value <= ap.total_number_of_classes )
+		if ( 0 <= value && value <= ap.number_of_classes_possible )
 			++tmp_results[value];
 		else
 		{
@@ -48,7 +48,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
 
-	unsigned long long int *results;// = new unsigned long long int[ap.total_number_of_classes];
+	unsigned long long int *results;// = new unsigned long long int[ap.number_of_classes_possible];
 	//unsigned int value;
 	Sequence group;
 	Read_Number rn;
@@ -61,7 +61,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 	if ( ap.remove_predecimal )
 		rn.Remove_Decimal();
 
-	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_sequences_to_test );
+	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_digits_to_test );
 
 	return results;
 }
@@ -75,7 +75,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	ap.digits_tested = 0;
 
 	Analyze_List al;
-	unsigned long long int* results = new unsigned long long int[ap.total_number_of_classes];
+	unsigned long long int* results = new unsigned long long int[ap.number_of_classes_possible];
 	unsigned long long int* tmp_results;
 
 	Constant_Analysis ca(ap);
@@ -85,7 +85,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	Read_Number rn;
 
 	// initialize results
-	for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 		results[i] = 0;
 
 	// setup read number input
@@ -98,20 +98,20 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	ca.Continuous_Analysis_Initial( results, out );
 
-	int pctprogress = ap.number_of_sequences_to_test * ap.max_sequence_size / PROGRESS_MARKERS;
+	int pctprogress = 0;// ap.number_of_sequences_to_test * ap.max_sequence_size / PROGRESS_MARKERS;
 	int percent = pctprogress * 100;
 	int pct = 0;
 
-	while ( ap.sequences_tested < ap.number_of_sequences_to_test )
+	while ( ap.digits_tested < ap.number_of_digits_to_test )
 	{
 		tmp_results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, granularity );
 
-		for ( unsigned int i = 0; i < ap.total_number_of_classes; ++i )
+		for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 			results[i] += tmp_results[i];
 
 		delete [] tmp_results;
 
-		if ( ap.number_of_sequences_to_test * ap.max_sequence_size >= MIN_PROGRESS_DISPLAY )
+		/*/if ( ap.number_of_sequences_to_test * ap.max_sequence_size >= MIN_PROGRESS_DISPLAY )
 		{
 			cout << "PROGRESS" << endl;
 			exit( 1 );
@@ -125,7 +125,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 				else
 					cout << ".";
 			}
-		}
+		}*/
 
 		if ( ap.sequences_tested % progress == 0 )
 			ca.Continuous_Analysis_Interval( results, out );
@@ -136,7 +136,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		double max = 0, min = 1000, chisq;
 		bool display = false;
 
-		al.Set_List( results, ap.total_number_of_classes );
+		al.Set_List( results, ap.number_of_classes_possible );
 		chisq = al.Chi_Squared();
 
 		if ( max < chisq )
@@ -153,7 +153,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		if ( display || ap.sequences_tested % progress == 0 )
 		{
 			out << ap.digits_tested << "\t";
-			for ( unsigned int j = 0; j < ap.total_number_of_classes; ++j )
+			for ( unsigned int j = 0; j < ap.number_of_classes_possible; ++j )
 				out << results[j] << "\t";
 
 			out << "\t\t";
