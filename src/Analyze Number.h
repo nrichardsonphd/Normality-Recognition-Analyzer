@@ -16,6 +16,9 @@ using namespace std;
 
 #include "analysis\Constant_Analysis.h"
 
+#define MIN_PROGRESS_DISPLAY		1000000
+#define PROGRESS_MARKERS			1000
+
 // Discrete analysis
 // analyze for N digits and gives results
 // results are returned as an array, Each class value 0,1,2,..., N holds the number of sequences found in that class

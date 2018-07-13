@@ -25,7 +25,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 			++tmp_results[value];
 		else
 		{
-			cout << "ERROR: Sequence Value is out of range.  0 <= Value Returned <= Total Number of Classes.\nCheck that Sequence_Value is correct." << endl;
+			cout << "ERROR: Sequence Value is out of range.  0 <= Value Returned < Total Number of Classes.\nCheck that Sequence_Value is correct." << endl;
 			exit( 1 );
 			return tmp_results;
 		}
@@ -98,7 +98,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	ca.Continuous_Analysis_Initial( results, out );
 
-	int pctprogress = ap.number_of_sequences_to_test * ap.max_sequence_size / 1000;
+	int pctprogress = ap.number_of_sequences_to_test * ap.max_sequence_size / PROGRESS_MARKERS;
 	int percent = pctprogress * 100;
 	int pct = 0;
 
@@ -111,9 +111,10 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 		delete [] tmp_results;
 
-
-		if ( ap.number_of_sequences_to_test * ap.max_sequence_size > 1000000 )
+		if ( ap.number_of_sequences_to_test * ap.max_sequence_size >= MIN_PROGRESS_DISPLAY )
 		{
+			cout << "PROGRESS" << endl;
+			exit( 1 );
 			if ( ap.digits_tested % pctprogress == 0 )
 			{
 				if ( ap.digits_tested % percent == 0 )
