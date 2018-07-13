@@ -32,7 +32,6 @@
     <ClCompile Include="..\..\src\setup.cpp" />
     <ClCompile Include="..\..\src\testing\Read_Number-test.cpp" />
     <ClCompile Include="..\..\src\testing\testing.cpp" />
-    <ClCompile Include="tmp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\analysis\analysis_parameters.h" />
@@ -48,7 +47,6 @@
     <ClInclude Include="..\..\src\setup.h" />
     <ClInclude Include="..\..\src\testing\Read_Number-test.h" />
     <ClInclude Include="..\..\src\testing\testing.h" />
-    <ClInclude Include="tmp.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

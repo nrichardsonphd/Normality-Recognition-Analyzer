@@ -3,6 +3,32 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Command Line Arguments
+// This is a rough setup, no combining arguments
+// Only use known sequence functions
+// 
+// nra.exe -t -T -N 2 -V 2 -p -s 5 -b 8 -f ../../data/Pi1K-dec.txt -r tmp.out
+//
+// -t		Run all tests to ensure program is correct (quiet)
+// -T		same as -t except detailed
+//
+// -N #		Select numbered Next Sequence
+// -V #		Select numbered Sequence Value
+// -h		hexadecimal input file, convert to binary
+//
+// -d #		Number of digits to test
+// -r		remove predecimal
+// -b #		maximum size of each sequence
+// -s		stream digits with overlapping blocks (nonoverlapping is default)
+// 
+// -f <filename>		select input file for test
+// -o <filename>		select output file for test
+//
+// -c #		Continuous Testing, # is for granularity
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <fstream>
@@ -31,10 +57,28 @@ string VERSION;				// store current version of program
 void Git_Init();
 string Git_Version_Number();
 
+struct Command_Options
+{
+	bool opt_test = false,		// test all units
+		opt_detail = false,		// detailed testing
+		opt_pre = false,		// remove pre-decimal
+		opt_cont = false,		// continuous testing
+		opt_file = false,		// file output
+		opt_stream = false,		// block v stream
+		opt_hex2bin = false;	// convert hexadecimal file to binary input
+
+	int next_seq = 1;
+	int seq_val = 1;
+	int seq_tests = 1000;
+	int block_size = 1;
+	int granularity = 1;
+
+};
+
 void Command_Arguments( int argc, char **argv );	
 void Command_Help();
-void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file ); 
-void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file );
+void Command_Summarry( Command_Options co, string input_file, string output_file );
+void Command_Execute( Command_Options co, string input_file, string output_file );
 
 void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out );
 void Full_Testing( bool detail );
@@ -65,49 +109,16 @@ int main( int argc, char **argv)
 	return 0;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Command Line Arguments
-// This is a rough setup, no combining arguments
-// Only use known sequence functions
-// 
-// nra.exe -t -T -N 2 -V 2 -p -s 5 -b 8 -f ../../data/Pi1K-dec.txt -r tmp.out
-//
-// -t		Run all tests to ensure program is correct (quiet)
-// -T		same as -t except detailed
-//
-// -N #		Select numbered Next Sequence
-// -V #		Select numbered Sequence Value
-//
-// -p		remove predecimal
-// -s #		number of sequences to test
-// -b #		size of each sequence
-//
-// -?		nonoverlapping blocks of digits
-// -?		stream digits with overlapping blocks
-// 
-// -f <filename>		select input file for test
-// -r <filename>		select output file for test
-//
-// -c		Continuous Testing
-// -g #		granularity for continuous testing
-///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 void Command_Arguments( int argc, char **argv )
 {
 
 	bool menu = true;		// default, no options use cams
+	bool in_file = false;// need input file to read
 
-	bool opt_test = false,
-		opt_detail = false,
-		opt_pre = false,
-		opt_cont = false,
-		opt_file = false;
-
-	int next_seq = 1;
-	int seq_val = 1;
-	int seq_tests = 1000;
-	int block_size = 1;
-	int granularity = 1;
-
+	Command_Options co;
+	
 	string input_file = "default.in";
 	string output_file = "constant_analyzer.out";
 
@@ -123,41 +134,47 @@ void Command_Arguments( int argc, char **argv )
 			switch ( argv[i][1] )
 			{
 				case 'T':			// detailed test
-					opt_test = true;
-					opt_detail = true;
+					co.opt_test = true;
+					co.opt_detail = true;
 					break;
 
 				case 't':			// quiet output
-					opt_detail = false;
-					opt_test = true;
+					co.opt_detail = false;
+					co.opt_test = true;
 					break;
 
-				case 'p':			// remove pre decimal
-					opt_pre = true;
+				case 'r':			// remove pre decimal
+					co.opt_pre = true;
 					break;
 
-				case 's':			// select number of sequence 
-					seq_tests = atoi( argv[++i] );
+				case 's':
+					co.opt_stream = true;
 					break;
 
 				case 'b':			// select maximum size of blocks
-					block_size = atoi( argv[++i] );
+					co.block_size = atoi( argv[++i] );
+					break;
+
+				case 'c':			// continuous 
+					co.opt_cont = true;
+					co.granularity = atoi( argv[++i] );
 					break;
 
 				case 'N':			// select Next Sequence
-					next_seq = atoi( argv[++i] );
+					co.next_seq = atoi( argv[++i] );
 					break;
 
 				case 'V':			// select Sequence Value
-					seq_val = atoi( argv[++i] );
+					co.seq_val = atoi( argv[++i] );
 					break;
 
 				case 'f':
 					input_file = argv[++i];
+					in_file = true;					
 					break;
 
-				case 'r':
-					opt_file = true;
+				case 'o':
+					co.opt_file = true;
 					output_file = argv[++i];
 					break;
 
@@ -175,9 +192,16 @@ void Command_Arguments( int argc, char **argv )
 	}
 	else
 	{
-		Command_Summarry( opt_test, opt_detail, opt_pre, opt_file, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
 
-		Command_Execute( opt_test, opt_detail, opt_pre, opt_file, next_seq, seq_val, seq_tests, block_size, input_file, output_file );
+		if ( !in_file )
+		{
+			cout << "Error: Need an input file for command line" << endl;
+			exit( 1 );
+		}
+
+		Command_Summarry( co, input_file, output_file );
+
+		Command_Execute( co, input_file, output_file );
 
 
 	}
@@ -202,33 +226,33 @@ void Command_Help()
 
 }
 
-void Command_Summarry( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file )
+void Command_Summarry( Command_Options co, string input_file, string output_file )
 {
 	cout << "Command Setup" << endl;
-	cout << "\tRun Tests: " << ((opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((opt_detail) ? "TRUE" : "FALSE") << endl;
-	cout << "\tRemove Pre Decimal: " << ((opt_pre) ? "TRUE" : "FALSE") << endl;
+	cout << "\tRun Tests: " << ((co.opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((co.opt_detail) ? "TRUE" : "FALSE") << endl;
+	cout << "\tRemove Pre Decimal: " << ((co.opt_pre) ? "TRUE" : "FALSE") << endl;
 	
-	cout << "\tNext Sequence: " << next_seq << endl;
-	cout << "\tSequence Value: " << seq_val << endl;
+	cout << "\tNext Sequence: " << co.next_seq << endl;
+	cout << "\tSequence Value: " << co.seq_val << endl;
 	
-	cout << "\tSequence Tests: " << seq_tests << endl;
-	cout << "\tBlock Size: " << block_size << endl;
+	cout << "\tSequence Tests: " << co.seq_tests << endl;
+	cout << "\tBlock Size: " << co.block_size << endl;
 	
 	cout << "\tInput File: " << input_file << endl;
-	cout << "\tOutput File: " << ((opt_file) ? "TRUE" : "FALSE") << endl;
+	cout << "\tOutput File: " << ((co.opt_file) ? "TRUE" : "FALSE") << endl;
 	cout << "\tOutput File: " << output_file << endl;
 }
 
-void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_file, int next_seq, int seq_val, int seq_tests, int block_size, string input_file, string output_file )
+void Command_Execute( Command_Options co, string input_file, string output_file )
 {
 	// check testing parameters
-	if ( opt_test )
-		Full_Testing( opt_detail );
+	if ( co.opt_test )
+		Full_Testing( co.opt_detail );
 
 	Analysis_Parameters ap;
-	ap.remove_predecimal = opt_pre;
-	ap.number_of_sequences_to_test = seq_tests;
-	ap.max_sequence_size = block_size;
+	ap.remove_predecimal = co.opt_pre;
+	ap.number_of_sequences_to_test = co.seq_tests;
+	ap.max_sequence_size = co.block_size;
 	ap.filename = input_file;
 
 
@@ -243,12 +267,12 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 	Next_Sequence = &Get_Block_Sequence;
 	Sequence_Value = &Get_Sequence_Digits_Base_10;
 
-	if ( next_seq == 1 )
+	if ( co.next_seq == 1 )
 		Next_Sequence = &Get_Block_Sequence;
-	else if ( next_seq == 2 )
+	else if ( co.next_seq == 2 )
 		Next_Sequence = &Get_Stream_Sequence;
 
-	if ( seq_val == 1 )
+	if ( co.seq_val == 1 )
 		Sequence_Value = &Get_Sequence_Digits_Base_10;
 
 	
@@ -257,7 +281,7 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 	
 	if ( ap.total_number_of_classes > 20 )
 	{
-			if ( !opt_file ) 
+			if ( !co.opt_file )
 				cout << "Results are in file " << filename << " due to large number of classes." << endl;
 
 			outfile.open( filename, ios::out );			
@@ -271,7 +295,7 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 	if ( ap.total_number_of_classes <= 20 )
 		Display_Results( results, ap, cout );
 	else
-		if ( !opt_file )
+		if ( !co.opt_file )
 		{			
 			outfile << "********************************************************" << endl;
 			outfile << "Final Results" << endl;
@@ -279,7 +303,7 @@ void Command_Execute( bool opt_test, bool opt_detail, bool opt_pre, bool opt_fil
 			outfile.close();
 		}
 	
-	if ( opt_file )	// output file exists
+	if ( co.opt_file )	// output file exists
 	{
 		ofstream cloutfile( output_file, ios::out );
 		Display_Results( results, ap, cloutfile );		

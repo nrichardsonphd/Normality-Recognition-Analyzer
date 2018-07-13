@@ -2,10 +2,14 @@
 
 bool first = true;
 
+
 void Initialize_Next_Sequence_Functions()
 {
 	first = true;
 }
+
+
+
 
 //Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits )
 //{

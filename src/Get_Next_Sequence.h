@@ -9,6 +9,8 @@ using namespace std;
 
 // used for global/static variables in function. 
 extern bool first;
+extern bool block;
+extern bool bin;
 
 // used to reset any global/static variables between testing different numbers
 void Initialize_Next_Sequence_Functions();				
@@ -26,14 +28,15 @@ void Initialize_Next_Sequence_Functions();
 //Sequence Get_Block_Sequence_Digits( Read_Number &rn, int digits );
 
 // These should be used as support functions
-Sequence Get_Block_Sequence( Read_Number &rn, int digits );
-Sequence Get_Stream_Sequence( Read_Number &rn, int digits );
+Sequence Get_Block_Sequence( Read_Number &rn, int digits );			// nonoverlapping blocks, digits used as read
+Sequence Get_Stream_Sequence( Read_Number &rn, int digits );		// overlapping blocks, move by 1 digit each call
+
+// The Bin functions are used with hexadecimal files to read a binary sequence of digits
+Sequence Get_Bin_Block_Sequence( Read_Number &rn, int digits );		// Same as Get_Block_Sequence, but converts to binary digits 1st, assumed hexadecimal input
+Sequence Get_Bin_Stream_Sequence( Read_Number &rn, int digits );	// Same as Get_Stream_Sequence, but converts to binary digits 1st, assumed hexadecimal input
 
 
-/// The Bin functions are used with hexadecimal files to read a binary sequence of digits
-Sequence Get_Bin_Block_Sequence( Read_Number &rn, int digits );
-Sequence Get_Bin_Stream_Sequence( Read_Number &rn, int digits );
-
+// 
 
 
 
