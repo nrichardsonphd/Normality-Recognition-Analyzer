@@ -31,6 +31,8 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
+#define MAX_SCREEN_CLASSES	20
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -266,11 +268,30 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	// default sequence function pointers
 	Next_Sequence = &Get_Block_Sequence;
 	Sequence_Value = &Get_Sequence_Digits_Base_10;
-
-	if ( co.next_seq == 1 )
-		Next_Sequence = &Get_Block_Sequence;
-	else if ( co.next_seq == 2 )
-		Next_Sequence = &Get_Stream_Sequence;
+	
+	if ( co.next_seq == 1 )		
+	{
+		if ( co.opt_stream ) // Stream Sequence
+		{
+			if ( co.opt_hex2bin )
+				Next_Sequence = &Get_Bin_Stream_Sequence;
+			else
+				Next_Sequence = &Get_Stream_Sequence;
+		}
+		else 	// Block Sequence
+		{
+			if ( co.opt_hex2bin )
+				Next_Sequence = &Get_Bin_Block_Sequence;
+			else
+				Next_Sequence = &Get_Block_Sequence;
+		}
+			
+	}
+	else
+	{
+		cout << "Unknown Get_Next_Sequence Function" << endl;
+		exit( 1 );
+	}
 
 	if ( co.seq_val == 1 )
 		Sequence_Value = &Get_Sequence_Digits_Base_10;
@@ -288,8 +309,8 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	}
 	
 	
-	//results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
-	results = Analyze_Number_Continuously( Next_Sequence, Get_Sequence_Digits_Base_10, ap, 1000, 10, outfile );
+	results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
+	//results = Analyze_Number_Continuously( Next_Sequence, Get_Sequence_Digits_Base_10, ap, 1000, 10, outfile );
 	
 	//exit( 1 );
 	if ( ap.total_number_of_classes <= 20 )
