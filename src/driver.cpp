@@ -71,7 +71,7 @@ struct Command_Options
 
 	int next_seq = 1;
 	int seq_val = 1;
-	int seq_tests = 1000;
+	int digits = 1000;
 	int block_size = 1;
 	int granularity = 1;
 
@@ -151,6 +151,10 @@ void Command_Arguments( int argc, char **argv )
 
 				case 's':
 					co.opt_stream = true;
+					break;
+
+				case 'd':			// number of digits to test
+					co.digits = atoi( argv[++i] );
 					break;
 
 				case 'b':			// select maximum size of blocks
@@ -237,7 +241,7 @@ void Command_Summarry( Command_Options co, string input_file, string output_file
 	cout << "\tNext Sequence: " << co.next_seq << endl;
 	cout << "\tSequence Value: " << co.seq_val << endl;
 	
-	cout << "\tSequence Tests: " << co.seq_tests << endl;
+	cout << "\tDigits to Tests: " << co.digits << endl;
 	cout << "\tBlock Size: " << co.block_size << endl;
 	
 	cout << "\tInput File: " << input_file << endl;
@@ -253,7 +257,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 
 	Analysis_Parameters ap;
 	ap.remove_predecimal = co.opt_pre;
-//	ap.number_of_sequences_to_test = co.seq_tests;
+	ap.number_of_digits_to_test = co.digits;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = input_file;
 
@@ -308,9 +312,12 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 			outfile.open( filename, ios::out );			
 	}
 	
+	Display_AP( ap );
+	if ( co.opt_cont )
+		results = Analyze_Number_Continuously( Next_Sequence, Get_Sequence_Digits_Base_10, ap, 1000, 10, outfile );
+	else
+		results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
 	
-	results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
-	//results = Analyze_Number_Continuously( Next_Sequence, Get_Sequence_Digits_Base_10, ap, 1000, 10, outfile );
 	
 	//exit( 1 );
 	if ( ap.number_of_classes_possible <= 200 )
@@ -333,6 +340,8 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 
 	delete[] results;
 
+	
+	Display_AP( ap );
 	// Start Project
 	/// select parallelization
 	//Select_Parallel(ap);				// CAMS

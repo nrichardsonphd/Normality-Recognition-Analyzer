@@ -2,7 +2,7 @@
 #include "Analyze Number.h"
 
 unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
-													Analysis_Parameters &ap, Read_Number &rn, unsigned long long int number_of_digits )
+													Analysis_Parameters &ap, Read_Number &rn, unsigned long long int number_of_digits, bool show_progress )
 {
 	unsigned long long int *tmp_results = new unsigned long long int[ap.number_of_classes_possible];
 	unsigned int value;
@@ -30,12 +30,20 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 			return tmp_results;
 		}
 
-		ap.sequences_tested++;		// count number of sequences tested
+		if ( show_progress )
+		{
+			if ( i % 2000000 == 0 )
+				cout << ".";
+
+			if ( i % 50000000 == 0 )
+				cout << i / 1000000 << " million digits tested." << endl;
+			
+			
+		}
+
+		ap.sequences_tested++;			// count number of sequences tested
 		ap.digits_tested += group.size;	// count number of digits tested
 	}
-
-	//if ( ap.number_of_sequences_to_test  == ap.sequences_tested )
-	//	cout << "100% complete" << endl;
 
 	return tmp_results;
 
@@ -61,7 +69,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 	if ( ap.remove_predecimal )
 		rn.Remove_Decimal();
 
-	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_digits_to_test );
+	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_digits_to_test, true );
 
 	return results;
 }
@@ -104,13 +112,13 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	while ( ap.digits_tested < ap.number_of_digits_to_test )
 	{
-		tmp_results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, granularity );
+		tmp_results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, granularity, false );
 
 		for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 			results[i] += tmp_results[i];
 
 		delete [] tmp_results;
-
+		cout << "**********dsflkjhdfsakljafdsjlhklkjfadlkjhdfsajkhlfsdajhklsdfajhhjkdfsajhkfsdahjklfsdajhkl*******************";
 		/*/if ( ap.number_of_sequences_to_test * ap.max_sequence_size >= MIN_PROGRESS_DISPLAY )
 		{
 			cout << "PROGRESS" << endl;
