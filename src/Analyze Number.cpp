@@ -106,9 +106,14 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	ca.Continuous_Analysis_Initial( results, out );
 
-	int pctprogress = 0;// ap.number_of_sequences_to_test * ap.max_sequence_size / PROGRESS_MARKERS;
-	int percent = pctprogress * 100;
 	int pct = 0;
+	float tmp;
+	int step;
+
+	if ( ap.number_of_digits_to_test >= 1000000000 )
+		step = 1;
+	else
+		step = 2;
 
 	while ( ap.digits_tested < ap.number_of_digits_to_test )
 	{
@@ -118,7 +123,19 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 			results[i] += tmp_results[i];
 
 		delete [] tmp_results;
-		cout << "**********dsflkjhdfsakljafdsjlhklkjfadlkjhdfsajkhlfsdajhklsdfajhhjkdfsajhkfsdahjklfsdajhkl*******************";
+		
+		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test*100.;
+		
+		if ( pct + step < ap.max_sequence_size * tmp )
+		{
+			pct += step;
+
+			if ( tmp > 100 )
+				tmp = 100;
+
+			cout << (int)(ap.max_sequence_size * tmp) << "% complete." << endl;
+		}
+
 		/*/if ( ap.number_of_sequences_to_test * ap.max_sequence_size >= MIN_PROGRESS_DISPLAY )
 		{
 			cout << "PROGRESS" << endl;
@@ -183,7 +200,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	//out << "Maximum Chi-Squared: " << max << endl;
 	//out << "Minimum Chi-Squared: " << min << endl;
 	//out << endl;
-	cout << "100% Complete Analysis." << endl;
+	
 	return results;
 }
 
