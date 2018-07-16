@@ -40,8 +40,8 @@ void Display_AP(Analysis_Parameters ap, ostream &out )
 	out << "Selected Options" << endl;
 	out << "\tRemove pre decimal: " << ((ap.remove_predecimal == true) ? ("TRUE") : ("FALSE")) << endl;
 	out << "\tMaximum Sequence Size: " << ap.max_sequence_size << endl;
-//	out << "\tNumber of Classes: " << ap.total_number_of_classes << endl;
-//	out << "\tNumber of Sequences to test: " << ap.number_of_sequences_to_test << endl << endl;
+	out << "\tNumber of Classes: " << ap.number_of_classes_possible << endl;
+	out << "\tNumber of Digits to test: " << ap.number_of_digits_to_test << endl << endl;
 
 	out << "Results of test" << endl;
 	out << "\tDigits Tested: " << ap.digits_tested << endl;
