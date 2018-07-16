@@ -104,6 +104,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	if ( ap.remove_predecimal )			
 		rn.Remove_Decimal();
 
+	// Initialize any Analysis
 	ca.Continuous_Analysis_Initial( results, out );
 
 	int pct = 0;
@@ -117,89 +118,36 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	while ( ap.digits_tested < ap.number_of_digits_to_test )
 	{
+		// Calculate results for the next granularity set
 		tmp_results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, granularity, false );
 
+		// copy results
 		for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 			results[i] += tmp_results[i];
 
 		delete [] tmp_results;
 		
+		// calculate progress
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test*100.;
 		
 		if ( pct + step < ap.max_sequence_size * tmp )
 		{
-			pct += step;
 
 			if ( tmp > 100 )
-				tmp = 100;
-
+				tmp = 100;	
+			
+			pct += step;
 			cout << (int)(ap.max_sequence_size * tmp) << "% complete." << endl;
 		}
 
-		/*/if ( ap.number_of_sequences_to_test * ap.max_sequence_size >= MIN_PROGRESS_DISPLAY )
-		{
-			cout << "PROGRESS" << endl;
-			exit( 1 );
-			if ( ap.digits_tested % pctprogress == 0 )
-			{
-				if ( ap.digits_tested % percent == 0 )
-				{
-					cout << pct << "% complete" << endl;
-					pct += 10;
-				}
-				else
-					cout << ".";
-			}
-		}*/
 
+		// Interval Analysis
 		if ( ap.sequences_tested % progress == 0 )
 			ca.Continuous_Analysis_Interval( results, out );
-
-
-		/*
-
-		double max = 0, min = 1000, chisq;
-		bool display = false;
-
-		al.Set_List( results, ap.number_of_classes_possible );
-		chisq = al.Chi_Squared();
-
-		if ( max < chisq )
-		{
-			max = chisq;
-			display = true;
-		}
-		if ( min > chisq )
-		{
-			min = chisq;
-			display = true;
-		}
-
-		if ( display || ap.sequences_tested % progress == 0 )
-		{
-			out << ap.digits_tested << "\t";
-			for ( unsigned int j = 0; j < ap.number_of_classes_possible; ++j )
-				out << results[j] << "\t";
-
-			out << "\t\t";
-			if ( abs( max - chisq ) < .00001 )
-				out << "/\\";
-			if ( abs( min - chisq ) < .00001 )
-				out << "\\/";
-
-			out << chisq;
-			out << endl;
-
-			display = false;
-		}
-		*/
-
 	}
 
+	// Final Analysis
 	ca.Continuous_Analysis_Summary( results, out );
-	//out << "Maximum Chi-Squared: " << max << endl;
-	//out << "Minimum Chi-Squared: " << min << endl;
-	//out << endl;
 	
 	return results;
 }
