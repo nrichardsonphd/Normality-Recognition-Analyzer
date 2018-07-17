@@ -3,8 +3,8 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
-#define RELEASE "0.2.77:1245"		// Release version
-//#define DEBUG						// Debug mode for development
+//#define RELEASE "0.2.77:1245"		// Release version
+#define DEBUG						// Debug mode for development
 
 #define MAX_SCREEN_CLASSES	16		// maximum number of classes that will be displayed on the screen, file output larger sets
 #define _CRT_SECURE_NO_WARNINGS		// stop useless warnings
@@ -348,10 +348,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 		outfile.open( output_file, ios::out );
 	}
 	
-	//Display_AP( ap );
-
 	if ( co.opt_cont )
-		//results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, co.granularity, cout );
 		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, co.granularity, outfile );
 	else
 		results = Analyze_Number( Next_Sequence, Sequence_Value, ap );

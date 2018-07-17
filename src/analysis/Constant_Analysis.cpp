@@ -80,7 +80,7 @@ void Constant_Analysis::Default_Interval( unsigned long long int *initial_result
 		//display = true;
 	}
 
-	int sum = 0;
+	unsigned long long int sum = 0;
 	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
 		sum += initial_results[j];
 	//if ( display ) //|| this->ap->sequences_tested % progress == 0 )

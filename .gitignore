@@ -11,5 +11,12 @@ x64/*
 docs/html
 docs/latex
 data/pi1billion.txt
-logs/tmp.txt
-logs/tempcl.txt
+logs/*
+
+
+
+
+
+
+
+bin/*
