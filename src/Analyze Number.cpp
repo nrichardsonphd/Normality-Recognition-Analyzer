@@ -18,6 +18,16 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		// Get the next sequence
 		group = Next_Sequence( rn, ap.max_sequence_size );
 
+		// check if out of numbers
+		for ( int i = 0; i < group.size; ++i )
+		{
+			if ( group.seq[i] == -1 )
+			{
+				cout << "Out of digits to test, finishing calculations." << endl;
+				return tmp_results;
+			}
+		}
+
 		// Get the sequence value
 		value = Sequence_Value( group );
 
@@ -26,6 +36,10 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		else
 		{
 			cout << "ERROR: Sequence Value is out of range.  0 <= Value Returned < Total Number of Classes.\nCheck that Sequence_Value is correct." << endl;
+			cout << "Recieved value " << value << " for sequence ";
+			for ( int i = 0; i < group.size; ++i )
+				cout << group.seq[i] << " ";
+			cout << endl;
 			exit( 1 );
 			return tmp_results;
 		}
@@ -55,6 +69,9 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 {
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
+
+	// init for sequence functions
+	Initialize_Next_Sequence_Functions();
 
 	unsigned long long int *results;// = new unsigned long long int[ap.number_of_classes_possible];
 	//unsigned int value;
@@ -91,6 +108,9 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 //	unsigned int value;
 	Sequence group;
 	Read_Number rn;
+
+	// init for sequence functions
+	Initialize_Next_Sequence_Functions();
 
 	// initialize results
 	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )

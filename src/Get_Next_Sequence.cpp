@@ -19,11 +19,19 @@ void Initialize_Next_Sequence_Functions()
 // Grabs N digits in a row.  Next set will start after last digit, nonoverlapping
 Sequence Get_Block_Sequence( Read_Number &rn, int digits )
 {
+	if ( first )
+	{
+		cout << "Block Sequence: " << digits << endl;
+		first = false;
+	}
+
 	Sequence s;
 	s.size = digits;
 	
 	for ( int i = 0; i < digits; ++i )
 		s.seq[i] = rn.Get_Next_Digit();
+	
+	//Display_Sequence( s );
 	
 	return s;
 }
@@ -31,6 +39,11 @@ Sequence Get_Block_Sequence( Read_Number &rn, int digits )
 // Grab N digits in a row.  Next set starts at 2nd digit.  Overlapping
 Sequence Get_Stream_Sequence( Read_Number &rn, int digits )
 {
+	if ( first )
+	{
+		cout << "Stream Sequence: " << digits << endl;
+	}
+
 	// stream should remember the last digits - 1 used
 	static Sequence s;
 
@@ -59,6 +72,12 @@ Sequence Get_Stream_Sequence( Read_Number &rn, int digits )
 
 Sequence Get_Bin_Block_Sequence( Read_Number &rn, int digits )
 {
+	if ( first )
+	{
+		cout << "Block Binary Sequence: " << digits << endl;
+		first = false;
+	}
+
 	Sequence s;
 	s.size = digits;
 
@@ -71,6 +90,11 @@ Sequence Get_Bin_Block_Sequence( Read_Number &rn, int digits )
 
 Sequence Get_Bin_Stream_Sequence( Read_Number &rn, int digits )
 {
+	if ( first )
+	{
+		cout << "Stream Binary Sequence: " << digits << endl;
+	}
+
 	// stream should remember the last digits - 1 used
 	static Sequence s;
 

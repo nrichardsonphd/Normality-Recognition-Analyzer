@@ -3,8 +3,13 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
-#define RELEASE "0.2.71:1245"
-//#define DEBUG
+#define RELEASE "0.2.77:1245"		// Release version
+#define DEBUG						// Debug mode for development
+
+#define MAX_SCREEN_CLASSES	16		// maximum number of classes that will be displayed on the screen, file output larger sets
+#define _CRT_SECURE_NO_WARNINGS		// stop useless warnings
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Command Line Arguments
@@ -32,9 +37,6 @@
 // -C #		Continuous Testing, # is for granularity
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define _CRT_SECURE_NO_WARNINGS
-
-#define MAX_SCREEN_CLASSES	20
 
 #include <fstream>
 #include <iostream>
@@ -216,7 +218,10 @@ void Command_Arguments( int argc, char **argv )
 			exit( 1 );
 		}
 
-		Command_Summarry( co, input_file, output_file );
+		#ifndef RELEASE
+			Command_Summarry( co, input_file, output_file );
+		#endif
+
 
 		Command_Execute( co, input_file, output_file );
 
@@ -233,13 +238,15 @@ void Command_Help()
 	cout << "\t 1. Digit Test" << endl;
 	cout << " -V #\t\tSelect numbered Sequence Value" << endl;
 	cout << "\t 1. Digit Value" << endl;
-
+	cout << " -h \t\trun file as hexadecimal" << endl;
+	cout << " -d #\t\tnumber of digits to test" << endl;
 	cout << " -p \t\tremove predecimal" << endl;
-	cout << " -s # \t\tnumber of sequences to test" << endl;
-	cout << " -b # \t\tsize of each sequence" << endl;
-
+	cout << " -b # \t\tmaximum size of a sequence" << endl;
+	cout << " -c # \t\tmaximum number of classes" << endl;
+	cout << " -s \t\tstream digits by overlapping blocks" << endl;
+	cout << " -C #\t\tcontiuous testing at intervals of #" << endl;
 	cout << " -f <filename> \tselect input file for test" << endl;
-	cout << " -r <filename> \tselect output file for test" << endl;
+	cout << " -o <filename> \tselect output file for test" << endl;
 
 }
 
@@ -327,18 +334,22 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 		exit( 1 );
 	}
 	
-	string filename = "../../logs/tmp.txt";
 	ofstream outfile;
 	
-	if ( ap.number_of_classes_possible > 16 )
+	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES )
 	{
-			if ( !co.opt_file )
-				cout << "Results are in file " << filename << " due to large number of classes." << endl;
-
-			outfile.open( filename, ios::out );			
+		if ( !co.opt_file )
+		{
+			co.opt_file = true;
+			output_file = "../../logs/tmp.txt";
+			cout << "Results are in file " << output_file << " due to large number of classes." << endl;
+		}
+		
+		outfile.open( output_file, ios::out );
 	}
 	
-	Display_AP( ap );
+	//Display_AP( ap );
+
 	if ( co.opt_cont )
 		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, 1000, 10, outfile );
 	else
@@ -349,12 +360,15 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	if ( ap.number_of_classes_possible <= 200 )
 		Display_Results( results, ap, cout );
 	else
-		if ( !co.opt_file )
-		{			
-			outfile << "********************************************************" << endl;
+		if ( co.opt_file )
+		{		
+			outfile << endl << endl;
+			//outfile << "********************************************************" << endl;
 			outfile << "Final Results" << endl;
 			Display_Results( results, ap, outfile );
+			outfile << endl << endl;
 			outfile.close();
+
 		}
 	
 	if ( co.opt_file )	// output file exists
