@@ -4,7 +4,7 @@
 /// \author Dr. Nicholas Richardson
 
 #define RELEASE "0.2.77:1245"		// Release version
-#define DEBUG						// Debug mode for development
+//#define DEBUG						// Debug mode for development
 
 #define MAX_SCREEN_CLASSES	16		// maximum number of classes that will be displayed on the screen, file output larger sets
 #define _CRT_SECURE_NO_WARNINGS		// stop useless warnings
@@ -169,10 +169,10 @@ void Command_Arguments( int argc, char **argv )
 					co.block_size = atoi( argv[++i] );
 					break;
 
-				case 'c':
-					co.max_class = atoi( argv[++i] );
-					co.opt_base = true;
-					break;
+				//case 'c':
+				//	co.max_class = atoi( argv[++i] );
+				//	co.opt_base = true;
+				//	break;
 
 				case 'C':			// continuous 
 					co.opt_cont = true;
@@ -242,7 +242,7 @@ void Command_Help()
 	cout << " -d #\t\tnumber of digits to test" << endl;
 	cout << " -p \t\tremove predecimal" << endl;
 	cout << " -b # \t\tmaximum size of a sequence" << endl;
-	cout << " -c # \t\tmaximum number of classes" << endl;
+//	cout << " -c # \t\tmaximum number of classes (set base)" << endl;
 	cout << " -s \t\tstream digits by overlapping blocks" << endl;
 	cout << " -C #\t\tcontiuous testing at intervals of #" << endl;
 	cout << " -f <filename> \tselect input file for test" << endl;
@@ -336,7 +336,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	
 	ofstream outfile;
 	
-	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES )
+	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES || co.opt_file )
 	{
 		if ( !co.opt_file )
 		{
@@ -351,7 +351,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	//Display_AP( ap );
 
 	if ( co.opt_cont )
-		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, 1000, 10, outfile );
+		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, co.granularity, cout );// outfile );
 	else
 		results = Analyze_Number( Next_Sequence, Sequence_Value, ap );
 	
@@ -373,7 +373,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	
 	if ( co.opt_file )	// output file exists
 	{
-		ofstream cloutfile( output_file, ios::out );
+		ofstream cloutfile( output_file, ios::app );
 		Display_Results( results, ap, cloutfile );		
 		cloutfile.close();
 	}
