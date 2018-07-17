@@ -3,10 +3,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>$(TargetPath)</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-d 1000 -b 3 -f ../../data/pi1billion.txt -o ../../logs/debug.txt</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d 1000 -b 1 -C 100 -f ../../data/pi1billion.txt -o ../../logs/debug.txt</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>-d 1000 -b 3 -c 100 -f ../../data/pi1K-dec.txt -o ../../logs/release.txt</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-d 1000 -b 1 -C 100 -f ../../data/pi1K-dec.txt -o ../../logs/release.txt</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

@@ -33,7 +33,6 @@ unsigned long long int * Analyze_Number_Continuously( Sequence( *Next_Sequence )
 														unsigned int( *Sequence_Value )(Sequence s),				// return value of sequence
 														Analysis_Parameters &ap, 									// stores various parameters about numbers and analysis
 														unsigned int granularity, 									// how often to calculate results, only new max/min are displayed
-														unsigned int progress,										// how often to display results
 														ostream &out );												// output for logfile
 
 unsigned long long int *Get_Next_Set_Of_Sequences(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), 

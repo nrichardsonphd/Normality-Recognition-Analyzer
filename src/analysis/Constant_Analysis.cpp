@@ -64,7 +64,7 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 void Constant_Analysis::Default_Interval( unsigned long long int *initial_results, ostream &out )
 {
 	double chisq;
-	bool display = false;
+	//bool display = false;
 
 	al.Set_List( initial_results, this->ap->number_of_classes_possible );
 	chisq = al.Chi_Squared();
@@ -72,17 +72,20 @@ void Constant_Analysis::Default_Interval( unsigned long long int *initial_result
 	if ( this->max < chisq )
 	{
 		this->max = chisq;
-		display = true;
+		//display = true;
 	}
 	if ( this->min > chisq )
 	{
 		this->min = chisq;
-		display = true;
+		//display = true;
 	}
 
-	if ( display ) //|| this->ap->sequences_tested % progress == 0 )
+	int sum = 0;
+	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
+		sum += initial_results[j];
+	//if ( display ) //|| this->ap->sequences_tested % progress == 0 )
 	{
-		out << "Interval Results ";
+		out << sum << "\t";
 //	out << ap.digits_tested << "\t";
 	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
 		out << initial_results[j] << "\t";
@@ -94,9 +97,9 @@ void Constant_Analysis::Default_Interval( unsigned long long int *initial_result
 		out << "\\/";
 
 		out << chisq;
-		out << endl;
+		//out << endl;
 
-		display = false;
+		//display = false;
 	}
 }
 

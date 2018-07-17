@@ -94,7 +94,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 
 
 unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
-														Analysis_Parameters &ap, unsigned int granularity, unsigned int progress, ostream &out )
+														Analysis_Parameters &ap, unsigned int granularity, ostream &out )
 {
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
@@ -147,6 +147,10 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 		delete [] tmp_results;
 		
+		// Interval Analysis
+		ca.Continuous_Analysis_Interval( results, out ); 
+		cout << "\t\t**";
+
 		// calculate progress
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
 		
@@ -159,11 +163,10 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 			pct += step;
 			cout << (int)(ap.max_sequence_size * tmp) << "% complete." << endl;
 		}
-
-
-		// Interval Analysis
-		if ( ap.sequences_tested % progress == 0 )
-			ca.Continuous_Analysis_Interval( results, out );
+		
+		out << endl;
+		//if ( ap.digits_tested > 900 )
+			//exit( 1 );
 	}
 
 	// Final Analysis
