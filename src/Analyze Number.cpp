@@ -128,7 +128,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		delete [] tmp_results;
 		
 		// calculate progress
-		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test*100.;
+		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
 		
 		if ( pct + step < ap.max_sequence_size * tmp )
 		{
