@@ -1,19 +1,10 @@
 #include "Get_Sequence_Value.h"
 
-int Get_Sequence_Digits_Base_2( Sequence s )
-{
-	return Get_Sequence_Digits( s, 2 );
-}
+int G_BASE = 10;
 
-unsigned int Get_Sequence_Digits_Base_10( Sequence s )
+unsigned int Get_Sequence_Digits_Base( Sequence s )
 {
-	return Get_Sequence_Digits( s, 10 );
-}
-
-
-int Get_Sequence_Digits_Base_16( Sequence s )
-{
-	return Get_Sequence_Digits( s, (int)pow(16,s.size ));
+	return Get_Sequence_Digits( s, G_BASE );
 }
 
 int Get_Sequence_Digits( Sequence s, int base )

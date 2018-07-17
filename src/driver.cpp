@@ -41,6 +41,7 @@
 #include <string>
 #include <ctime>
 using namespace std;
+
 // Setting up program
 #include "analysis\analysis_parameters.h"
 #include "common\cams.h"
@@ -69,6 +70,7 @@ struct Command_Options
 		opt_pre = false,		// remove pre-decimal
 		opt_cont = false,		// continuous testing
 		opt_file = false,		// file output
+		opt_base = false,		// manually specify base of file
 		opt_stream = false,		// block v stream
 		opt_hex2bin = false;	// convert hexadecimal file to binary input
 
@@ -167,6 +169,8 @@ void Command_Arguments( int argc, char **argv )
 
 				case 'c':
 					co.max_class = atoi( argv[++i] );
+					co.opt_base = true;
+					break;
 
 				case 'C':			// continuous 
 					co.opt_cont = true;
@@ -261,24 +265,30 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	// check testing parameters
 	if ( co.opt_test )
 		Full_Testing( co.opt_detail );
-
+	
 	Analysis_Parameters ap;
 	ap.remove_predecimal = co.opt_pre;
 	ap.number_of_digits_to_test = co.digits;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = input_file;
 
-
+	
 	// setup different function pointers based on arguments
 	unsigned long long int *results;
-	ap.number_of_classes_possible = (unsigned int) pow( 10, ap.max_sequence_size );
+
+	if ( co.opt_base )
+	{
+		G_BASE = co.max_class;
+		ap.number_of_classes_possible = (unsigned int) pow( G_BASE, ap.max_sequence_size );
+	}
+	else
+		ap.number_of_classes_possible = (unsigned int) pow( 10, ap.max_sequence_size );
 
 	Sequence( *Next_Sequence )(Read_Number &rn, int digits);
 	unsigned int( *Sequence_Value )(Sequence s);
 	
-	// default sequence function pointers
+	// default next sequence function pointer
 	Next_Sequence = &Get_Block_Sequence;
-	Sequence_Value = &Get_Sequence_Digits_Base_10;
 	
 	if ( co.next_seq == 1 )		
 	{
@@ -304,9 +314,18 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 		exit( 1 );
 	}
 
-	if ( co.seq_val == 1 )
-		Sequence_Value = &Get_Sequence_Digits_Base_10;
+	// default sequence value function pointer
+	Sequence_Value = &Get_Sequence_Digits_Base;
 
+	if ( co.seq_val == 1 )
+	{
+		Sequence_Value = &Get_Sequence_Digits_Base;
+	}
+	else
+	{
+		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
+		exit( 1 );
+	}
 	
 	string filename = "../../logs/tmp.txt";
 	ofstream outfile;
@@ -321,9 +340,9 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	
 	Display_AP( ap );
 	if ( co.opt_cont )
-		results = Analyze_Number_Continuously( Next_Sequence, Get_Sequence_Digits_Base_10, ap, 1000, 10, outfile );
+		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, 1000, 10, outfile );
 	else
-		results = Analyze_Number( Next_Sequence, Get_Sequence_Digits_Base_10, ap );
+		results = Analyze_Number( Next_Sequence, Sequence_Value, ap );
 	
 	
 	//exit( 1 );
@@ -460,7 +479,7 @@ string Git_Version_Number()
 	// <Version>.<Revision>.<Commit>.<Build>
 
 	#ifdef DEBUG
-		ifstream in("../../logs/buildno.txt", ios::in);
+		ifstream in("../../buildno.txt", ios::in);
 	
 		if (!in)
 		{
@@ -491,7 +510,7 @@ string Git_Version_Number()
 		tmp += ".";
 		tmp += to_string(++build);
 
-		ofstream out("../../logs/buildno.txt", ios::out);
+		ofstream out("../../buildno.txt", ios::out);
 		if (!out)
 		{
 			cout << "Unable to write buildno.txt" << endl;

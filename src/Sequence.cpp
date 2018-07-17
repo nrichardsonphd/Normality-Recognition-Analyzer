@@ -1,5 +1,6 @@
 #include "Sequence.h"
 
+
 void Display_Sequence( Sequence s )
 {
 	cout << "Sequence: " << s.size << " :: ";
