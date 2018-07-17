@@ -28,7 +28,8 @@ void Display_AP( Analysis_Parameters ap)
 
 void Display_AP(Analysis_Parameters ap, ostream &out )
 {
-	out << "*********************************************************************" << endl;
+	//out << "*********************************************************************" << endl;
+	out << endl;
 	out << "Analysis of Parameters" << endl;
 
 	out << "Description of test" << endl;
@@ -51,7 +52,8 @@ void Display_AP(Analysis_Parameters ap, ostream &out )
 
 
 
-	out << "*********************************************************************" << endl;
+	//out << "*********************************************************************" << endl;
+	out << endl;
 	/*
 	cout << "\tBase: " << ap.base;			cout << "\t\t\tTest Digits: " << ap.total_digits;			cout << "\t\t\tRemove pre decimal: " << ((ap.remove_predecimal==true) ? ("TRUE") : ("FALSE")) << endl;
 	cout << endl;
