@@ -351,7 +351,8 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	//Display_AP( ap );
 
 	if ( co.opt_cont )
-		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, co.granularity, cout );// outfile );
+		//results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, co.granularity, cout );
+		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, co.granularity, outfile );
 	else
 		results = Analyze_Number( Next_Sequence, Sequence_Value, ap );
 	
