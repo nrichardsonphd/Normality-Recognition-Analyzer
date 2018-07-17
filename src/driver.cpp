@@ -3,6 +3,8 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
+#define RELEASE "0.2.71:1245"
+//#define DEBUG
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Command Line Arguments
@@ -21,12 +23,13 @@
 // -d #		Number of digits to test
 // -r		remove predecimal
 // -b #		maximum size of each sequence
+// -c #		maximum number of classes
 // -s		stream digits with overlapping blocks (nonoverlapping is default)
 // 
 // -f <filename>		select input file for test
 // -o <filename>		select output file for test
 //
-// -c #		Continuous Testing, # is for granularity
+// -C #		Continuous Testing, # is for granularity
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define _CRT_SECURE_NO_WARNINGS
@@ -73,6 +76,7 @@ struct Command_Options
 	int seq_val = 1;
 	int digits = 1000;
 	int block_size = 1;
+	int max_class = 10;
 	int granularity = 1;
 
 };
@@ -94,7 +98,7 @@ int main( int argc, char **argv)
 {
 	// Initialize for Version Control
 	Git_Init();
-	
+
 	time_t start = time( nullptr );
 	cout << "Start Time: " << ctime( &start ) << endl;
 	
@@ -161,7 +165,10 @@ void Command_Arguments( int argc, char **argv )
 					co.block_size = atoi( argv[++i] );
 					break;
 
-				case 'c':			// continuous 
+				case 'c':
+					co.max_class = atoi( argv[++i] );
+
+				case 'C':			// continuous 
 					co.opt_cont = true;
 					co.granularity = atoi( argv[++i] );
 					break;
@@ -304,7 +311,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	string filename = "../../logs/tmp.txt";
 	ofstream outfile;
 	
-	if ( ap.number_of_classes_possible > 20 )
+	if ( ap.number_of_classes_possible > 16 )
 	{
 			if ( !co.opt_file )
 				cout << "Results are in file " << filename << " due to large number of classes." << endl;
@@ -436,7 +443,11 @@ void Git_Init()
 	VERSION = Git_Version_Number();
 	cout << "Normality Recognition Analyzer" << endl;	
 	cout << "Author: Dr. Nicholas M. Richardson" << endl;
-	cout << "Development Build: " << VERSION << endl;
+	#ifdef DEBUG
+		cout << "Development Build: " << VERSION << endl;
+	#else
+		cout << "Release: " << VERSION << endl;
+	#endif
 	cout << "----------------------------------" << endl << endl;
 
 
@@ -448,45 +459,54 @@ string Git_Version_Number()
 	// format of versions
 	// <Version>.<Revision>.<Commit>.<Build>
 
-	ifstream in("../../logs/buildno.txt", ios::in);
-	if (!in)
-	{
-		cout << "Unable to open buildno.txt" << endl;
-		exit(1);
-	}
-	int version;
-	int revision;
-	int commit;
-	int build;
-	string tmp;
-	in >> version;
-	in.get();
-	in >> revision;
-	in.get();
-	in >> commit;
-	in.get();
-	in >> build;
-	in.close();
+	#ifdef DEBUG
+		ifstream in("../../logs/buildno.txt", ios::in);
+	
+		if (!in)
+		{
+			cout << "Unable to open buildno.txt" << endl;
+			exit(1);
+		}
 
-	tmp = to_string(version);
-	tmp += ".";
-	tmp += to_string(revision);
-	tmp += ".";
-	tmp += to_string(commit);
-	tmp += ".";
-	tmp += to_string(++build);
+		int version;
+		int revision;
+		int commit;
+		int build;
+		string tmp;
 
-	ofstream out("../../logs/buildno.txt", ios::out);
-	if (!out)
-	{
-		cout << "Unable to write buildno.txt" << endl;
-		tmp = "*.*.*.*";
-	}
-	else
-	{
-		out << tmp << endl;
-		out.close();
-	}
+		in >> version;
+		in.get();
+		in >> revision;
+		in.get();
+		in >> commit;
+		in.get();
+		in >> build;
+		in.close();
 
-	return tmp;
+		tmp = to_string(version);
+		tmp += ".";
+		tmp += to_string(revision);
+		tmp += ".";
+		tmp += to_string(commit);
+		tmp += ".";
+		tmp += to_string(++build);
+
+		ofstream out("../../logs/buildno.txt", ios::out);
+		if (!out)
+		{
+			cout << "Unable to write buildno.txt" << endl;
+			tmp = "*.*.*.*";
+		}
+		else
+		{
+			out << tmp << endl;
+			out.close();
+		}
+
+		return tmp;
+	
+	#else
+		return RELEASE;
+	#endif
+
 }
