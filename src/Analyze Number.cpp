@@ -149,7 +149,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		
 		// Interval Analysis
 		ca.Continuous_Analysis_Interval( results, out ); 
-		cout << "\t\t**";
+		//cout << "\t\t**";
 
 		// calculate progress
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
