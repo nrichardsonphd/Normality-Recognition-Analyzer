@@ -170,8 +170,16 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	}
 
 	// Final Analysis
+	cout << "Analyze Number continuous Summarry" << endl;
 	ca.Continuous_Analysis_Summary( results, out );
-	
+
+	// force summary output to screen
+	if ( &cout != &out )
+	{		
+		ca.Continuous_Analysis_Summary( results, cout );
+	}
+	else
+
 	return results;
 }
 
