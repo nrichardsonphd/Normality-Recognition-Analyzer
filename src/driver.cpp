@@ -172,10 +172,10 @@ void Command_Arguments( int argc, char **argv )
 					co.block_size = atoi( argv[++i] );
 					break;
 
-				//case 'c':
-				//	co.max_class = atoi( argv[++i] );
-				//	co.opt_base = true;
-				//	break;
+				case 'c':
+					co.max_class = atoi( argv[++i] );
+					co.opt_base = true;
+					break;
 
 				case 'C':			// continuous 
 					co.opt_cont = true;
@@ -249,7 +249,7 @@ void Command_Help()
 	cout << " -d #\t\tnumber of digits to test" << endl;
 	cout << " -p \t\tremove predecimal" << endl;
 	cout << " -b # \t\tmaximum size of a sequence" << endl;
-//	cout << " -c # \t\tmaximum number of classes (set base)" << endl;
+	cout << " -c # \t\tmaximum number of classes (set base)" << endl;
 	cout << " -s \t\tstream digits by overlapping blocks" << endl;
 	cout << " -C #\t\tcontiuous testing at intervals of #" << endl;
 	cout << " -f <filename> \tselect input file for test" << endl;
@@ -292,7 +292,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 
 	if ( co.opt_base )
 		G_BASE = co.max_class;
-	else
+	//else
 	{
 		if ( co.opt_hex2bin )
 			G_BASE = 2;
