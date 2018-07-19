@@ -13,15 +13,15 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		tmp_results[i] = 0;
 
 	// run analysis of the digits
-	for ( unsigned int i = 0; i < number_of_digits; ++i )		// only test partial set of entire number
+	for ( unsigned int i = 0; i < number_of_digits && ap.digits_tested < ap.number_of_digits_to_test; ++i )		// only test partial set of entire number
 	{
 		// Get the next sequence
 		group = Next_Sequence( rn, ap.max_sequence_size );
 
 		// check if out of numbers
-		for ( int i = 0; i < group.size; ++i )
+		for ( int j = 0; j < group.size; ++j )
 		{
-			if ( group.seq[i] == -1 )
+			if ( group.seq[j] == -1 )
 			{
 				cout << "Out of digits to test, finishing calculations." << endl;
 				return tmp_results;
