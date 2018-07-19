@@ -302,6 +302,12 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 
 	// set base
 	ap.number_of_classes_possible = (unsigned long long int) pow( G_BASE, ap.max_sequence_size );
+	
+	if ( ap.number_of_classes_possible >= 1410065408 )
+	{
+		cout << "Too many classes to support.  Reduce the maximum number of classes to track.";
+		exit( 1 );
+	}
 
 	Sequence( *Next_Sequence )(Read_Number &rn, int digits);
 	unsigned int( *Sequence_Value )(Sequence s);

@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-#define MAX_SEQUENCE_SIZE 10
+#define MAX_SEQUENCE_SIZE 32
 
 struct Sequence
 {
