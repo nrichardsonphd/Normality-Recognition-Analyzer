@@ -5,7 +5,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 													Analysis_Parameters &ap, Read_Number &rn, unsigned long long int number_of_digits, bool show_progress )
 {
 	unsigned long long int *tmp_results = new unsigned long long int[ap.number_of_classes_possible];
-	unsigned int value;
+	unsigned long long int value;
 	Sequence group;
 
 	// initialize results
@@ -36,7 +36,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		else
 		{
 			cout << "ERROR: Sequence Value is out of range.  0 <= Value Returned < Total Number of Classes.\nCheck that Sequence_Value is correct." << endl;
-			cout << "Recieved value " << value << " for sequence ";
+			cout << "Recieved value " << value << " for sequence <= " << ap.number_of_classes_possible << endl;
 			for ( int i = 0; i < group.size; ++i )
 				cout << group.seq[i] << " ";
 			cout << endl;
@@ -87,6 +87,9 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 		rn.Remove_Decimal();
 
 	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_digits_to_test, true );
+
+	Constant_Analysis ca(ap);
+	ca.Continuous_Analysis_Summary( results, cout );
 
 	return results;
 }

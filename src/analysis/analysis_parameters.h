@@ -24,7 +24,7 @@ struct Analysis_Parameters
 	// used as parameters
 	bool remove_predecimal = true;											///< bypass any digits before the decimal ****.start
 	unsigned int max_sequence_size = 1;														///< number of digits to get for each class, 0 for variable size classes
-	unsigned int number_of_classes_possible = 10;												///< total number of classes possible
+	unsigned long long int number_of_classes_possible = 10;												///< total number of classes possible
 	//unsigned int number_of_sequences_to_test = 1000;										// number of sequences to analyze		Total digits / block size
 	unsigned long long int number_of_digits_to_test = 1000;
 	
