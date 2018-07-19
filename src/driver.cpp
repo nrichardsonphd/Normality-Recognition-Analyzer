@@ -3,7 +3,7 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
-//#define RELEASE "0.2.77:1245"		// Release version
+#define RELEASE "0.2b"				// Release version
 #define DEBUG						// Debug mode for development
 
 #define MAX_SCREEN_CLASSES	16		// maximum number of classes that will be displayed on the screen, file output larger sets
@@ -225,7 +225,7 @@ void Command_Arguments( int argc, char **argv )
 			exit( 1 );
 		}
 
-		#ifndef RELEASE
+		#ifdef DEBUG
 			Command_Summarry( co, input_file, output_file );
 		#endif
 
@@ -484,7 +484,7 @@ void Full_Testing( bool detail )
 void Git_Init()
 {
 	VERSION = Git_Version_Number();
-	cout << "Normality Recognition Analyzer" << endl;	
+	cout << "Normality Recognition Analyzer " << RELEASE << endl;	
 	cout << "Author: Dr. Nicholas M. Richardson" << endl;
 	#ifdef DEBUG
 		cout << "Development Build: " << VERSION << endl;

@@ -121,7 +121,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		rn.Set_File( ap.filename );		// set file to read from
 
 	// remove digits in front of decimal if needed
-	if ( ap.remove_predecimal )			
+	if ( ap.remove_predecimal )
 		rn.Remove_Decimal();
 
 	// Initialize any Analysis
@@ -129,13 +129,8 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	int pct = 0;
 	float tmp;
-	int step;
 
-	if ( ap.number_of_digits_to_test >= 1000000000 )
-		step = 1;
-	else
-		step = 2;
-
+	
 	while ( ap.digits_tested < ap.number_of_digits_to_test )
 	{
 		// Calculate results for the next granularity set
@@ -145,28 +140,28 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 			results[i] += tmp_results[i];
 
-		delete [] tmp_results;
-		
+		delete[] tmp_results;
+
 		// Interval Analysis
-		ca.Continuous_Analysis_Interval( results, out ); 
-		//cout << "\t\t**";
+		ca.Continuous_Analysis_Interval( results, out );
 
 		// calculate progress
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
-		
-		if ( pct + step < ap.max_sequence_size * tmp )
+
+		if ( pct + 1 < ap.max_sequence_size * tmp )
 		{
 
 			if ( tmp > 100 )
-				tmp = 100;	
-			
-			pct += step;
-			cout << (int)(ap.max_sequence_size * tmp) << "% complete." << endl;
+				tmp = 100;
+
+			pct += 1;
+			if ( pct % 10 == 0 )
+				cout << (int) (ap.max_sequence_size * tmp) << "% complete." << endl;
+			else
+				cout << "...";
 		}
-		
+
 		out << endl;
-		//if ( ap.digits_tested > 900 )
-			//exit( 1 );
 	}
 
 	// Final Analysis
@@ -175,11 +170,8 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	// force summary output to screen
 	if ( &cout != &out )
-	{		
 		ca.Continuous_Analysis_Summary( results, cout );
-	}
-	else
-
+	
 	return results;
 }
 
