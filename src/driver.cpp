@@ -22,7 +22,10 @@
 // -T		same as -t except detailed
 //
 // -N #		Select numbered Next Sequence
+//			1. Digit blocks
 // -V #		Select numbered Sequence Value
+//			1. Number value
+//			2. 
 // -h		hexadecimal input file, convert to binary
 //
 // -d #		Number of digits to test
@@ -197,6 +200,10 @@ void Command_Arguments( int argc, char **argv )
 					output_file = argv[++i];
 					break;
 
+				case 'h':
+					co.opt_hex2bin = true;
+					break;
+
 				default:
 					cout << "ERROR: Unknown Command:" << argv[i] << endl;
 			};
@@ -284,12 +291,17 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	unsigned long long int *results;
 
 	if ( co.opt_base )
-	{
 		G_BASE = co.max_class;
-		ap.number_of_classes_possible = (unsigned int) pow( G_BASE, ap.max_sequence_size );
-	}
 	else
-		ap.number_of_classes_possible = (unsigned int) pow( 10, ap.max_sequence_size );
+	{
+		if ( co.opt_hex2bin )
+			G_BASE = 2;
+		else
+			G_BASE = 10;
+	}
+
+	// set base
+	ap.number_of_classes_possible = (unsigned int) pow( G_BASE, ap.max_sequence_size );
 
 	Sequence( *Next_Sequence )(Read_Number &rn, int digits);
 	unsigned int( *Sequence_Value )(Sequence s);
