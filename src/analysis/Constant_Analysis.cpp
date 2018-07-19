@@ -63,43 +63,33 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 void Constant_Analysis::Default_Interval( unsigned long long int *initial_results, ostream &out )
 {
 	double chisq;
-	//bool display = false;
 
 	al.Set_List( initial_results, this->ap->number_of_classes_possible );
 	chisq = al.Chi_Squared();
 
 	if ( this->max < chisq )
-	{
 		this->max = chisq;
-		//display = true;
-	}
 	if ( this->min > chisq )
-	{
 		this->min = chisq;
-		//display = true;
-	}
 
 	unsigned long long int sum = 0;
 	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
 		sum += initial_results[j];
-	//if ( display ) //|| this->ap->sequences_tested % progress == 0 )
-	{
-		out << sum << "\t";
-//	out << ap.digits_tested << "\t";
+	
+	
+	out << sum << "\t";
+	
+	//	out << ap.digits_tested << "\t";
 	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
 		out << initial_results[j] << "\t";
 
-		out << "\t\t";
-		if ( abs( max - chisq ) < .00001 )
-		out << "/\\";
-		if ( abs( min - chisq ) < .00001 )
-		out << "\\/";
+	out << "\t\t";
+	if ( abs( max - chisq ) < .00001 )
+	out << "/\\";
+	if ( abs( min - chisq ) < .00001 )
+	out << "\\/";
 
-		out << chisq;
-		//out << endl;
-
-		//display = false;
-	}
+	out << chisq;
 }
 
 void Constant_Analysis::Default_Summary( unsigned long long int *initial_results, ostream &out )
@@ -109,11 +99,13 @@ void Constant_Analysis::Default_Summary( unsigned long long int *initial_results
 	out << "Minimum Chi-Squared: " << min << endl;
 	out << "Maximum Chi-Squared: " << max << endl;
 
+	out << endl << endl;
+	
 	double chisq;
 
 	al.Set_List( initial_results, this->ap->number_of_classes_possible );
 	chisq = al.Chi_Squared();
 
-	out << "Final X^2 on " << this->ap->digits_tested << " with " << this->ap->number_of_digits_to_test << " sequences is " << chisq << endl;
+	out << "Final X^2 on " << this->ap->digits_tested << " digits with " << this->ap->number_of_digits_to_test << " sequences is " << chisq << endl;
 	out << endl;
 }
