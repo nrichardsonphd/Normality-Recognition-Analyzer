@@ -23,6 +23,7 @@ class Constant_Analysis
 
 		// This is called after all calculations are completed with the final results
 		void Continuous_Analysis_Summary( unsigned long long int *final_results, ostream &out );
+
 		private:
 
 			Analyze_List al;

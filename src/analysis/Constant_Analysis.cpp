@@ -45,7 +45,6 @@ void Constant_Analysis::Continuous_Analysis_Summary( unsigned long long int *fin
 	// Final calculations are done here
 }
 
-
 void Constant_Analysis::Default_Initial( unsigned long long int *initial_results, ostream &out )
 {
 	out << "Initial Results Default Setup" << endl;
@@ -107,7 +106,14 @@ void Constant_Analysis::Default_Summary( unsigned long long int *initial_results
 {
 	out << "Final Results" << endl;
 
-	out << "Maximum Chi-Squared: " << max << endl;
 	out << "Minimum Chi-Squared: " << min << endl;
+	out << "Maximum Chi-Squared: " << max << endl;
+
+	double chisq;
+
+	al.Set_List( initial_results, this->ap->number_of_classes_possible );
+	chisq = al.Chi_Squared();
+
+	out << "Final X^2 on " << this->ap->digits_tested << " with " << this->ap->number_of_digits_to_test << " sequences is " << chisq << endl;
 	out << endl;
 }
