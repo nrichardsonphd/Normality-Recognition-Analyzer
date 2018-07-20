@@ -3,7 +3,7 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
-
+#define _CRT_SECURE_NO_WARNINGS
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Command Line Arguments
@@ -40,7 +40,6 @@
 #include <iostream>
 #include <string>
 #include <ctime>
-#include <chrono>
 using namespace std;
 
 #include "setup.h"
@@ -77,18 +76,19 @@ int main( int argc, char **argv)
 	// Initialize for Version Control
 	Git_Init();
 
-	//time_t start = time();
-	//cout << "Start Time: " << put_time( &start ) << endl;
+	time_t const start = std::time(NULL);
+	
+	cout << "Start Time: " << ctime(&start) << endl;
 	
 	// command line arguments
 	Command_Arguments( argc, argv );
 	
 	// end of program
-	//ti//me_t end = time( nullptr );
+	time_t end = time( nullptr );
 
-	//cout << "Start Time:\t" << ctime( &start );
-	//cout << "End Time:\t" << ctime( &end );
-	//cout << "Total Time: " << end - start << endl;
+	cout << "Start Time:\t" << ctime( &start );
+	cout << "End Time:\t" << ctime( &end );
+	cout << "Total Time: " << end - start << endl;
 	cout << endl;
 	return 0;
 }
