@@ -49,7 +49,7 @@ class Analyze_List
 		///
 		/// @note		Calling this function a second time will overwrite the current list.  Any other functions calls will use the new list.
 		/// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		void Set_List( unsigned long long list_to_analyze[], int list_size );
+		void Set_List( unsigned long long list_to_analyze[], unsigned long long int list_size );
 
 		double Expected_Value();
 		
@@ -90,7 +90,7 @@ class Analyze_List
 
 		/// @details	Used to calculate several chi squared values without copying the list for storage.
 		/// @note		Other functions will not work with this function's list
-		double Chi_Stream( unsigned long long list_to_analyze[], int list_size );		// calculate chi squared only, no other operations
+		double Chi_Stream( unsigned long long list_to_analyze[], unsigned long long int list_size );		// calculate chi squared only, no other operations
 		void Display_Chi_Table( unsigned long long list_to_analyze[], int list_size );	// display a table with chi^2 and digit distribution
 		
 		/// @details Display a summary of the distribution
@@ -101,7 +101,7 @@ class Analyze_List
 
 	private:
 		unsigned long long *list;					///< keep a copy of a list of numbers
-		int size;									///< size of the list
+		unsigned long long  size;									///< size of the list
 		double expected;								///< expected value used for chi squared
 		bool median;								// flag to use when sorting list to find median
 

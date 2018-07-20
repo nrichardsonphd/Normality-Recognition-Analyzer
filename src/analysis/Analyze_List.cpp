@@ -17,7 +17,7 @@ Analyze_List::~Analyze_List()
 }
 
 
-void Analyze_List::Set_List( unsigned long long list_to_analyze[], int list_size )
+void Analyze_List::Set_List( unsigned long long list_to_analyze[], unsigned long long int list_size )
 {
 	if ( this->list != NULL )
 		delete[] this->list;
@@ -274,7 +274,7 @@ double Analyze_List::Chi_Squared()
 }
 
 // This will calculate chi squared from the list sent, no other operations used
-double Analyze_List::Chi_Stream( unsigned long long digit_count[], int list_size )
+double Analyze_List::Chi_Stream( unsigned long long digit_count[], unsigned long long int list_size )
 {
 	long long int sum = 0;
 	double chi = 0;
