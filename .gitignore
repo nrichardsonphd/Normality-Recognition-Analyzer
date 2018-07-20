@@ -12,6 +12,7 @@ docs/html
 docs/latex
 data/pi1billion.txt
 logs/*
+bin/*/*.txt
 
 
 
@@ -19,4 +20,3 @@ logs/*
 
 
 
-bin/*
