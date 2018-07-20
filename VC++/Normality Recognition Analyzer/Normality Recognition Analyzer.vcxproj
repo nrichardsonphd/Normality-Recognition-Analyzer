@@ -24,6 +24,7 @@
     <ClCompile Include="..\..\src\analysis\Constant_Analysis.cpp" />
     <ClCompile Include="..\..\src\Analyze Number.cpp" />
     <ClCompile Include="..\..\src\common\cams.cpp" />
+    <ClCompile Include="..\..\src\common\command.cpp" />
     <ClCompile Include="..\..\src\common\Read_Number.cpp" />
     <ClCompile Include="..\..\src\driver.cpp" />
     <ClCompile Include="..\..\src\Get_Next_Sequence.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="..\..\src\analysis\Result Analysis.h" />
     <ClInclude Include="..\..\src\Analyze Number.h" />
     <ClInclude Include="..\..\src\common\cams.h" />
+    <ClInclude Include="..\..\src\common\command.h" />
     <ClInclude Include="..\..\src\common\Read_Number.h" />
     <ClInclude Include="..\..\src\Get_Next_Sequence.h" />
     <ClInclude Include="..\..\src\Get_Sequence_Value.h" />

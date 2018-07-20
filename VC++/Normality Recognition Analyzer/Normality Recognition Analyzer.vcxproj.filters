@@ -63,6 +63,9 @@
     <ClCompile Include="..\..\src\analysis\Constant_Analysis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\common\command.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\setup.h">
@@ -103,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\analysis\Constant_Analysis.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\common\command.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
