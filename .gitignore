@@ -13,6 +13,7 @@ docs/latex
 data/pi1billion.txt
 logs/*
 bin/testingbranch/*.exe
+bin/Rel*
 
 
 
