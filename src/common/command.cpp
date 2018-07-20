@@ -1,5 +1,49 @@
 #include "command.h"
 
+
+void Command_Help()
+{
+	//	cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
+	//	cout << " -T\t\tsame as -t except detailed" << endl;
+
+	cout << " -N #\t\tSelect numbered Next Sequence" << endl;
+	cout << "\t 1. Digit Test" << endl;
+	cout << " -V #\t\tSelect numbered Sequence Value" << endl;
+	cout << "\t 1. Digit Value" << endl;
+	cout << " -h \t\trun file as hexadecimal" << endl;
+	cout << " -d #\t\tnumber of digits to test" << endl;
+	cout << " -p \t\tremove predecimal" << endl;
+	cout << " -b # \t\tmaximum size of a sequence" << endl;
+	cout << " -c # \t\tmaximum number of classes (set base)" << endl;
+	cout << " -s \t\tstream digits by overlapping blocks" << endl;
+	cout << " -C #\t\tcontiuous testing at intervals of #" << endl;
+	cout << " -f <filename> \tselect input file for test" << endl;
+	cout << " -o <filename> \tselect output file for test" << endl;
+
+}
+
+void Command_Summarry( Command_Options co )
+{
+	#ifdef DEBUG
+		cout << "Command Setup" << endl;
+		cout << "\tRun Tests: " << ((co.opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((co.opt_detail) ? "TRUE" : "FALSE") << endl;
+		cout << "\tRemove Pre Decimal: " << ((co.opt_pre) ? "TRUE" : "FALSE") << endl;
+
+		cout << "\tNext Sequence: " << co.next_seq << endl;
+		cout << "\tSequence Value: " << co.seq_val << endl;
+
+		cout << "\tDigits to Tests: " << co.digits << endl;
+		cout << "\tBlock Size: " << co.block_size << endl;
+
+		cout << "\tInput File: " << co.input_file << endl;
+		cout << "\tOutput File: " << ((co.opt_file) ? "TRUE" : "FALSE") << endl;
+		cout << "\tOutput File: " << co.output_file << endl;
+		cout << "\tSummary File: " << ((co.opt_summary) ? "TRUE" : "FALSE") << endl;
+		cout << "\tSummary File: " << co.summary_file << endl;
+	#endif
+
+}
+
 void Command_Arguments( int argc, char **argv )
 {
 
@@ -115,46 +159,6 @@ void Command_Arguments( int argc, char **argv )
 	}
 }
 
-void Command_Help()
-{
-//	cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
-//	cout << " -T\t\tsame as -t except detailed" << endl;
-
-	cout << " -N #\t\tSelect numbered Next Sequence" << endl;
-	cout << "\t 1. Digit Test" << endl;
-	cout << " -V #\t\tSelect numbered Sequence Value" << endl;
-	cout << "\t 1. Digit Value" << endl;
-	cout << " -h \t\trun file as hexadecimal" << endl;
-	cout << " -d #\t\tnumber of digits to test" << endl;
-	cout << " -p \t\tremove predecimal" << endl;
-	cout << " -b # \t\tmaximum size of a sequence" << endl;
-	cout << " -c # \t\tmaximum number of classes (set base)" << endl;
-	cout << " -s \t\tstream digits by overlapping blocks" << endl;
-	cout << " -C #\t\tcontiuous testing at intervals of #" << endl;
-	cout << " -f <filename> \tselect input file for test" << endl;
-	cout << " -o <filename> \tselect output file for test" << endl;
-
-}
-
-void Command_Summarry( Command_Options co )
-{
-	cout << "Command Setup" << endl;
-	cout << "\tRun Tests: " << ((co.opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((co.opt_detail) ? "TRUE" : "FALSE") << endl;
-	cout << "\tRemove Pre Decimal: " << ((co.opt_pre) ? "TRUE" : "FALSE") << endl;
-
-	cout << "\tNext Sequence: " << co.next_seq << endl;
-	cout << "\tSequence Value: " << co.seq_val << endl;
-
-	cout << "\tDigits to Tests: " << co.digits << endl;
-	cout << "\tBlock Size: " << co.block_size << endl;
-
-	cout << "\tInput File: " << co.input_file << endl;
-	cout << "\tOutput File: " << ((co.opt_file) ? "TRUE" : "FALSE") << endl;
-	cout << "\tOutput File: " << co.output_file << endl;
-	cout << "\tSummary File: " << ((co.opt_summary) ? "TRUE" : "FALSE") << endl;
-	cout << "\tSummary File: " << co.summary_file << endl;
-
-}
 
 void Command_Execute( Command_Options co )
 {
@@ -277,8 +281,9 @@ void Command_Execute( Command_Options co )
 
 	delete[] results;
 
-
-	Display_AP( ap );
+	#ifdef DEBUG
+		Display_AP( ap );
+	#endif
 }
 
 
@@ -311,7 +316,7 @@ void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, 
 		if ( ap.digits_tested >= 10000000 && results[i] < 10000000 ) out << "\t";
 	}
 
-
+	out << endl;
 
 
 }

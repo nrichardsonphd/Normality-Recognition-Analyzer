@@ -6,7 +6,7 @@
 using namespace std;
 
 #define RELEASE "0.2b"				// Release version
-#define DEBUG						// Debug mode for development
+//#define DEBUG						// Debug mode for development
 
 
 
