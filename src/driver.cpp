@@ -373,7 +373,7 @@ void Command_Execute( Command_Options co, string input_file, string output_file 
 	
 	
 	//exit( 1 );
-	if ( ap.number_of_classes_possible <= 200 )
+	if ( ap.number_of_classes_possible <= 20 )
 		Display_Results( results, ap, cout );
 	else
 		if ( co.opt_file )
@@ -509,47 +509,50 @@ string Git_Version_Number()
 	// <Version>.<Revision>.<Commit>.<Build>
 
 	#ifdef DEBUG
+		string tmp;
 		ifstream in("../../buildno.txt", ios::in);
 	
 		if (!in)
 		{
 			cout << "Unable to open buildno.txt" << endl;
-			exit(1);
-		}
-
-		int version;
-		int revision;
-		int commit;
-		int build;
-		string tmp;
-
-		in >> version;
-		in.get();
-		in >> revision;
-		in.get();
-		in >> commit;
-		in.get();
-		in >> build;
-		in.close();
-
-		tmp = to_string(version);
-		tmp += ".";
-		tmp += to_string(revision);
-		tmp += ".";
-		tmp += to_string(commit);
-		tmp += ".";
-		tmp += to_string(++build);
-
-		ofstream out("../../buildno.txt", ios::out);
-		if (!out)
-		{
-			cout << "Unable to write buildno.txt" << endl;
 			tmp = "*.*.*.*";
+			//exit(1);
 		}
 		else
 		{
-			out << tmp << endl;
-			out.close();
+			int version;
+			int revision;
+			int commit;
+			int build;
+
+			in >> version;
+			in.get();
+			in >> revision;
+			in.get();
+			in >> commit;
+			in.get();
+			in >> build;
+			in.close();
+
+			tmp = to_string( version );
+			tmp += ".";
+			tmp += to_string( revision );
+			tmp += ".";
+			tmp += to_string( commit );
+			tmp += ".";
+			tmp += to_string( ++build );
+
+			ofstream out( "../../buildno.txt", ios::out );
+			if ( !out )
+			{
+				cout << "Unable to write buildno.txt" << endl;
+				tmp = "*.*.*.*";
+			}
+			else
+			{
+				out << tmp << endl;
+				out.close();
+			}
 		}
 
 		return tmp;

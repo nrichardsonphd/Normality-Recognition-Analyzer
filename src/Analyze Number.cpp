@@ -88,6 +88,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 
 	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_digits_to_test, true );
 
+	
 	Constant_Analysis ca(ap);
 	ca.Continuous_Analysis_Summary( results, cout );
 
