@@ -442,9 +442,9 @@ void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, 
 {
 	unsigned long long int sum = 0;
 
-	out << "Digits\t";
+	out << "Chi Squared\t| " << "Digits\t";
 	if ( ap.digits_tested >= 10000000 ) out << "\t";
-	out << "|\t";
+		out << "|\t";
 
 	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 	{
@@ -452,21 +452,22 @@ void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, 
 		out << i << "\t";
 		if ( ap.digits_tested >= 10000000 ) out << "\t";
 	}
-	out << "\t\t| Chi Squared" << endl;
-	
+	out << endl;
 
-	out << ap.digits_tested << "\t|\t";
+	Analyze_List al;
+	al.Set_List( results, ap.number_of_classes_possible );
+
+	out << al.Chi_Squared() << "\t\t| " << ap.digits_tested << "\t";
+	if ( ap.digits_tested >= 10000000 ) out << "\t";
+		out << "|\t";
+	
 	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 	{
 		out << results[i] << "\t";
 		if ( ap.digits_tested >= 10000000  && results[i] < 10000000 ) out << "\t";
 	}
-	out << "\t\t| ";
 
-	Analyze_List al;
-	al.Set_List( results, ap.number_of_classes_possible );
-	out << al.Chi_Squared() << ": total " << sum << endl;
-
+	
 
 
 }
