@@ -5,6 +5,10 @@
 #include <string>
 using namespace std;
 
+#define RELEASE "0.2b"				// Release version
+#define DEBUG						// Debug mode for development
+
+
 
 const int CONSTANTS = 3;
 
