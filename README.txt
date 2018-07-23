@@ -1,6 +1,5 @@
 Command Line Arguments
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Command Line Arguments
 // This is a rough setup, no combining arguments
@@ -26,6 +25,7 @@ Command Line Arguments
 // 
 // -f <filename>		select input file for test
 // -o <filename>		select output file for test
+// -q <filename>		quiet summary, only digits and X^2, no class values
 //
 // -C #		Continuous Testing, # is for granularity
 ///////////////////////////////////////////////////////////////////////////////////////////////////
