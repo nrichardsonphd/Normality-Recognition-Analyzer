@@ -1,8 +1,8 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#define MAX_SCREEN_CLASSES		16						// maximum number of classes that will be displayed on the screen, file output larger sets
-#define CONTINUOUS_LOG			"../../logs/tmp.txt"	// store larger output here
+#define MAX_SCREEN_CLASSES		16								// maximum number of classes that will be displayed on the screen, file output larger sets
+#define CONTINUOUS_LOG			"../../logs/continuous.txt"		// store larger output here during continuous output
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

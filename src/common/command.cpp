@@ -202,15 +202,9 @@ void Command_Execute( Command_Options co )
 		ofstream outfile;
 
 		if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES || co.opt_file )
-		{
-			if ( !co.opt_file )
-			{
-				co.opt_file = true;
-				co.output_file = CONTINUOUS_LOG;
-				cout << "Continuous results are in file " << co.output_file << " due to large number of classes." << endl;
-			}
-
-			outfile.open( co.output_file, ios::out );
+		{	
+			cout << "Continuous results are in file " << CONTINUOUS_LOG << " due to large number of classes." << endl;
+			outfile.open( CONTINUOUS_LOG, ios::out );
 		}
 
 		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile );
@@ -321,8 +315,6 @@ Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap )
 
 void Display_Results( Command_Options co, Analysis_Parameters &ap, unsigned long long int *results )
 {
-
-
 	// display to screen only small results
 	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES )
 		Display_Results_Full( results, ap, cout );				// summary of result
@@ -337,6 +329,16 @@ void Display_Results( Command_Options co, Analysis_Parameters &ap, unsigned long
 		cout << "Full results are in file " << co.output_file << "." << endl;
 		result_file.open( co.output_file, ios::out );
 		Display_Results_Full( results, ap, result_file );
+		result_file.close();
+	}
+
+	if ( co.opt_summary )
+	{
+		ofstream result_file;
+
+		cout << "Summary results are in file " << co.summary_file<< "." << endl;
+		result_file.open( co.summary_file, ios::app );
+		Display_Results_Partial( results, ap, result_file );
 		result_file.close();
 	}
 }
@@ -360,7 +362,7 @@ void Display_Results_Full( unsigned long long int *results, Analysis_Parameters 
 	Analyze_List al;
 	al.Set_List( results, ap.number_of_classes_possible );
 
-	out << al.Chi_Squared() << "\t\t| " << ap.digits_tested << "\t";
+	out << al.Chi_Squared() << "\t\t| " << ap.digits_tested << "\t\t";
 	if ( ap.digits_tested >= 10000000 ) out << "\t";
 	out << "|\t";
 
@@ -380,5 +382,5 @@ void Display_Results_Partial( unsigned long long int *results, Analysis_Paramete
 	Analyze_List al;
 	al.Set_List( results, ap.number_of_classes_possible );
 
-	cout << "Digits: " << al.Sum() << "\tChi-Squared: " << al.Chi_Squared() << endl;
+	out << "Digits: " << al.Sum() << "\tChi-Squared: " << al.Chi_Squared() << endl;
 }
