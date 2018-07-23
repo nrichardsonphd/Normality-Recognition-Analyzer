@@ -173,13 +173,14 @@ void Command_Execute( Command_Options co )
 
 	// setup analysis parameters
 	Analysis_Parameters ap;
+	// pointer to store results
+	unsigned long long int *results;	
+
+	// setup analysis parameter from command line arguments
 	ap.remove_predecimal = co.opt_pre;
 	ap.number_of_digits_to_test = co.digits;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = co.input_file;
-
-	// pointer to store results
-	unsigned long long int *results;	
 
 
 	// setup base and number of classes
@@ -192,13 +193,6 @@ void Command_Execute( Command_Options co )
 	Sequence_Value sv = Set_Sequence_Value( co, ap);
 
 	// setup output
-
-	// analyze number
-
-	// display results
-
-	
-
 	ofstream outfile;
 
 	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES || co.opt_file )
@@ -213,11 +207,18 @@ void Command_Execute( Command_Options co )
 		outfile.open( co.output_file, ios::out );
 	}
 
+	#ifdef DEBUG
+		cout << "Analysis Parameters before Analyze_Number" << endl;
+		Display_AP( ap );
+	#endif
+
 	if ( co.opt_cont )
 		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile );
 	else
 		results = Analyze_Number( ns, sv, ap );
 
+
+	// analyze number
 
 	if ( ap.number_of_classes_possible <= MAX_SCREEN_CLASSES )
 		Display_Results( results, ap, cout );
@@ -233,6 +234,9 @@ void Command_Execute( Command_Options co )
 
 		}
 
+
+	// display results
+
 	if ( co.opt_file )	// output file exists
 	{
 		ofstream cloutfile( co.output_file, ios::app );
@@ -243,6 +247,7 @@ void Command_Execute( Command_Options co )
 	delete[] results;
 
 	#ifdef DEBUG
+		cout << "Final Analysis Parameters" << endl;
 		Display_AP( ap );
 	#endif
 }
@@ -273,39 +278,36 @@ void Set_Base( Command_Options co, Analysis_Parameters &ap )
 Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap )
 {
 	// default next sequence function pointer
-	Next_Sequence ns = &Get_Bin_Stream_Sequence;
-
-	//Sequence( *Next_Sequence )(Read_Number &rn, int digits);
-	//unsigned int( *Sequence_Value )(Sequence s);
-
-	//Next_Sequence = &Get_Block_Sequence;
-
-	if ( co.next_seq == 1 )
+	Next_Sequence ns = &Get_Block_Sequence;
+	
+	switch ( co.next_seq )
 	{
-		if ( co.opt_stream ) // Stream Sequence
-		{
-			if ( co.opt_hex2bin )
-				//Next_Sequence
-				ns = &Get_Bin_Stream_Sequence;
-			else
-				//Next_Sequence = 
-				ns = &Get_Stream_Sequence;
-		}
-		else 	// Block Sequence
-		{
-			if ( co.opt_hex2bin )
-				//Next_Sequence = 
-				ns = &Get_Bin_Block_Sequence;
-			else
-				//Next_Sequence = 
-				ns = &Get_Block_Sequence;
-		}
+		case 1:
+			if ( co.opt_stream ) // Stream Sequence
+			{
+				if ( co.opt_hex2bin )
+					ns = &Get_Bin_Stream_Sequence;
+				else 
+					ns = &Get_Stream_Sequence;
+			}
+			else 	// Block Sequence
+			{
+				if ( co.opt_hex2bin )
+					ns = &Get_Bin_Block_Sequence;
+				else
+					ns = &Get_Block_Sequence;
+			}
+			break;
 
-	}
-	else
-	{
-		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
-		exit( 1 );
+		// add additional case labels here
+		case 2:
+			//break;
+
+		default:
+			cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
+			exit( 1 );
+			break;
+
 	}
 
 	return ns;
@@ -313,23 +315,27 @@ Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap )
 
 Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap )
 {
-
 	// default sequence value function pointer
 	Sequence_Value sv = &Get_Sequence_Digits_Base;
 
-	if ( co.seq_val == 1 )
+	switch ( co.seq_val )
 	{
-		//Sequence_Value
-		sv = &Get_Sequence_Digits_Base;
-	}
-	else
-	{
-		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
-		exit( 1 );
+		case 1:
+			//Sequence_Value
+			sv = &Get_Sequence_Digits_Base;
+			break;
+
+		// add additional case labels here
+		case 2:
+			//break;
+
+		default:
+			cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
+			exit( 1 );
+			break;
 	}
 
 	return sv;
-
 }
 
 
