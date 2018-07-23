@@ -166,19 +166,28 @@ void Command_Execute( Command_Options co )
 //	if ( co.opt_test )
 //		Full_Testing( co.opt_detail );
 
+	// setup analysis parameters
 	Analysis_Parameters ap;
 	ap.remove_predecimal = co.opt_pre;
 	ap.number_of_digits_to_test = co.digits;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = co.input_file;
 
+	// pointer to store results
+	unsigned long long int *results;			
+	// setup base and number of classes
+	// setup next sequence
+	// setup sequence value
+	// setup output
 
-	// setup different function pointers based on arguments
-	unsigned long long int *results;
+	// analyze number
 
+	// display results
+
+	
 	if ( co.opt_base )
 		G_BASE = co.max_class;
-	//else
+	else
 	{
 		if ( co.opt_hex2bin )
 			G_BASE = 2;
@@ -189,7 +198,7 @@ void Command_Execute( Command_Options co )
 	// set base
 	ap.number_of_classes_possible = (unsigned long long int) pow( G_BASE, ap.max_sequence_size );
 
-	if ( ap.number_of_classes_possible >= 1410065408 )
+	if ( ap.number_of_classes_possible >= 1410065408 )		// number of classes is too large
 	{
 		cout << "Too many classes to support.  Reduce the maximum number of classes to track.";
 		exit( 1 );
