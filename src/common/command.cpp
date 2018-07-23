@@ -206,7 +206,7 @@ void Command_Execute( Command_Options co )
 		if ( !co.opt_file )
 		{
 			co.opt_file = true;
-			co.output_file = "../../logs/tmp.txt";
+			co.output_file = LARGE_CLASS_FILE_LOG;
 			cout << "Results are in file " << co.output_file << " due to large number of classes." << endl;
 		}
 

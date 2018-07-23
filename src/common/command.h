@@ -1,7 +1,9 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#define MAX_SCREEN_CLASSES	16		// maximum number of classes that will be displayed on the screen, file output larger sets
+#define MAX_SCREEN_CLASSES		16						// maximum number of classes that will be displayed on the screen, file output larger sets
+#define LARGE_CLASS_FILE_LOG	"../../logs/tmp.txt"	// store larger output here
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Command Line Arguments
