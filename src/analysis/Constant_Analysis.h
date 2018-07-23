@@ -19,10 +19,13 @@ class Constant_Analysis
 		void Continuous_Analysis_Initial( unsigned long long int *initial_results, ostream &out );
 
 		// This is called based on granularity of full test. Every N Sequences are called here
-		void Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out );
+		// full is all information each time (true),
+		// partial is only significant output to reduce file size (false)
+		void Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out_full, bool full );
 
 		// This is called after all calculations are completed with the final results
 		void Continuous_Analysis_Summary( unsigned long long int *final_results, ostream &out );
+
 
 		private:
 
@@ -32,7 +35,7 @@ class Constant_Analysis
 			double min;
 
 			void Default_Initial( unsigned long long int *initial_results, ostream &out );
-			void Default_Interval( unsigned long long int *initial_results, ostream &out );
+			void Default_Interval( unsigned long long int *initial_results, ostream &out, bool full );
 			void Default_Summary( unsigned long long int *initial_results, ostream &out );
 };
 

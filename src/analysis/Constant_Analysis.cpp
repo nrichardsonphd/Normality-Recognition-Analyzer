@@ -27,9 +27,10 @@ void Constant_Analysis::Continuous_Analysis_Initial( unsigned long long int *ini
 }
 
 // This is called based on granularity of full test. Every N Sequences are called here
-void Constant_Analysis::Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out )
+void Constant_Analysis::Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out, bool full )
 {
-	this->Default_Interval( interval_results, out );
+	this->Default_Interval( interval_results, out, full );
+
 
 	// Add Code Here for each interval result
 	// Update all variables as needed
@@ -60,7 +61,7 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 
 }
 
-void Constant_Analysis::Default_Interval( unsigned long long int *initial_results, ostream &out )
+void Constant_Analysis::Default_Interval( unsigned long long int *initial_results, ostream &out, bool full )
 {
 	double chisq;
 
@@ -76,20 +77,39 @@ void Constant_Analysis::Default_Interval( unsigned long long int *initial_result
 	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
 		sum += initial_results[j];
 	
+	if ( !full && sum == 1 )
+		out << "Digits\t\tMin/Max" << endl;
 	
-	out << sum << "\t";
 	
-	//	out << ap.digits_tested << "\t";
-	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
-		out << initial_results[j] << "\t";
+	if ( full )
+	{
+		out << sum << "\t";
 
-	out << "\t\t";
-	if ( abs( max - chisq ) < .00001 )
-	out << "/\\";
-	if ( abs( min - chisq ) < .00001 )
-	out << "\\/";
+		//	out << ap.digits_tested << "\t";
+		for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
+			out << initial_results[j] << "\t";
 
-	out << chisq;
+		out << "\t\t";
+		
+		if ( abs( max - chisq ) < .00001 )
+			out << "/\\";
+		if ( abs( min - chisq ) < .00001 )
+			out << "\\/";
+		
+		out << chisq << endl;
+	}
+	else if ( abs( max - chisq ) < .00001 || abs( min - chisq ) < .00001 )
+	{
+		out << sum << "\t\t";
+
+		if ( abs( max - chisq ) < .00001 )
+			out << "/\\";
+		if ( abs( min - chisq ) < .00001 )
+			out << "\\/";
+
+		out << chisq << endl;
+	}
+		
 }
 
 void Constant_Analysis::Default_Summary( unsigned long long int *initial_results, ostream &out )
