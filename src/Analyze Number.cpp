@@ -98,7 +98,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 
 
 unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
-														Analysis_Parameters &ap, unsigned int granularity, ostream &out )
+														Analysis_Parameters &ap, unsigned int granularity, ostream &out, bool full )
 {
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
@@ -107,9 +107,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	unsigned long long int* results = new unsigned long long int[ap.number_of_classes_possible];
 	unsigned long long int* tmp_results;
 
-	Constant_Analysis ca_full(ap);
-	Constant_Analysis ca_partial( ap );
-	ofstream partial_out( "../../logs/partial.txt", ios::out );
+	Constant_Analysis ca(ap);
 
 //	unsigned int value;
 	Sequence group;
@@ -131,8 +129,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		rn.Remove_Decimal();
 
 	// Initialize any Analysis
-	ca_full.Continuous_Analysis_Initial( results, out );
-	ca_partial.Continuous_Analysis_Initial( results, partial_out );
+	ca.Continuous_Analysis_Initial( results, out );
 
 	int pct = 0;
 	float tmp;
@@ -150,8 +147,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		delete[] tmp_results;
 
 		// Interval Analysis
-		ca_full.Continuous_Analysis_Interval( results, out, true );
-		ca_partial.Continuous_Analysis_Interval( results, partial_out, false );
+		ca.Continuous_Analysis_Interval( results, out, full );
 
 		// calculate progress
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
@@ -174,15 +170,12 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	// Final Analysis
 	cout << "Analyze Number continuous Summarry" << endl;
-	ca_full.Continuous_Analysis_Summary( results, out );
-	ca_partial.Continuous_Analysis_Summary( results, partial_out );
+	ca.Continuous_Analysis_Summary( results, out );
 
 	// force summary output to screen
 	if ( &cout != &out )
-		ca_full.Continuous_Analysis_Summary( results, cout );
+		ca.Continuous_Analysis_Summary( results, cout );
 
-	partial_out.close();
-	
 	return results;
 }
 
