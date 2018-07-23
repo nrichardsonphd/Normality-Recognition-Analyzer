@@ -6,6 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "File Merger", "File Merger\File Merger.vcxproj", "{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C2D9234-1047-44A7-96C6-0AF06FE84C69}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\analysis.txt = ..\analysis.txt
+		..\AUTHORS.txt = ..\AUTHORS.txt
+		..\buildno.txt = ..\buildno.txt
+		..\LICENSE.txt = ..\LICENSE.txt
+		..\README.txt = ..\README.txt
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Normality Recognition Analyzer", "Normality Recognition Analyzer\Normality Recognition Analyzer.vcxproj", "{A5EAE25D-580A-49C6-A99F-906A926656D1}"
 EndProject
