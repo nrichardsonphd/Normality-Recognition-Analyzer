@@ -66,10 +66,27 @@ struct Command_Options
 
 };
 
+typedef Sequence( *Next_Sequence )(Read_Number &rn, int digits);
+typedef unsigned int( *Sequence_Value )(Sequence s);
+
 void Command_Arguments( int argc, char **argv );
 void Command_Help();
 void Command_Summarry( Command_Options co );
 void Command_Execute( Command_Options co );
+
+
+// setup base and number of classes
+// setup next sequence
+// setup sequence value
+// setup output
+
+// analyze number
+
+// display results
+
+void Set_Base( Command_Options co, Analysis_Parameters &ap );
+Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap );
+Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap );
 
 void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out );
 

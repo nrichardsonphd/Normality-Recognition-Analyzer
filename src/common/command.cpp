@@ -15,7 +15,7 @@ void Command_Help()
 	cout << " -p \t\tremove predecimal" << endl;
 	cout << " -b # \t\tmaximum size of a sequence" << endl;
 	cout << " -c # \t\tmaximum number of classes (set base)" << endl;
-	cout << " -s \t\tstream digits by overlapping blocks" << endl;
+	cout << " -s \t\tstream digits by overlapping bl	ocks" << endl;
 	cout << " -C #\t\tcontiuous testing at intervals of #" << endl;
 	cout << " -f <filename> \tselect input file for test" << endl;
 	cout << " -o <filename> \tselect output file for test" << endl;
@@ -51,11 +51,16 @@ void Command_Arguments( int argc, char **argv )
 	bool in_file = false;// need input file to read
 
 	Command_Options co;
+	#ifdef DEBUG
+		cout << "List Of Command Arguments" << endl;
+	
+		for ( int i = 0; i < argc; ++i )
+			cout << "Command " << i << ":" << argv[i] << endl;
+	#endif
 
 	// parse command arguments
 	for ( int i = 0; i < argc; ++i )
 	{
-		//cout << "Command " << i << ":" << argv[i] << endl;
 
 		if ( argv[i][0] == '-' )
 		{
@@ -149,7 +154,7 @@ void Command_Arguments( int argc, char **argv )
 		}
 
 		#ifdef DEBUG
-		Command_Summarry( co );
+			Command_Summarry( co );
 		#endif
 
 
@@ -174,10 +179,18 @@ void Command_Execute( Command_Options co )
 	ap.filename = co.input_file;
 
 	// pointer to store results
-	unsigned long long int *results;			
+	unsigned long long int *results;	
+
+
 	// setup base and number of classes
+	Set_Base( co, ap );
+	
 	// setup next sequence
+	Next_Sequence ns = Set_Next_Sequence( co, ap );
+
 	// setup sequence value
+	Sequence_Value sv = Set_Sequence_Value( co, ap);
+
 	// setup output
 
 	// analyze number
@@ -185,67 +198,6 @@ void Command_Execute( Command_Options co )
 	// display results
 
 	
-	if ( co.opt_base )
-		G_BASE = co.max_class;
-	else
-	{
-		if ( co.opt_hex2bin )
-			G_BASE = 2;
-		else
-			G_BASE = 10;
-	}
-
-	// set base
-	ap.number_of_classes_possible = (unsigned long long int) pow( G_BASE, ap.max_sequence_size );
-
-	if ( ap.number_of_classes_possible >= 1410065408 )		// number of classes is too large
-	{
-		cout << "Too many classes to support.  Reduce the maximum number of classes to track.";
-		exit( 1 );
-	}
-
-	Sequence( *Next_Sequence )(Read_Number &rn, int digits);
-	unsigned int( *Sequence_Value )(Sequence s);
-
-	// default next sequence function pointer
-	Next_Sequence = &Get_Block_Sequence;
-
-	if ( co.next_seq == 1 )
-	{
-		if ( co.opt_stream ) // Stream Sequence
-		{
-			if ( co.opt_hex2bin )
-				Next_Sequence = &Get_Bin_Stream_Sequence;
-			else
-				Next_Sequence = &Get_Stream_Sequence;
-		}
-		else 	// Block Sequence
-		{
-			if ( co.opt_hex2bin )
-				Next_Sequence = &Get_Bin_Block_Sequence;
-			else
-				Next_Sequence = &Get_Block_Sequence;
-		}
-
-	}
-	else
-	{
-		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
-		exit( 1 );
-	}
-
-	// default sequence value function pointer
-	Sequence_Value = &Get_Sequence_Digits_Base;
-
-	if ( co.seq_val == 1 )
-	{
-		Sequence_Value = &Get_Sequence_Digits_Base;
-	}
-	else
-	{
-		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
-		exit( 1 );
-	}
 
 	ofstream outfile;
 
@@ -262,9 +214,9 @@ void Command_Execute( Command_Options co )
 	}
 
 	if ( co.opt_cont )
-		results = Analyze_Number_Continuously( Next_Sequence, Sequence_Value, ap, co.granularity, outfile );
+		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile );
 	else
-		results = Analyze_Number( Next_Sequence, Sequence_Value, ap );
+		results = Analyze_Number( ns, sv, ap );
 
 
 	if ( ap.number_of_classes_possible <= MAX_SCREEN_CLASSES )
@@ -293,6 +245,91 @@ void Command_Execute( Command_Options co )
 	#ifdef DEBUG
 		Display_AP( ap );
 	#endif
+}
+
+void Set_Base( Command_Options co, Analysis_Parameters &ap )
+{
+	if ( co.opt_base )
+		G_BASE = co.max_class;
+	else
+	{
+		if ( co.opt_hex2bin )
+			G_BASE = 2;
+		else
+			G_BASE = 10;
+	}
+
+	// set base
+	ap.number_of_classes_possible = (unsigned long long int) pow( G_BASE, ap.max_sequence_size );
+
+	if ( ap.number_of_classes_possible >= 1410065408 )		// number of classes is too large
+	{
+		cout << "Too many classes to support.  Reduce the maximum number of classes to track.";
+		exit( 1 );
+	}
+
+}
+
+Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap )
+{
+	// default next sequence function pointer
+	Next_Sequence ns = &Get_Bin_Stream_Sequence;
+
+	//Sequence( *Next_Sequence )(Read_Number &rn, int digits);
+	//unsigned int( *Sequence_Value )(Sequence s);
+
+	//Next_Sequence = &Get_Block_Sequence;
+
+	if ( co.next_seq == 1 )
+	{
+		if ( co.opt_stream ) // Stream Sequence
+		{
+			if ( co.opt_hex2bin )
+				//Next_Sequence
+				ns = &Get_Bin_Stream_Sequence;
+			else
+				//Next_Sequence = 
+				ns = &Get_Stream_Sequence;
+		}
+		else 	// Block Sequence
+		{
+			if ( co.opt_hex2bin )
+				//Next_Sequence = 
+				ns = &Get_Bin_Block_Sequence;
+			else
+				//Next_Sequence = 
+				ns = &Get_Block_Sequence;
+		}
+
+	}
+	else
+	{
+		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
+		exit( 1 );
+	}
+
+	return ns;
+}
+
+Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap )
+{
+
+	// default sequence value function pointer
+	Sequence_Value sv = &Get_Sequence_Digits_Base;
+
+	if ( co.seq_val == 1 )
+	{
+		//Sequence_Value
+		sv = &Get_Sequence_Digits_Base;
+	}
+	else
+	{
+		cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
+		exit( 1 );
+	}
+
+	return sv;
+
 }
 
 
