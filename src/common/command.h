@@ -2,7 +2,7 @@
 #define COMMAND_H
 
 #define MAX_SCREEN_CLASSES		16						// maximum number of classes that will be displayed on the screen, file output larger sets
-#define LARGE_CLASS_FILE_LOG	"../../logs/tmp.txt"	// store larger output here
+#define CONTINUOUS_LOG			"../../logs/tmp.txt"	// store larger output here
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,10 @@ void Set_Base( Command_Options co, Analysis_Parameters &ap );
 Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap );
 Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap );
 
-void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out );
+void Display_Results( Command_Options co, Analysis_Parameters &ap, unsigned long long int *results );
+
+void Display_Results_Full( unsigned long long int *results, Analysis_Parameters &ap, ostream &out );
+void Display_Results_Partial( unsigned long long int *results, Analysis_Parameters &ap, ostream &out );
 
 
 #endif

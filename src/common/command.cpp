@@ -171,17 +171,14 @@ void Command_Execute( Command_Options co )
 //	if ( co.opt_test )
 //		Full_Testing( co.opt_detail );
 
-	// setup analysis parameters
-	Analysis_Parameters ap;
 	// pointer to store results
 	unsigned long long int *results;	
 
 	// setup analysis parameter from command line arguments
-	ap.remove_predecimal = co.opt_pre;
+	Analysis_Parameters ap;ap.remove_predecimal = co.opt_pre;
 	ap.number_of_digits_to_test = co.digits;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = co.input_file;
-
 
 	// setup base and number of classes
 	Set_Base( co, ap );
@@ -192,59 +189,42 @@ void Command_Execute( Command_Options co )
 	// setup sequence value
 	Sequence_Value sv = Set_Sequence_Value( co, ap);
 
-	// setup output
-	ofstream outfile;
-
-	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES || co.opt_file )
-	{
-		if ( !co.opt_file )
-		{
-			co.opt_file = true;
-			co.output_file = LARGE_CLASS_FILE_LOG;
-			cout << "Results are in file " << co.output_file << " due to large number of classes." << endl;
-		}
-
-		outfile.open( co.output_file, ios::out );
-	}
-
+	// analyze number
 	#ifdef DEBUG
 		cout << "Analysis Parameters before Analyze_Number" << endl;
 		Display_AP( ap );
 	#endif
 
+	// run analysis
 	if ( co.opt_cont )
-		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile );
-	else
-		results = Analyze_Number( ns, sv, ap );
+	{
+		// setup output for continuous analysis
+		ofstream outfile;
 
-
-	// analyze number
-
-	if ( ap.number_of_classes_possible <= MAX_SCREEN_CLASSES )
-		Display_Results( results, ap, cout );
-	else
-		if ( co.opt_file )
+		if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES || co.opt_file )
 		{
-			outfile << endl << endl;
-			//outfile << "********************************************************" << endl;
-			outfile << "Final Results" << endl;
-			Display_Results( results, ap, outfile );
-			outfile << endl << endl;
-			outfile.close();
+			if ( !co.opt_file )
+			{
+				co.opt_file = true;
+				co.output_file = CONTINUOUS_LOG;
+				cout << "Continuous results are in file " << co.output_file << " due to large number of classes." << endl;
+			}
 
+			outfile.open( co.output_file, ios::out );
 		}
 
-
-	// display results
-
-	if ( co.opt_file )	// output file exists
+		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile );
+		outfile.close();
+	}
+	else
 	{
-		ofstream cloutfile( co.output_file, ios::app );
-		Display_Results( results, ap, cloutfile );
-		cloutfile.close();
+		results = Analyze_Number( ns, sv, ap );
 	}
 
-	delete[] results;
+	// display results
+	Display_Results( co, ap, results );
+	
+	delete[] results;			// clean up memory
 
 	#ifdef DEBUG
 		cout << "Final Analysis Parameters" << endl;
@@ -339,7 +319,29 @@ Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap )
 }
 
 
-void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )
+void Display_Results( Command_Options co, Analysis_Parameters &ap, unsigned long long int *results )
+{
+
+
+	// display to screen only small results
+	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES )
+		Display_Results_Full( results, ap, cout );				// summary of result
+	else
+		Display_Results_Partial( results, ap, cout );			// partial results sent to screen
+
+																// output final results to file
+	if ( co.opt_file )
+	{
+		ofstream result_file;
+
+		cout << "Full results are in file " << co.output_file << "." << endl;
+		result_file.open( co.output_file, ios::out );
+		Display_Results_Full( results, ap, result_file );
+		result_file.close();
+	}
+}
+
+void Display_Results_Full( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )
 {
 	unsigned long long int sum = 0;
 
@@ -371,4 +373,12 @@ void Display_Results( unsigned long long int *results, Analysis_Parameters &ap, 
 	out << endl;
 
 
+}
+
+void Display_Results_Partial( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )
+{
+	Analyze_List al;
+	al.Set_List( results, ap.number_of_classes_possible );
+
+	cout << "Digits: " << al.Sum() << "\tChi-Squared: " << al.Chi_Squared() << endl;
 }
