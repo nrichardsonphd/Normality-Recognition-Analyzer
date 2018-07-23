@@ -33,6 +33,7 @@
 // -q <filename>		quiet summary, only digits and X^2, no class values
 //
 // -C #		Continuous Testing, # is for granularity
+// -F		select full results for continuous testing, default is only important results
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
@@ -51,7 +52,8 @@ struct Command_Options
 		opt_base = false,		// manually specify base of file
 		opt_stream = false,		// block v stream
 		opt_hex2bin = false,	// convert hexadecimal file to binary input
-		opt_summary = false;	// output a summary file
+		opt_summary = false,	// output a summary file
+		opt_full = false;		// select to record full results
 
 	int next_seq = 1;
 	int seq_val = 1;

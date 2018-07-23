@@ -104,6 +104,10 @@ void Command_Arguments( int argc, char **argv )
 					co.granularity = atoi( argv[++i] );
 					break;
 
+				case 'F':
+					co.opt_full = true;
+					break;
+
 				case 'N':			// select Next Sequence
 					co.next_seq = atoi( argv[++i] );
 					break;
@@ -207,7 +211,7 @@ void Command_Execute( Command_Options co )
 			outfile.open( CONTINUOUS_LOG, ios::out );
 		}
 
-		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile );
+		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile, co.opt_full );
 		outfile.close();
 	}
 	else
@@ -316,7 +320,7 @@ Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap )
 void Display_Results( Command_Options co, Analysis_Parameters &ap, unsigned long long int *results )
 {
 	// display to screen only small results
-	if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES )
+	if ( ap.number_of_classes_possible < MAX_SCREEN_CLASSES )
 		Display_Results_Full( results, ap, cout );				// summary of result
 	else
 		Display_Results_Partial( results, ap, cout );			// partial results sent to screen
