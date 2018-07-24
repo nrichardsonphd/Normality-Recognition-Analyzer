@@ -7,6 +7,15 @@ using namespace std;
 #include "Analyze_List.h"
 #include "analysis_parameters.h"
 
+// Place function in this file to be called during continuous analysis
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// This class is designed to be editted by the user.  Any variables needed can be stored here
+// as necessary.  The functions Initial, Interval, and Summary will be called when performing
+// continuous analysis on user determined intervals
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 class Constant_Analysis
 {
 	public:
@@ -26,6 +35,8 @@ class Constant_Analysis
 		// This is called after all calculations are completed with the final results
 		void Continuous_Analysis_Summary( unsigned long long int *final_results, ostream &out );
 
+		// calculate all results and display one line
+		void Result( unsigned long long int *final_results, ostream &out  );
 
 		private:
 
@@ -34,6 +45,9 @@ class Constant_Analysis
 			double max;
 			double min;
 
+			double max_chi;
+			double min_chi;
+
 			void Default_Initial( unsigned long long int *initial_results, ostream &out );
 			void Default_Interval( unsigned long long int *initial_results, ostream &out, bool full );
 			void Default_Summary( unsigned long long int *initial_results, ostream &out );
@@ -41,25 +55,3 @@ class Constant_Analysis
 
 
 #endif
-// Place function in this file to be called during continuous analysis
-/*
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// This class is designed to be editted by the user.  Any variables needed can be stored here
-// as necessary.  The functions Initial, Interval, and Summary will be called when performing
-// continuous analysis on user determined intervals
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Constant_Analysis
-{
-	public:
-//	Constant_Analysis();
-	//Constant_Analysis( unsigned int maximum_number_classes );
-
-	~Constant_Analysis();
-
-
-};
-
-*/
