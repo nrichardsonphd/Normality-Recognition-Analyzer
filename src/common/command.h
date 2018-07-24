@@ -3,36 +3,37 @@
 
 #define MAX_SCREEN_CLASSES		16								// maximum number of classes that will be displayed on the screen, file output larger sets
 
-#define CONTINUOUS_LOG			"../../logs/continuous.txt"		// store larger output here during continuous output
-#define FULL_LOG				"../../logs/full.txt"
+#define CONTINUOUS_LOG			"../../logs/continuous.txt"		// only for continuous output to file
+#define FULL_LOG				"../../logs/full.txt"			// full output file name
+#define RUN_LOG					"../../logs/summary.txt"		// summary output file name
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Command Line Arguments
 // This is a rough setup, no combining arguments
 // Only use known sequence functions
-// 
-// nra.exe -t -T -N 2 -V 2 -p -s 5 -b 8 -f ../../data/Pi1K-dec.txt -r tmp.out
 //
-// -t					Run all tests to ensure program is correct (quiet)
-// -T					same as -t except detailed
+// nra.exe -{hrsF} -{NVdbcC} # -f <input file> -o <full file output> -q <summary file>
+// nra.exe -N 2 -V 2 -s 5 -b 8 -f ../../data/Pi1K-dec.txt -r tmp.out
 //
 // -N #					Select numbered Next Sequence
-//						1. Digit blocks
-//							2.
+//							1. Digit blocks
+//							2. Random (not implemented)
+//							3. etc ...	These are to be expanded by user research
 //
 // -V #					Select numbered Sequence Value
-//							1. Number value
-//							2. 
+//							1. Number Value
+//							2. Poker Value (not implemented)
+//							3. etc ...	These are to be expanded by user research
 //
-// -h					hexadecimal input file, converted to binary on the fly
-// -d #					Number of digits to test ( binary or decimal )
 // -r					remove predecimal
-// -b #					size of each sequence
+// -h					hexadecimal input file, converted to binary on the fly
 // -s					stream digits with overlapping blocks (nonoverlapping is default)
-// -c #					number of classes ( default is 2^n (hex) or 10^n(dec) where n is size of sequence )
-//
-// -C #					Continuous Testing, # is for granularity how often to calculate results
 // -F					select full results for continuous testing, default is only important results
+//
+// -d #					Number of digits to test ( binary or decimal )
+// -b #					size of each sequence
+// -c #					number of classes ( default is 2^n (hex) or 10^n(dec) where n is size of sequence )
+// -C #					Continuous Testing, # is for granularity how often to calculate results
 //
 // -f <filename>		select input file for test
 // -o <filename>		select output file for test

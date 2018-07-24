@@ -68,69 +68,62 @@ void Command_Arguments( int argc, char **argv )
 
 			switch ( argv[i][1] )
 			{
-				case 'T':			// detailed test
-					co.opt_test = true;
-					co.opt_detail = true;
-					break;
-
-				case 't':			// quiet output
-					co.opt_detail = false;
-					co.opt_test = true;
-					break;
-
-				case 'r':			// remove pre decimal
+				// Flag options
+				case 'r':										// remove pre decimal
 					co.opt_pre = true;
 					break;
 
-				case 's':
+				case 's':										// stream input with overlapping blocks
 					co.opt_stream = true;
 					break;
 
-				case 'd':			// number of digits to test
+				case 'F':										// full output, files may get large
+					co.opt_full = true;
+					break;
+
+				case 'h':										// treat input file is hexadecimal and convert to binary on the fly
+					co.opt_hex2bin = true;
+					break;
+
+				// options with required number
+				case 'd':										// number of digits to test
 					co.digits = atoi( argv[++i] );
 					break;
 
-				case 'b':			// select maximum size of blocks
+				case 'b':										// select size of blocks, if variable must be maximum size
 					co.block_size = atoi( argv[++i] );
 					break;
 
-				case 'c':
+				case 'c':										// select the number of possible classed, default is the base
 					co.max_class = atoi( argv[++i] );
 					co.opt_base = true;
 					break;
 
-				case 'C':			// continuous 
+				case 'C':										// continuous testing on interval
 					co.opt_cont = true;
 					co.granularity = atoi( argv[++i] );
 					break;
 
-				case 'F':
-					co.opt_full = true;
-					break;
-
-				case 'N':			// select Next Sequence
+				case 'N':										// select Next Sequence function
 					co.next_seq = atoi( argv[++i] );
 					break;
 
-				case 'V':			// select Sequence Value
+				case 'V':										// select Sequence Value function
 					co.seq_val = atoi( argv[++i] );
 					break;
 
-				case 'h':
-					co.opt_hex2bin = true;
-					break;
-
-				case 'f':
+				// specify file output
+				case 'f':										// input file (required)
 					co.input_file = argv[++i];
 					in_file = true;
 					break;
 
-				case 'o':
+				case 'o':										// full output file
 					co.opt_file = true;
 					co.output_file = argv[++i];
 					break;
 
-				case 'q':
+				case 'q':										// summary output file
 					co.opt_summary = true;
 					co.summary_file = argv[++i];
 					break;
@@ -147,6 +140,8 @@ void Command_Arguments( int argc, char **argv )
 		// go to cams menu setup
 		cout << "Menu not implemented, use command line arguments" << endl;
 		Command_Help();
+		co.opt_test = true;
+		co.opt_detail = true;
 	}
 	else
 	{
@@ -172,8 +167,11 @@ void Command_Arguments( int argc, char **argv )
 void Command_Execute( Command_Options co )
 {
 	// check testing parameters
-//	if ( co.opt_test )
-//		Full_Testing( co.opt_detail );
+	if ( co.opt_test )
+	{
+		//Full_Testing( co.opt_detail );
+		return;
+	}
 
 	// pointer to store results
 	unsigned long long int *results;	
