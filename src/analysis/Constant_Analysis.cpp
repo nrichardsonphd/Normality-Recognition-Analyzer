@@ -129,3 +129,59 @@ void Constant_Analysis::Default_Summary( unsigned long long int *initial_results
 	out << "Final X^2 on " << this->ap->digits_tested << " digits with " << this->ap->number_of_digits_to_test << " sequences is " << chisq << endl;
 	out << endl;
 }
+
+void Constant_Analysis::Display_Full_Result( unsigned long long int *results, ostream &out, bool class_list )
+{
+	this->Display_Summary( results, out );
+	
+	// show variance after standard deviation
+	out << "Variance: " << al.Variance() << " ";
+
+	// find minimum classes
+	out << "Minimum classes: { ";
+	unsigned long long int min = this->al.Min();
+	for ( unsigned long long int i = 0; i < this->ap->number_of_classes_possible; ++i )
+		if ( results[i] == min )
+			out << i << " ";
+	out << "} ";
+
+	// find maximum classes
+	out << "Maximum classes: { ";
+	unsigned long long int max = this->al.Max();
+	for ( unsigned long long int i = 0; i < this->ap->number_of_classes_possible; ++i )
+		if ( results[i] == max )
+			out << i << " ";
+	out << "} ";
+
+	// range and midrange
+	out << "Midrange: " << this->al.Mid_Range() << "Range: " << this->al.Range();
+
+	// display class results
+	if ( class_list )
+	{
+		out << "Class List: { ";
+		for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
+			out << results[j] << "\t";
+		out << "}";
+	}
+
+	out << endl;
+}
+
+void Constant_Analysis::Display_Summary_Result( unsigned long long int *results, ostream &out )
+{
+	this->Display_Summary( results, out );
+	out << endl;
+}
+
+// private
+void Constant_Analysis::Display_Summary( unsigned long long int *results, ostream &out )
+{
+	al.Set_List( results, this->ap->number_of_classes_possible );
+
+	// Format of important data
+	// Digits X^2 Min Max Mean StdDev
+	out << "Digits: " << this->ap->digits_tested << "X^2: " << al.Chi_Squared() << "Minimum: " << al.Min() << "Maximum: " << al.Max()
+		<< "Mean: " << al.Mean() << "Standard Deviation: " << al.Standard_Deviation();
+
+}

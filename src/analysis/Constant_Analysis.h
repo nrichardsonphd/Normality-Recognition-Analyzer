@@ -46,9 +46,16 @@ class Constant_Analysis
 		// Full displays all calculated information including size of each class
 		// Summary only displays important data such as digits and chi squared only (saves memory)
 		/////////////////////////////////////////////////////////////////////////
+		
 		// calculate all results and display one line
-		void Display_Full_Result( unsigned long long int *final_results, ostream &out  );
+		// class_list TRUE: display class totals
+		void Display_Full_Result( unsigned long long int *final_results, ostream &out, bool class_list  );
+		
+		// show only important results, remove all extra data
+		// summary does not go to next line in output
 		void Display_Summary_Result( unsigned long long int *final_results, ostream &out );
+		
+
 		private:
 
 			Analyze_List al;
@@ -59,9 +66,15 @@ class Constant_Analysis
 			double max_chi;
 			double min_chi;
 
+			// these are for continuous analysis only
 			void Default_Initial( unsigned long long int *initial_results, ostream &out );
 			void Default_Interval( unsigned long long int *initial_results, ostream &out, bool full );
 			void Default_Summary( unsigned long long int *initial_results, ostream &out );
+
+			// this is for 1 record to display
+			void Display_Summary( unsigned long long int *initial_results, ostream &out );
+
+
 };
 
 
