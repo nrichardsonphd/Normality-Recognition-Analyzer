@@ -243,10 +243,13 @@ void Set_Base( Command_Options co, Analysis_Parameters &ap )
 	// set base
 	ap.number_of_classes_possible = (unsigned long long int) pow( G_BASE, ap.max_sequence_size );
 
-	if ( ap.number_of_classes_possible >= 1410065408 || ( co.opt_hex2bin && ap.max_sequence_size > MAX_BINARY ) || ( !co.opt_hex2bin & ap.max_sequence_size > MAX_DECIMAL) )		// number of classes is too large
+	if	( ap.number_of_classes_possible >= 1410065408 || ap.max_sequence_size > MAX_SEQUENCE_SIZE ||							// number of classes is too large
+		( co.opt_hex2bin && ap.max_sequence_size > MAX_BINARY ) || ( !co.opt_hex2bin & ap.max_sequence_size > MAX_DECIMAL)  )	// limits for binary and decimal size	
 	{
-		cout << ap.number_of_classes_possible << " is too many classes to support.  Reduce the maximum number of classes to track.";
-		cout << "A maximum of " << MAX_DECIMAL << " classes for decimal files and " << MAX_BINARY << " classes for hexadecimal to binary files" << endl;
+		cout << "ERROR: Too many classes for the size of the sequence." << endl;
+		cout << ap.number_of_classes_possible << " is too many classes to support.  Reduce the maximum number of classes or maximum sequence size to fix." << endl;
+		cout << "The maximum size of the sequence is " << ap.max_sequence_size << " and must be less than " << MAX_SEQUENCE_SIZE << endl;
+		cout << "A maximum sequence size of " << MAX_DECIMAL << " for decimal files and " << MAX_BINARY << " for hexadecimal to binary files." << endl;
 		exit( 1 );
 	}
 
