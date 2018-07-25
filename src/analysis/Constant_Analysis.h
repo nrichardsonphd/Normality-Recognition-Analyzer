@@ -23,6 +23,12 @@ class Constant_Analysis
 		Constant_Analysis( Analysis_Parameters &ap );
 		~Constant_Analysis();
 
+		//////////////////////////////////////////////////////////////////////////
+		// These 3 functions are used for continuous analysis
+		// That is all numbers 1, 2, ... N are called and results are calculated each time
+		// Useful for creating a graph of the prefix decimal and noting important digit count prefixes
+		// such as max/min or turning points on a graph.
+		/////////////////////////////////////////////////////////////////////////
 		// Initialize continuous analaysis
 		// This is called after the 1st sequence is started
 		void Continuous_Analysis_Initial( unsigned long long int *initial_results, ostream &out );
@@ -35,9 +41,14 @@ class Constant_Analysis
 		// This is called after all calculations are completed with the final results
 		void Continuous_Analysis_Summary( unsigned long long int *final_results, ostream &out );
 
+		/////////////////////////////////////////////////////////////////////////
+		// These functions are for displaying a single result
+		// Full displays all calculated information including size of each class
+		// Summary only displays important data such as digits and chi squared only (saves memory)
+		/////////////////////////////////////////////////////////////////////////
 		// calculate all results and display one line
-		void Result( unsigned long long int *final_results, ostream &out  );
-
+		void Display_Full_Result( unsigned long long int *final_results, ostream &out  );
+		void Display_Summary_Result( unsigned long long int *final_results, ostream &out );
 		private:
 
 			Analyze_List al;
