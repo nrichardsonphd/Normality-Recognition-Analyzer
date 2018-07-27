@@ -16,11 +16,13 @@
 // nra.exe -N 2 -V 2 -s 5 -b 8 -f ../../data/Pi1K-dec.txt -r tmp.out
 //
 // -N #					Select numbered Next Sequence
+//							0. Custom (user implemented CUSTOM_NEXT_SEQUENCE()
 //							1. Digit blocks
 //							2. Random (not implemented)
 //							3. etc ...	These are to be expanded by user research
 //
 // -V #					Select numbered Sequence Value
+//							0. Custom (user implemented) CUSTOM_SEQUENCE_VALUE()
 //							1. Number Value
 //							2. Poker Value (not implemented)
 //							3. etc ...	These are to be expanded by user research
