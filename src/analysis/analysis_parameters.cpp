@@ -4,7 +4,8 @@
 
 void Default_Parameters( Analysis_Parameters &ap )
 {
-	//int base = 10;															///< base number to be tested, usually decimal or Hex tp binary
+	// test vc++ commit
+	//int base = 10;		 													///< base number to be tested, usually decimal or Hex tp binary
 //	ap.max_digits = 1000;												///< number of digits to test, truncated, original base
 	ap.digits_tested = 0;												///< used to keep track of how many digits tested in sequences, calculate by #sequences * size of sequence - skipped
 	ap.remove_predecimal = true;											///< bypass any digits before the decimal ****.start
