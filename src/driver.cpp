@@ -3,6 +3,12 @@
 /// Normality Recognition Analyzer
 /// \author Dr. Nicholas Richardson
 
+
+/// Default Testing Parameters
+/// Place in Project Properpties -> Debug -> Command Arguments
+/// -d 1000000 -b 1 -C 1 -f ../../data/Pi-dec-1M.txt -o ../../logs/debug.txt -q ../../logs/summary.txt
+
+
 #define _CRT_SECURE_NO_WARNINGS
 
 
@@ -52,8 +58,40 @@ int main( int argc, char **argv)
 	cout << "Start Time: " << ctime(&start) << endl;
 	
 	// command line arguments
-	Command_Arguments( argc, argv );
+	#ifdef TESTING
+		cout << "Testing Mode" << endl;
+		Command_Options co;
+		co.opt_pre = true;									// remove pre decimal
+		co.opt_stream = true;								// stream overlapping blocks
+		co.opt_full = false;								// full output, file may get large
+		co.opt_hex2bin = false;								// treat hexadecimal file as binary, convert on fly
+		co.digits = 1000;									// number of digits to test
+		co.block_size = 1;									// select size of block, maximum if using variable sizes
+		co.max_class = 10;									// number of possible classifications, (default base)
+		co.opt_base = true;
+
+		co.opt_cont = true;									// continuous testing on interval
+		co.granularity = 1;
+		
+		co.next_seq = 1;									// select next sequence function 1. 2. 3.?
+		co.seq_val = 1;										// select sequence value function 1. 2. 3.?
 	
+		co.input_file = "../../data/pi1k-dec.txt";			// input file (required)
+	
+
+		co.output_file = "../../results/pi1k-dec-full.txt";		// output file
+		co.opt_file = true;
+		
+		co.opt_summary = true;
+		co.summary_file = "../../results/pi1k-dec-sum.txt";		// summary output file
+
+		Command_Summarry(co);
+		Command_Execute(co);
+		
+	#else
+		Command_Arguments( argc, argv );
+	#endif
+
 	// end of program
 	time_t end = time( nullptr );
 

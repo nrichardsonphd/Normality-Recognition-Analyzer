@@ -177,7 +177,9 @@ void Command_Execute( Command_Options co )
 	unsigned long long int *results;	
 
 	// setup analysis parameter from command line arguments
-	Analysis_Parameters ap;ap.remove_predecimal = co.opt_pre;
+	Analysis_Parameters ap;
+	
+	ap.remove_predecimal = co.opt_pre;
 	ap.number_of_digits_to_test = co.digits;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = co.input_file;

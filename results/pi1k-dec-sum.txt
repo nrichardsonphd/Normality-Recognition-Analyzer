@@ -1,0 +1,3 @@
+Digits: 1000	Chi-Squared: 4397.62
+Digits: 1000	Chi-Squared: 4397.62
+Digits: 1000	Chi-Squared: 4.74
