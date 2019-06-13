@@ -21,8 +21,8 @@ using namespace std;
 
 #define SUMMARY						"../../logs/summary.txt"
 #define FULL_ANALYSIS				"../../logs/full.txt"
-#define GLOBAL_MAX_MIN				"../../logs/global_max_min.txt"
-#define LOCAL_MAX_MIN				"../../logs/local_max_min.txt"
+#define FINAL_ANALYSIS				"../../logs/final.txt"
+
 
 // Discrete analysis
 // analyze for N digits and gives results

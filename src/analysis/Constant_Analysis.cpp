@@ -90,27 +90,24 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 {
 	out << "Initial Results Default Setup" << endl;
 
-	if (this->digit_count)
-		out << "Digits\t";
+	out << "Digits\tX^2\t";
 	
-	out << "X^2\t";
-	
-	if (this->digit_count)
-	{
-		for (unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i)
-			out << i << "\t";
-		
-	}
+
 
 	
 	if (this->globals)
-		out << "\t\t/\\\\/";
+		out << "/\\\\/\t";	
 	
-	out << endl;
-
+	if (this->digit_count || this->digit_differential)
+	{
+		out << "\t";
+		for (unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i)
+			out << i << "\t";
+		out << endl;	
+	}
 	if (this->digit_differential)
 	{
-		out << "\tE(X)+-\t";
+		out << "\t\t\tE(X)+-\t";
 		for (unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i)
 			out << ".\t";
 		out << endl;
@@ -147,10 +144,7 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 
 	out << this->ap->digits_tested << "\t" << chisq << "\t";
 	
-	// display digit counts
-	if (this->digit_count)
-		for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)
-			out << initial_results[j] << "\t";
+	
 
 	// global minimum and maximum
 	if (this->globals)
@@ -168,8 +162,6 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 			this->new_mins++;
 			this->min_chi = chisq;
 		}
-
-		out << "\t\t";
 
 		if (abs(max_chi - chisq) < .00001)
 			out << "/\\";
@@ -198,15 +190,27 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 
 		this->last_chi = this->current_chi;
 		this->current_chi = this->next_chi;
+		out << "\t";
 	}
 
-	out << endl;
+	// display digit counts
+	if (this->digit_count)
+	{
+		out << "\t";
+		for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)
+			out << initial_results[j] << "\t";
+		out << endl;
+	}
+	
+	
+	if (this->digit_count && this->digit_differential)
+		out << "\t\t\t";
 
 	// display differentials from expected
-	if (this->digit_differential && false)
+	if (this->digit_differential )
 	{
 		long long int expected = floor(this->ap->digits_tested / this->ap->number_of_classes_possible);
-		out << "\t" << expected << "\t";
+		out << expected << "\t";
 		
 		for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)
 		{
