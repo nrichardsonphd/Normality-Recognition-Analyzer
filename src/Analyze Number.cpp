@@ -98,16 +98,32 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 
 
 unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
-														Analysis_Parameters &ap, unsigned int granularity, ostream &out, bool full )
+														Analysis_Parameters &ap, unsigned int granularity )
 {
+	ofstream summary_output, full_output, global_output, local_output;
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
+
+	summary_output.open(SUMMARY, ios::out);
+	full_output.open(FULL_ANALYSIS, ios::out);
+	global_output.open(GLOBAL_MAX_MIN, ios::out);
+	local_output.open(LOCAL_MAX_MIN, ios::out);
+
+	if (!full_output || !global_output || !local_output)
+	{
+		cout << "Error creating log files." << endl;
+		exit(1);
+	}
 
 	Analyze_List al;
 	unsigned long long int* results = new unsigned long long int[ap.number_of_classes_possible];
 	unsigned long long int* tmp_results;
 
-	Constant_Analysis ca(ap);
+	Constant_Analysis ca_screen(ap);
+	Constant_Analysis ca_summary(ap);
+	Constant_Analysis ca_full(ap);
+	Constant_Analysis ca_global(ap);
+	Constant_Analysis ca_local(ap);
 
 //	unsigned int value;
 	Sequence group;
@@ -129,7 +145,14 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		rn.Remove_Decimal();
 
 	// Initialize any Analysis
-	ca.Continuous_Analysis_Initial( results, out );
+
+	//***ca.Continuous_Analysis_Initial( results, out );
+	//ca.Continuous_Analysis_Initial(results, full_output);
+	ca_full.Output_Setup(true, true, true, true, true);
+
+
+	ca_full.Continuous_Analysis_Initial(results, full_output);
+
 
 	int pct = 0;
 	float tmp;
@@ -147,9 +170,10 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		delete[] tmp_results;
 
 		// Interval Analysis
-		ca.Continuous_Analysis_Interval( results, out, full );
+		//***ca.Continuous_Analysis_Interval( results, out );
+		ca_full.Continuous_Analysis_Interval(results, full_output );
 
-		// calculate progress
+		// calculate progress (percentage only)
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
 
 		if ( pct + 1 < ap.max_sequence_size * tmp )
@@ -165,16 +189,20 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 				cout << "...";
 		}
 
-		//cout << endl;
+		
 	}
 
 	// Final Analysis
+	cout << "100% complete" << endl << endl;
 	cout << "Analyze Number continuous Summarry" << endl;
-	ca.Continuous_Analysis_Summary( results, out );
+	//****ca.Continuous_Analysis_Summary( results, out );
+	ca_full.Continuous_Analysis_Summary(results, full_output);
+	
 
-	// force summary output to screen
-	if ( &cout != &out )
-		ca.Continuous_Analysis_Summary( results, cout );
+	summary_output.close();
+	full_output.close();
+	global_output.close();
+	local_output.close();
 
 	return results;
 }

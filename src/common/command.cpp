@@ -36,10 +36,10 @@ void Command_Summarry( Command_Options co )
 		cout << "\tBlock Size: " << co.block_size << endl;
 
 		cout << "\tInput File: " << co.input_file << endl;
-		cout << "\tOutput File: " << ((co.opt_file) ? "TRUE" : "FALSE") << endl;
-		cout << "\tOutput File: " << co.output_file << endl;
-		cout << "\tSummary File: " << ((co.opt_summary) ? "TRUE" : "FALSE") << endl;
-		cout << "\tSummary File: " << co.summary_file << endl;
+	//	cout << "\tOutput File: " << ((co.opt_file) ? "TRUE" : "FALSE") << endl;
+	//	cout << "\tOutput File: " << co.output_file << endl;
+	//	cout << "\tSummary File: " << ((co.opt_summary) ? "TRUE" : "FALSE") << endl;
+	//	cout << "\tSummary File: " << co.summary_file << endl;
 	#endif
 
 }
@@ -78,7 +78,7 @@ void Command_Arguments( int argc, char **argv )
 					break;
 
 				case 'F':										// full output, files may get large
-					co.opt_full = true;
+				//	co.opt_full = true;
 					break;
 
 				case 'h':										// treat input file is hexadecimal and convert to binary on the fly
@@ -119,13 +119,13 @@ void Command_Arguments( int argc, char **argv )
 					break;
 
 				case 'o':										// full output file
-					co.opt_file = true;
-					co.output_file = argv[++i];
+					//co.opt_file = true;
+				//	co.output_file = argv[++i];
 					break;
 
 				case 'q':										// summary output file
-					co.opt_summary = true;
-					co.summary_file = argv[++i];
+					//co.opt_summary = true;
+					//co.summary_file = argv[++i];
 					break;
 
 
@@ -163,16 +163,18 @@ void Command_Arguments( int argc, char **argv )
 	}
 }
 
-
+// Take command options and run program
 void Command_Execute( Command_Options co )
 {
+	
 	// check testing parameters
 	if ( co.opt_test )
 	{
+		cout << "Testing Data Not Set up currently" << endl;
 		//Full_Testing( co.opt_detail );
 		return;
 	}
-
+	
 	// pointer to store results
 	unsigned long long int *results;	
 
@@ -198,36 +200,40 @@ void Command_Execute( Command_Options co )
 		cout << "Analysis Parameters before Analyze_Number" << endl;
 		Display_AP( ap );
 	#endif
-
+	
 	// run analysis
 	if ( co.opt_cont )
 	{
+		cout << "Continuous Testing: All digit counts from 1 to " << co.digits << " will be tested on an interval of every " << co.granularity << " digits." << endl;
+		
 		// setup output for continuous analysis
 		ofstream outfile;
 
-		if ( ap.number_of_classes_possible > MAX_SCREEN_CLASSES || co.opt_file )
-		{	
-			cout << "Continuous results are in file " << CONTINUOUS_LOG << " due to large number of classes." << endl;
-			outfile.open( CONTINUOUS_LOG, ios::out );
+		if (ap.number_of_classes_possible > MAX_SCREEN_CLASSES)
+		{
+			cout << "Warning: Output may become very large.  The maximum number of classes that can be displayed onscreen is " << MAX_SCREEN_CLASSES << endl;
+			cout << "Class Output will be recorded to file, no class output on screen." << endl;
 		}
 
-		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity, outfile, co.opt_full );
+		//if ( co.opt_file )
+		{	
+		//	outfile.open( CONTINUOUS_LOG, ios::out );
+		}
+
+		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity );
 		outfile.close();
 	}
 	else
 	{
 		results = Analyze_Number( ns, sv, ap );
 	}
-
+	
 	// display results
 	Display_Results( co, ap, results );
 	
 	delete[] results;			// clean up memory
 
-	#ifdef DEBUG
-		cout << "Final Analysis Parameters" << endl;
-		Display_AP( ap );
-	#endif
+
 }
 
 void Set_Base( Command_Options co, Analysis_Parameters &ap )
@@ -330,25 +336,6 @@ void Display_Results( Command_Options co, Analysis_Parameters &ap, unsigned long
 		Display_Results_Partial( results, ap, cout );			// partial results sent to screen
 
 																// output final results to file
-	if ( co.opt_file )
-	{
-		ofstream result_file;
-
-		cout << "Full results are in file " << co.output_file << "." << endl;
-		result_file.open( co.output_file, ios::out );
-		Display_Results_Full( results, ap, result_file );
-		result_file.close();
-	}
-
-	if ( co.opt_summary )
-	{
-		ofstream result_file;
-
-		cout << "Summary results are in file " << co.summary_file<< "." << endl;
-		result_file.open( co.summary_file, ios::app );
-		Display_Results_Partial( results, ap, result_file );
-		result_file.close();
-	}
 }
 
 void Display_Results_Full( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )

@@ -55,12 +55,12 @@ struct Command_Options
 		opt_detail = false,		// detailed testing
 		opt_pre = false,		// remove pre-decimal
 		opt_cont = false,		// continuous testing
-		opt_file = false,		// file output
 		opt_base = false,		// manually specify base of file
 		opt_stream = false,		// block v stream
-		opt_hex2bin = false,	// convert hexadecimal file to binary input
-		opt_summary = false,	// output a summary file
-		opt_full = false;		// select to record full results
+		opt_hex2bin = false;	// convert hexadecimal file to binary input
+		//opt_file = false,		// file output
+		//opt_summary = false,	// output a summary file
+		//opt_full = false;		// select to record full results
 
 	int next_seq = 1;
 	int seq_val = 1;
@@ -71,8 +71,8 @@ struct Command_Options
 
 	// files
 	string input_file = "default.in";
-	string output_file = "constant_analyzer.out";
-	string summary_file = "summary.out.compressed";
+	//string output_file = "constant_analyzer.out";
+	//string summary_file = "summary.out.compressed";
 
 
 };

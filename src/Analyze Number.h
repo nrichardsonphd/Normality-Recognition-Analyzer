@@ -19,6 +19,11 @@ using namespace std;
 #define MIN_PROGRESS_DISPLAY		1000000
 #define PROGRESS_MARKERS			1000
 
+#define SUMMARY						"../../logs/summary.txt"
+#define FULL_ANALYSIS				"../../logs/full.txt"
+#define GLOBAL_MAX_MIN				"../../logs/global_max_min.txt"
+#define LOCAL_MAX_MIN				"../../logs/local_max_min.txt"
+
 // Discrete analysis
 // analyze for N digits and gives results
 // results are returned as an array, Each class value 0,1,2,..., N holds the number of sequences found in that class
@@ -30,12 +35,11 @@ unsigned long long int *Analyze_Number( Sequence ( *Next_Sequence )(Read_Number 
 
 // Continuous analysis
 // analyze every n (n>=1) digits and give results until N digits
-unsigned long long int * Analyze_Number_Continuously( Sequence( *Next_Sequence )(Read_Number &rn, int digits),		// return sequence of numbers for next group
-														unsigned int( *Sequence_Value )(Sequence s),				// return value of sequence
-														Analysis_Parameters &ap, 									// stores various parameters about numbers and analysis
-														unsigned int granularity, 									// how often to calculate results, only new max/min are displayed
-														ostream &out, 												// output for logfile
-														bool full );												// show all results (true) or only important results (false)
+unsigned long long int* Analyze_Number_Continuously(	Sequence(*Next_Sequence)(Read_Number& rn, int digits),				// return sequence of numbers for next group
+														unsigned int(*Sequence_Value)(Sequence s),							// return value of sequence
+														Analysis_Parameters& ap, 											// stores various parameters about numbers and analysis
+														unsigned int granularity); 											// how often to calculate results, only new max/min are displayed
+
 
 unsigned long long int *Get_Next_Set_Of_Sequences(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), 
 													unsigned int( *Sequence_Value )(Sequence s), 

@@ -7,7 +7,16 @@ using namespace std;
 #include "Analyze_List.h"
 #include "analysis_parameters.h"
 
+// Maximum Values
+#define MAX_SCREEN_CLASSES		20
+#define MAX_INTERVAL_CLASSES	1000
+#define MAX_TOTAL_CLASSES		100000
+
+
 // Place function in this file to be called during continuous analysis
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +45,7 @@ class Constant_Analysis
 		// This is called based on granularity of full test. Every N Sequences are called here
 		// full is all information each time (true),
 		// partial is only significant output to reduce file size (false)
-		void Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out_full, bool full );
+		void Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out_full );
 
 		// This is called after all calculations are completed with the final results
 		void Continuous_Analysis_Summary( unsigned long long int *final_results, ostream &out );
@@ -54,25 +63,47 @@ class Constant_Analysis
 		// show only important results, remove all extra data
 		// summary does not go to next line in output
 		void Display_Summary_Result( unsigned long long int *final_results, ostream &out );
+
+		void Output_Setup(bool chi_squared, bool digit_count, bool digit_differential, bool global_maxmin, bool local_maxmin);
 		
 
 		private:
 
 			Analyze_List al;
 			Analysis_Parameters *ap;
-			double max;
-			double min;
+		//	double max;
+		//	double min;
 
 			double max_chi;
 			double min_chi;
 
+			long long int last_max;
+			long long int last_min;
+			long long int new_maxes;
+			long long int new_mins;
+
+
 			// these are for continuous analysis only
 			void Default_Initial( unsigned long long int *initial_results, ostream &out );
-			void Default_Interval( unsigned long long int *initial_results, ostream &out, bool full );
+			void Default_Interval( unsigned long long int *initial_results, ostream &out );
 			void Default_Summary( unsigned long long int *initial_results, ostream &out );
 
 			// this is for 1 record to display
 			void Display_Summary( unsigned long long int *initial_results, ostream &out );
+
+			// Display options
+			bool chi_squared;
+			bool digit_count;
+			bool digit_differential;
+			bool globals;
+			bool locals;
+
+			double last_chi;
+			double current_chi;
+			double next_chi;
+
+			long long int local_mins;
+			long long int local_maxes;
 
 
 };

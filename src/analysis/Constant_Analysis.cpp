@@ -9,10 +9,50 @@ Constant_Analysis::Constant_Analysis()
 Constant_Analysis::Constant_Analysis(Analysis_Parameters &ap )
 {
 	this->ap = &ap;
+
+	// Display options
+	this->chi_squared = true;
+	this->digit_count = true;
+	this->digit_differential = true;
+	this->globals = true;
+	this->locals = true;
+
+	this->last_max = 0;
+	this->new_maxes = 0;
+
+	this->last_min = 0;
+	this->new_mins = 0;
+
+
+	this->local_mins = 0;
+	this->local_maxes = 0;
 }
 
 Constant_Analysis::~Constant_Analysis()
 {
+
+}
+
+void Constant_Analysis::Output_Setup(bool chi_squared, bool digit_count, bool digit_differential, bool global_maxmin, bool local_maxmin)
+{
+	this->chi_squared = chi_squared;
+	this->digit_count = digit_count;
+	this->digit_differential = digit_differential;
+	this->globals = global_maxmin;
+	this->locals = local_maxmin;
+
+	if (this->ap->number_of_classes_possible > MAX_SCREEN_CLASSES)
+		cout << "Warning: large number of classes to write digit counts to screen.";
+
+	if (this->ap->number_of_classes_possible > MAX_INTERVAL_CLASSES)
+	{
+		cout << "Error: Too many classes for interval recording of digit count. Disabling";
+		this->digit_count = false;
+		this->digit_differential = false;
+	}
+
+	if (this->ap->number_of_classes_possible > MAX_TOTAL_CLASSES )
+		cout << "Warning: large number of classes to write to file.";
 
 }
 
@@ -27,9 +67,9 @@ void Constant_Analysis::Continuous_Analysis_Initial( unsigned long long int *ini
 }
 
 // This is called based on granularity of full test. Every N Sequences are called here
-void Constant_Analysis::Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out, bool full )
+void Constant_Analysis::Continuous_Analysis_Interval( unsigned long long int *interval_results, ostream &out )
 {
-	this->Default_Interval( interval_results, out, full );
+	this->Default_Interval( interval_results, out );
 
 
 	// Add Code Here for each interval result
@@ -50,75 +90,150 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 {
 	out << "Initial Results Default Setup" << endl;
 
-
-	out << "Digits\t";
-		for ( unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i )
+	if (this->digit_count)
+		out << "Digits\t";
+	
+	out << "X^2\t";
+	
+	if (this->digit_count)
+	{
+		for (unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i)
 			out << i << "\t";
+		
+	}
+
+	
+	if (this->globals)
+		out << "\t\t/\\\\/";
+	
 	out << endl;
 
-	this->max = -1;
-	this->min = 100000000000;
+	if (this->digit_differential)
+	{
+		out << "\tE(X)+-\t";
+		for (unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i)
+			out << ".\t";
+		out << endl;
+	}
+
+	
+
+	// global max/min
+	this->max_chi = -1;
+	this->min_chi = 100000000000;
+
+	// local max/min
+	this->last_chi = -1;
+	this->current_chi = -1;
+	this->next_chi = -1;
+
+	out << endl;
 
 }
 
-void Constant_Analysis::Default_Interval( unsigned long long int *initial_results, ostream &out, bool full )
+void Constant_Analysis::Default_Interval(unsigned long long int* initial_results, ostream& out)
 {
 	double chisq;
 
-	al.Set_List( initial_results, this->ap->number_of_classes_possible );
+	al.Set_List(initial_results, this->ap->number_of_classes_possible);
 	chisq = al.Chi_Squared();
 
-	if ( this->max < chisq )
-		this->max = chisq;
-	if ( this->min > chisq )
-		this->min = chisq;
+	// calculate digits // switch to ap digits tested
+	//unsigned long long int sum = 0;
+	//for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)
+	//	sum += initial_results[j];
+	//cout << sum << " ? " << this->ap->digits_tested << endl;
+	//out << sum << "\t" << chisq << "\t";
 
-	unsigned long long int sum = 0;
-	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
-		sum += initial_results[j];
+	out << this->ap->digits_tested << "\t" << chisq << "\t";
 	
-	if ( !full && sum == 1 )
-		out << "Digits\t\tMin/Max" << endl;
-	
-	
-	if ( full )
-	{
-		out << sum << "\t";
-
-		//	out << ap.digits_tested << "\t";
-		for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
+	// display digit counts
+	if (this->digit_count)
+		for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)
 			out << initial_results[j] << "\t";
 
-		out << "\t\t";
-		
-		if ( abs( max - chisq ) < .00001 )
-			out << "/\\";
-		if ( abs( min - chisq ) < .00001 )
-			out << "\\/";
-		
-		out << chisq << endl;
-	}
-	else if ( abs( max - chisq ) < .00001 || abs( min - chisq ) < .00001 )
+	// global minimum and maximum
+	if (this->globals)
 	{
-		out << sum << "\t\t";
 
-		if ( abs( max - chisq ) < .00001 )
+		if (this->max_chi < chisq)
+		{
+			this->last_max = this->ap->digits_tested;
+			this->new_maxes++;
+			this->max_chi = chisq;
+		}
+		if (this->min_chi > chisq)
+		{
+			this->last_min = this->ap->digits_tested;
+			this->new_mins++;
+			this->min_chi = chisq;
+		}
+
+		out << "\t\t";
+
+		if (abs(max_chi - chisq) < .00001)
 			out << "/\\";
-		if ( abs( min - chisq ) < .00001 )
+		if (abs(min_chi - chisq) < .00001)
 			out << "\\/";
-
-		out << chisq << endl;
 	}
+
+	// any local minimum and maximums
+	// these outputs are referring to the previous interval result (off by 1)
+	if (this->locals)
+	{
+		this->next_chi = chisq;
+
+		if (this->current_chi == this->last_chi || this->current_chi == this->next_chi)
+			out << "==";
+		else if (this->current_chi > this->last_chi && this->current_chi > this->next_chi)
+		{
+			out << "^";
+			++this->local_maxes;
+		}
+		else if (this->current_chi < this->last_chi && this->current_chi < this->next_chi)
+		{
+			out << "v";
+			++this->local_mins;
+		}
+
+		this->last_chi = this->current_chi;
+		this->current_chi = this->next_chi;
+	}
+
+	out << endl;
+
+	// display differentials from expected
+	if (this->digit_differential && false)
+	{
+		long long int expected = floor(this->ap->digits_tested / this->ap->number_of_classes_possible);
+		out << "\t" << expected << "\t";
 		
+		for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)
+		{
+			if (initial_results[j] == expected)
+				out << "0" << "\t";
+			else if (initial_results[j] > expected)
+				out << "+" << initial_results[j] - expected << "\t";
+			else
+				out << "-" << expected - initial_results[j] << "\t";
+		}
+
+		out << endl;
+	}
+	
 }
+	
 
 void Constant_Analysis::Default_Summary( unsigned long long int *initial_results, ostream &out )
 {
+	out << endl << endl;
 	out << "Final Results" << endl;
 
-	out << "Minimum Chi-Squared: " << min << endl;
-	out << "Maximum Chi-Squared: " << max << endl;
+	out << "Minimum Chi-Squared: " << this->min_chi << "\tPosition: " << this->last_min << "\t New minimums: " << this->new_mins << endl;
+	out << "Maximum Chi-Squared: " << this->max_chi << "\tPosition: " << this->last_max << "\t New maximums: " << this->new_maxes << endl;
 
+	out << "Local Minimums: " << this->local_mins << endl;
+	out << "Local Maximums: " << this->local_maxes << endl;
 	out << endl << endl;
 	
 	double chisq;
