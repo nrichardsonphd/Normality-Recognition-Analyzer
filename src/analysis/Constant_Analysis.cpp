@@ -220,11 +220,10 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 				out << "+" << initial_results[j] - expected << "\t";
 			else
 				out << "-" << expected - initial_results[j] << "\t";
-		}
-
-		out << endl;
+		}	
 	}
-	
+
+	out << endl;
 }
 	
 

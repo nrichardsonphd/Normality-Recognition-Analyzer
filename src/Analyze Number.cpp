@@ -120,7 +120,6 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	Constant_Analysis ca_summary(ap);
 	Constant_Analysis ca_full(ap);
-	Constant_Analysis ca_final(ap);
 
 
 //	unsigned int value;
@@ -146,13 +145,12 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	//***ca.Continuous_Analysis_Initial( results, out );
 	//ca.Continuous_Analysis_Initial(results, full_output);
-	ca_full.Output_Setup(true, !false, true, true, true);
-	ca_final.Output_Setup(true, true, true, true, true);
-	ca_summary.Output_Setup(true, false, false, false, false);
+	ca_full.Output_Setup(true, true, true, true, true);
+	ca_summary.Output_Setup(true, false, false, true, true);
 
 
 	ca_full.Continuous_Analysis_Initial(results, full_output);
-	ca_final.Continuous_Analysis_Initial(results, final_result);
+	ca_full.Continuous_Analysis_Initial(results, final_result);
 	ca_summary.Continuous_Analysis_Initial(results, summary_output);
 
 
@@ -199,15 +197,17 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	cout << "100% complete" << endl << endl;
 	cout << "Analyze Number continuous Summarry" << endl;
 	//****ca.Continuous_Analysis_Summary( results, out );
-	ca_final.Continuous_Analysis_Interval(results, final_result);
+	
 	ca_full.Continuous_Analysis_Summary(results, full_output);
-	ca_final.Continuous_Analysis_Summary(results, final_result);
+	ca_full.Continuous_Analysis_Interval(results, final_result);		// last result only for final record
+	ca_full.Continuous_Analysis_Summary(results, final_result);			// use full analysis for summary data
 	ca_summary.Continuous_Analysis_Summary(results, summary_output);
 	
 	
 
 	summary_output.close();
 	full_output.close();
+	final_result.close();
 
 	return results;
 }
