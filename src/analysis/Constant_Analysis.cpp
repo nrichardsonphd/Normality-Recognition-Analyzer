@@ -26,6 +26,8 @@ Constant_Analysis::Constant_Analysis(Analysis_Parameters &ap )
 
 	this->local_mins = 0;
 	this->local_maxes = 0;
+
+	this->zero_x = 0;
 }
 
 Constant_Analysis::~Constant_Analysis()
@@ -90,7 +92,7 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 {
 	out << "Initial Results Default Setup" << endl;
 
-	out << "Digits\tX^2\t";
+	out << "Digits\tX^2\t\t\t";
 	
 
 
@@ -107,7 +109,7 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 	}
 	if (this->digit_differential)
 	{
-		out << "\t\t\tE(X)+-\t";
+		out << "\t\t\t\t\tE(X)+-\t";
 		for (unsigned int i = 0; i < this->ap->number_of_classes_possible; ++i)
 			out << ".\t";
 		out << endl;
@@ -142,12 +144,13 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 	//cout << sum << " ? " << this->ap->digits_tested << endl;
 	//out << sum << "\t" << chisq << "\t";
 
-	out << this->ap->digits_tested << "\t" << chisq << "\t";
-	
-	
-
-	// global minimum and maximum
-	if (this->globals)
+	out << this->ap->digits_tested << "\t" << fixed << setprecision(14) << chisq << "\t";
+	if (chisq < .000000000001)
+	{
+		out << "=0";
+		++this->zero_x;
+	}
+	else if (this->globals) 	// global minimum and maximum (nonzero minimum)
 	{
 
 		if (this->max_chi < chisq)
@@ -208,7 +211,7 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 	if (this->digit_differential )
 	{
 		if (this->digit_count)
-			out << "\t\t\t";
+			out << "\t\t\t\t\t";
 
 		long long int expected = floor(this->ap->digits_tested / this->ap->number_of_classes_possible);
 		out << expected << "\t";
@@ -226,6 +229,9 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 		out << endl;
 	}
 
+
+	if (!this->digit_count && !this->digit_differential)
+		out << endl;
 	
 }
 	
@@ -240,8 +246,10 @@ void Constant_Analysis::Default_Summary( unsigned long long int *initial_results
 
 	out << "Local Minimums: " << this->local_mins << endl;
 	out << "Local Maximums: " << this->local_maxes << endl;
-	out << endl << endl;
+
+	out << "X^2 == 0 times: " << this->zero_x << endl;
 	
+	out << endl << endl;
 	double chisq;
 
 	al.Set_List( initial_results, this->ap->number_of_classes_possible );

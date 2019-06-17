@@ -64,10 +64,10 @@ int main( int argc, char **argv)
 		co.opt_pre = true;										// remove pre decimal
 		co.opt_stream = true;									// stream overlapping blocks
 //		co.opt_full = false;									// full output, file may get large
-		co.opt_hex2bin = false;									// treat hexadecimal file as binary, convert on fly
-		co.digits = 1000;										// number of digits to test
-		co.block_size = 1;										// select size of block, maximum if using variable sizes
-		co.max_class = 10;										// number of possible classifications, (default base)
+		co.opt_hex2bin = true;									// treat hexadecimal file as binary, convert on fly
+		co.digits = 1700;										// number of digits to test
+		co.block_size = 2;										// select size of block, maximum if using variable sizes
+		co.max_class = 2;										// number of possible classifications, (default base)
 		co.opt_base = true;
 
 		co.opt_cont = true;										// continuous testing on interval
@@ -76,7 +76,7 @@ int main( int argc, char **argv)
 		co.next_seq = 1;										// select next sequence function 1. 2. 3.?
 		co.seq_val = 1;											// select sequence value function 1. 2. 3.?
 	
-		co.input_file = "../../data/pi1k-dec.txt";				// input file (required)
+		co.input_file = "../../data/pi1k-hex.txt";				// input file (required)
 	
 
 //		co.output_file = "../../results/pi1k-dec-full.txt";		// output file

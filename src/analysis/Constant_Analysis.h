@@ -2,6 +2,7 @@
 #define CONSTANT_ANALYSIS_H
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 #include "Analyze_List.h"
@@ -104,6 +105,8 @@ class Constant_Analysis
 
 			long long int local_mins;
 			long long int local_maxes;
+
+			int zero_x;
 
 
 };
