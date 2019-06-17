@@ -19,6 +19,9 @@ using namespace std;
 #define MIN_PROGRESS_DISPLAY		1000000
 #define PROGRESS_MARKERS			1000
 
+#define DIGIT_COUNT
+#define DIGIT_DIFFERENTIAL
+
 #define SUMMARY						"../../logs/summary.txt"
 #define FULL_ANALYSIS				"../../logs/full.txt"
 #define FINAL_ANALYSIS				"../../logs/final.txt"

@@ -100,6 +100,11 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )(Read_Number &rn, int digits), unsigned int( *Sequence_Value )(Sequence s), 
 														Analysis_Parameters &ap, unsigned int granularity )
 {
+	// log files
+	// screen - Progress + Final results
+	// summary - digits X^2 Max/Min
+	// full - Digits X^2 Digit Count Digit differential Max/Min
+	// final - Final Results  (uses full calculations)
 	ofstream summary_output, full_output, final_result;
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
@@ -145,7 +150,20 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	//***ca.Continuous_Analysis_Initial( results, out );
 	//ca.Continuous_Analysis_Initial(results, full_output);
-	ca_full.Output_Setup(true, true, true, true, true);
+	
+	// for full and summary output options
+	bool digit_count = false;
+	bool digit_diff = false;
+
+	#ifdef DIGIT_COUNT
+		digit_count = true;
+	#endif
+
+	#ifdef DIGIT_DIFFERENTIAL
+		digit_diff = true;
+	#endif
+
+	ca_full.Output_Setup(true, digit_count, digit_diff, true, true);
 	ca_summary.Output_Setup(true, false, false, true, true);
 
 

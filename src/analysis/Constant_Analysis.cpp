@@ -203,12 +203,13 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 	}
 	
 	
-	if (this->digit_count && this->digit_differential)
-		out << "\t\t\t";
 
 	// display differentials from expected
 	if (this->digit_differential )
 	{
+		if (this->digit_count)
+			out << "\t\t\t";
+
 		long long int expected = floor(this->ap->digits_tested / this->ap->number_of_classes_possible);
 		out << expected << "\t";
 		
@@ -221,9 +222,11 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 			else
 				out << "-" << expected - initial_results[j] << "\t";
 		}	
+
+		out << endl;
 	}
 
-	out << endl;
+	
 }
 	
 
