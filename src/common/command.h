@@ -1,7 +1,7 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#define MAX_SCREEN_CLASSES		16								// maximum number of classes that will be displayed on the screen, file output larger sets
+//#define MAX_SCREEN_CLASSES		16								// maximum number of classes that will be displayed on the screen, file output larger sets
 
 #define CONTINUOUS_LOG			"../../logs/continuous.txt"		// only for continuous output to file
 #define FULL_LOG				"../../logs/full.txt"			// full output file name
@@ -48,7 +48,7 @@ using namespace std;
 #include "../setup.h"
 
 #include "../Analyze Number.h"
-
+#include "../analysis/Constant_Analysis.h"
 struct Command_Options
 {
 	bool opt_test = false,		// test all units

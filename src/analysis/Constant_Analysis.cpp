@@ -213,7 +213,7 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 		if (this->digit_count)
 			out << "\t\t\t\t\t";
 
-		long long int expected = floor(this->ap->digits_tested / this->ap->number_of_classes_possible);
+		unsigned long long int expected = (long long) floor(this->ap->digits_tested / this->ap->number_of_classes_possible);
 		out << expected << "\t";
 		
 		for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)

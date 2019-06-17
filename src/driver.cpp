@@ -65,6 +65,9 @@ int main( int argc, char **argv)
 		co.opt_stream = true;									// stream overlapping blocks
 //		co.opt_full = false;									// full output, file may get large
 		co.opt_hex2bin = true;									// treat hexadecimal file as binary, convert on fly
+		
+		// stream digits tested
+		// block digits*blocksize tested
 		co.digits = 1700;										// number of digits to test
 		co.block_size = 2;										// select size of block, maximum if using variable sizes
 		co.max_class = 2;										// number of possible classifications, (default base)
