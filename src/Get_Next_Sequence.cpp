@@ -28,7 +28,7 @@ Sequence Get_Block_Sequence( Read_Number &rn, int digits )
 	Sequence s;
 	s.size = digits;
 	
-	for ( int i = 0; i < digits; ++i )
+	for ( int i = 0; i < s.size; ++i )
 		s.seq[i] = rn.Get_Next_Digit();
 	
 	//Display_Sequence( s );

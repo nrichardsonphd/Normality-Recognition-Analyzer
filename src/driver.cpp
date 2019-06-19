@@ -62,20 +62,26 @@ int main( int argc, char **argv)
 		cout << "Testing Mode" << endl;
 		Command_Options co;
 		co.opt_pre = true;										// remove pre decimal
-		co.opt_stream = true;									// stream overlapping blocks
+		
+		//****co.opt_block = true;
+		
+		co.opt_stream = false;									// stream overlapping blocks
 //		co.opt_full = false;									// full output, file may get large
-		co.opt_hex2bin = true;									// treat hexadecimal file as binary, convert on fly
+		co.opt_hex2bin = false;									// treat hexadecimal file as binary, convert on fly
 		
 		// stream digits tested
 		// block digits*blocksize tested
-		co.digits = 1700;										// number of digits to test
-		co.block_size = 2;										// select size of block, maximum if using variable sizes
-		co.max_class = 2;										// number of possible classifications, (default base)
-		co.opt_base = true;
+		co.digits = 700;										// number of digits to test
+		co.block_size = 1;										// select size of block, maximum if using variable sizes
+		co.max_class = 16;										// number of possible classifications, (default base)
+		
+		co.opt_base = true;//?
 
+		//*** test every $granularity or only test final result
 		co.opt_cont = true;										// continuous testing on interval
 		co.granularity = 1;
 		
+		// defaults
 		co.next_seq = 1;										// select next sequence function 1. 2. 3.?
 		co.seq_val = 1;											// select sequence value function 1. 2. 3.?
 	

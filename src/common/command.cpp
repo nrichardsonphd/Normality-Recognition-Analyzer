@@ -289,7 +289,9 @@ Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap )
 
 		// add additional case labels here
 		case 2:
-			//break;
+			cout << "Next Sequence 2 not implemented." << endl;
+			exit(1);
+			break;
 
 		default:
 			cout << "Error: Unknown Get_Next_Sequence Function in command line" << endl;
@@ -315,6 +317,8 @@ Sequence_Value Set_Sequence_Value( Command_Options co, Analysis_Parameters &ap )
 
 		// add additional case labels here
 		case 2:
+			cout << "Sequence Value 2 not implemented." << endl;
+			exit(1);
 			//break;
 
 		default:
