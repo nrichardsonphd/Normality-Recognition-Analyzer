@@ -32,7 +32,7 @@ void Command_Summarry( Command_Options co )
 		cout << "\tNext Sequence: " << co.next_seq << endl;
 		cout << "\tSequence Value: " << co.seq_val << endl;
 
-		cout << "\tDigits to Tests: " << co.digits << endl;
+		cout << "\tNumber of Sequences to Tests: " << co.number_sequences << endl;
 		cout << "\tBlock Size: " << co.block_size << endl;
 
 		cout << "\tInput File: " << co.input_file << endl;
@@ -73,21 +73,13 @@ void Command_Arguments( int argc, char **argv )
 					co.opt_pre = true;
 					break;
 
-				case 's':										// stream input with overlapping blocks
-					co.opt_stream = true;
-					break;
-
-				case 'F':										// full output, files may get large
-				//	co.opt_full = true;
-					break;
-
 				case 'h':										// treat input file is hexadecimal and convert to binary on the fly
 					co.opt_hex2bin = true;
 					break;
 
 				// options with required number
 				case 'd':										// number of digits to test
-					co.digits = atoi( argv[++i] );
+					co.number_sequences = atoi( argv[++i] );
 					break;
 
 				case 'b':										// select size of blocks, if variable must be maximum size
@@ -182,7 +174,7 @@ void Command_Execute( Command_Options co )
 	Analysis_Parameters ap;
 	
 	ap.remove_predecimal = co.opt_pre;
-	ap.number_of_digits_to_test = co.digits;
+	ap.number_of_digits_to_test = co.number_sequences;
 	ap.max_sequence_size = co.block_size;
 	ap.filename = co.input_file;
 
@@ -204,7 +196,7 @@ void Command_Execute( Command_Options co )
 	// run analysis
 	if ( co.opt_cont )
 	{
-		cout << "Continuous Testing: All digit counts from 1 to " << co.digits << " will be tested on an interval of every " << co.granularity << " digits." << endl;
+		cout << "Continuous Testing: All digit counts from every " << co.granularity << " will be tested." << endl;
 		
 		// setup output for continuous analysis
 		ofstream outfile;
@@ -271,20 +263,15 @@ Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap )
 	switch ( co.next_seq )
 	{
 		case 1:
-			if ( co.opt_stream ) // Stream Sequence
-			{
-				if ( co.opt_hex2bin )
-					ns = &Get_Bin_Stream_Sequence;
-				else 
-					ns = &Get_Stream_Sequence;
-			}
-			else 	// Block Sequence
-			{
-				if ( co.opt_hex2bin )
-					ns = &Get_Bin_Block_Sequence;
-				else
-					ns = &Get_Block_Sequence;
-			}
+			if ( co.opt_hex2bin )
+				ns = &Get_Bin_Stream_Sequence;
+			else 
+				ns = &Get_Stream_Sequence;
+			
+			if ( co.opt_hex2bin )
+				ns = &Get_Bin_Block_Sequence;
+			else
+				ns = &Get_Block_Sequence;
 			break;
 
 		// add additional case labels here

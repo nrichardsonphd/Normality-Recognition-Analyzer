@@ -51,29 +51,41 @@ using namespace std;
 #include "../analysis/Constant_Analysis.h"
 struct Command_Options
 {
-	bool opt_test = false,		// test all units
-		opt_detail = false,		// detailed testing
-		opt_pre = false,		// remove pre-decimal
-		opt_cont = false,		// continuous testing
-		opt_base = false,		// manually specify base of file
-		opt_stream = false,		// block v stream
-		opt_hex2bin = false;	// convert hexadecimal file to binary input
-		//opt_file = false,		// file output
-		//opt_summary = false,	// output a summary file
-		//opt_full = false;		// select to record full results
+	// Diagnostic Testing:
+	bool opt_test = false;		// for test all units
+	bool opt_detail = false;	// Diagnostic Testing: detailed testing
 
-	int next_seq = 1;
-	int seq_val = 1;
-	int digits = 1000;
+	// File testing
+	string input_file = "default.in";		// this file contains the digits to be read
+	string output_file = "custom.out";		// this is a custom output file in addition to default logs ***Not implemented
+											// must assign options for output: final, continuous min/max, full, ... TBD
+	// binary files are stored as hexadecimal, when reading the remaining bits are remembered
+	bool opt_hex2bin = false;	// convert hexadecimal file to binary input
+
+
+	// Test Statistics 
+	int seq_tested = 0;					// number of sequences tested, Note: Depending on NextSeq, these may be overlapping
+
+
+
+	// Analysis Options
+	int next_seq = 1;					// Specify Next Sequence Function
+	int seq_val = 1;					// Specify Sequence Value Function
+
+//	int digits = 1000;					
+	int number_sequences = 1000;		// number of sequences to test	(replace digits)
+
+	// Logging Options
+
 	int block_size = 1;
 	int max_class = 10;
 	int granularity = 1;
 
-	// files
-	string input_file = "default.in";
-	//string output_file = "constant_analyzer.out";
-	//string summary_file = "summary.out.compressed";
-
+	bool opt_pre = false;		// remove pre-decimal
+	bool opt_cont = false;		// continuous testing
+	bool opt_base = false;		// manually specify base of file
+	
+		
 
 };
 
