@@ -344,18 +344,37 @@ void Display_Results_Full( unsigned long long int *results, Analysis_Parameters 
 	Analyze_List al;
 	al.Set_List( results, ap.number_of_classes_possible );
 
-	out << al.Chi_Squared() << "\t\t| " << ap.digits_tested << "\t\t";
-	if ( ap.digits_tested >= 10000000 ) out << "\t";
+	out << al.Chi_Squared() << "\t\t| " << ap.sequences_tested << "\t\t";
+	if ( ap.sequences_tested >= 10000000 ) out << "\t";
 	out << "|\t";
 
 	for ( unsigned int i = 0; i < ap.number_of_classes_possible; ++i )
 	{
 		out << results[i] << "\t";
-		if ( ap.digits_tested >= 10000000 && results[i] < 10000000 ) out << "\t";
+		if ( ap.sequences_tested >= 10000000 && results[i] < 10000000 ) out << "\t";
 	}
 
 	out << endl;
 
+	// Differential
+	unsigned long long int ex = ap.sequences_tested / ap.number_of_classes_possible;
+	out << "\t\t| E(x) = " << ex << "\t";
+	if (ap.sequences_tested >= 10000000) out << "\t";
+	out << "|\t";
+
+	for (unsigned int i = 0; i < ap.number_of_classes_possible; ++i)
+	{
+		if (results[i] > ex )
+			out << "+" << results[i] - ex << "\t";
+		else if (results[i] < ex )
+			out << "-" << ex - results[i] << "\t";
+		else
+			out << "0" << "\t";
+		
+		if (ap.sequences_tested >= 10000000 && results[i] < 10000000) out << "\t";
+	}
+
+	out << endl;
 
 }
 
