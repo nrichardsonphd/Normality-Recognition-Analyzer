@@ -90,6 +90,7 @@ int main( int argc, char **argv)
 
 		Command_Summarry(co);
 		Command_Execute(co);
+		cout << endl;
 		
 	#else
 		Command_Arguments( argc, argv );
@@ -98,6 +99,7 @@ int main( int argc, char **argv)
 	// end of program
 	time_t end = time( nullptr );
 
+	cout << "Program Analysis" << endl;
 	cout << "Start Time:\t" << ctime( &start );
 	cout << "End Time:\t" << ctime( &end );
 	cout << "Total Time: " << end - start << endl;

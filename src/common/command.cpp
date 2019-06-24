@@ -3,8 +3,10 @@
 
 void Command_Help()
 {
-	//	cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
-	//	cout << " -T\t\tsame as -t except detailed" << endl;
+	cout << "Command help for nra.  This section may be out of date, check command.h file for use." << endl;
+	exit(1);
+	cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
+	cout << " -T\t\tsame as -t except detailed" << endl;
 
 	cout << " -N #\t\tSelect numbered Next Sequence" << endl;
 	cout << "\t 1. Digit Test" << endl;
@@ -24,6 +26,9 @@ void Command_Help()
 
 void Command_Summarry( Command_Options co )
 {
+
+	cout << "Command help for nra.  This section may be out of date, check command.h file for use." << endl;
+//	exit(1);
 	#ifdef DEBUG
 		cout << "Command Setup" << endl;
 		cout << "\tRun Tests: " << ((co.opt_test) ? "TRUE" : "FALSE") << "\t\tDetail Tests: " << ((co.opt_detail) ? "TRUE" : "FALSE") << endl;
@@ -46,9 +51,12 @@ void Command_Summarry( Command_Options co )
 
 void Command_Arguments( int argc, char **argv )
 {
+	// must check
+	cout << "Testing updated input needed" << endl;
+	exit(1);
 
 	bool menu = true;		// default, no options use cams
-	bool in_file = false;// need input file to read
+	bool in_file = false;	// need input file to read
 
 	Command_Options co;
 	#ifdef DEBUG
@@ -68,40 +76,54 @@ void Command_Arguments( int argc, char **argv )
 
 			switch ( argv[i][1] )
 			{
+				// Next Sequence
+				case 'N':										// select Next Sequence function
+					co.next_seq = atoi( argv[++i] );
+					break;
+
+				// Sequence Value
+				case 'V':										// select Sequence Value function
+					co.seq_val = atoi( argv[++i] );
+					break;		
+								
 				// Flag options
 				case 'r':										// remove pre decimal
 					co.opt_pre = true;
 					break;
+			
+				case 'd':										// number of sequences to test
+					co.number_sequences = atoi( argv[++i] );
+					break;
+
+				case 'b':										// select size of blocks, if variable must be maximum size
+					co.block_size = atoi( argv[++i] );			// depends on Next Sequence
+					break;
+
+				case 'c':										// select the number of possible classed, default is the base
+					co.max_class = atoi( argv[++i] );			// depends on Sequence Value
+					break;
+				
+				case 'g':										// granularity of intermittent results
+					co.opt_cont = true;							// default in number of sequences to test
+					co.granularity = atoi( argv[++i] );
+					break;
+			
+
+
+
+
+
 
 				case 'h':										// treat input file is hexadecimal and convert to binary on the fly
 					co.opt_hex2bin = true;
 					break;
 
-				// options with required number
-				case 'd':										// number of digits to test
-					co.number_sequences = atoi( argv[++i] );
-					break;
+				
 
-				case 'b':										// select size of blocks, if variable must be maximum size
-					co.block_size = atoi( argv[++i] );
-					break;
+			
 
-				case 'c':										// select the number of possible classed, default is the base
-					co.max_class = atoi( argv[++i] );
-					break;
+		
 
-				case 'C':										// continuous testing on interval
-					co.opt_cont = true;
-					co.granularity = atoi( argv[++i] );
-					break;
-
-				case 'N':										// select Next Sequence function
-					co.next_seq = atoi( argv[++i] );
-					break;
-
-				case 'V':										// select Sequence Value function
-					co.seq_val = atoi( argv[++i] );
-					break;
 
 				// specify file output
 				case 'f':										// input file (required)
@@ -195,7 +217,7 @@ void Command_Execute( Command_Options co )
 	// run analysis
 	if ( co.opt_cont )
 	{
-		cout << "Continuous Testing: All digit counts from every " << co.granularity << " will be tested." << endl;
+		cout << "Continuous Testing: All digit counts from every " << co.granularity << " sequences will be tested." << endl;
 		
 		// setup output for continuous analysis
 		ofstream outfile;
@@ -206,11 +228,7 @@ void Command_Execute( Command_Options co )
 			cout << "Class Output will be recorded to file, no class output on screen." << endl;
 		}
 
-		//if ( co.opt_file )
-		{	
-		//	outfile.open( CONTINUOUS_LOG, ios::out );
-		}
-
+		// results will be appended to file every N = granularity
 		results = Analyze_Number_Continuously( ns, sv, ap, co.granularity );
 		outfile.close();
 	}
@@ -219,7 +237,7 @@ void Command_Execute( Command_Options co )
 		results = Analyze_Number( ns, sv, ap );
 	}
 	
-	// display results
+	// display results to screen
 	Display_Results( co, ap, results );
 	
 	delete[] results;			// clean up memory
