@@ -35,7 +35,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 			++tmp_results[value];
 		else
 		{
-			cout << "ERROR: Sequence Value is out of range.  0 <= Value Returned < Total Number of Classes.\nCheck that Sequence_Value is correct." << endl;
+			cout << "ERROR: Sequence Value is out of range.  0 <= Value Returned < Total Number of Classes.\nCheck that Sequence_Value is correct or you have the correct maximum number of classes." << endl;
 			cout << "Recieved value " << value << " for sequence <= " << ap.number_of_classes_possible << endl;
 			for ( int i = 0; i < group.size; ++i )
 				cout << group.seq[i] << " ";

@@ -88,7 +88,6 @@ void Command_Arguments( int argc, char **argv )
 
 				case 'c':										// select the number of possible classed, default is the base
 					co.max_class = atoi( argv[++i] );
-					co.opt_base = true;
 					break;
 
 				case 'C':										// continuous testing on interval
@@ -230,15 +229,12 @@ void Command_Execute( Command_Options co )
 
 void Set_Base( Command_Options co, Analysis_Parameters &ap )
 {
-	if ( co.opt_base )
-		G_BASE = co.max_class;
+	
+	if ( co.opt_hex2bin )
+		G_BASE = 2;
 	else
-	{
-		if ( co.opt_hex2bin )
-			G_BASE = 2;
-		else
-			G_BASE = 10;
-	}
+		G_BASE = 10;
+	
 
 	// set base
 	ap.number_of_classes_possible = (unsigned long long int) pow( G_BASE, ap.max_sequence_size );
@@ -333,7 +329,7 @@ void Display_Results_Full( unsigned long long int *results, Analysis_Parameters 
 {
 	unsigned long long int sum = 0;
 
-	out << "Chi Squared\t| " << "Digits\t";
+	out << "Chi Squared\t| " << "Seqnc's\t";
 	if ( ap.digits_tested >= 10000000 ) out << "\t";
 	out << "|\t";
 
@@ -368,5 +364,5 @@ void Display_Results_Partial( unsigned long long int *results, Analysis_Paramete
 	Analyze_List al;
 	al.Set_List( results, ap.number_of_classes_possible );
 
-	out << "Digits: " << al.Sum() << "\tChi-Squared: " << al.Chi_Squared() << endl;
+	out << "Seqnc's: " << al.Sum() << "\tChi-Squared: " << al.Chi_Squared() << endl;
 }

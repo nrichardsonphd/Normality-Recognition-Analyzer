@@ -66,16 +66,15 @@ int main( int argc, char **argv)
 		//****co.opt_block = true;
 		
 
-//		co.opt_full = false;									// full output, file may get large
-		co.opt_hex2bin = false;									// treat hexadecimal file as binary, convert on fly
+
+		co.opt_hex2bin = true;									// treat hexadecimal file as binary, convert on fly
 		
 		// stream digits tested
 		// block digits*blocksize tested
-		co.number_sequences = 700;										// number of digits to test
-		co.block_size = 1;										// select size of block, maximum if using variable sizes
+		co.number_sequences = 1000;										// number of digits to test
+		co.block_size = 4;										// select size of block, maximum if using variable sizes
 		co.max_class = 16;										// number of possible classifications, (default base)
 		
-		co.opt_base = true;//?
 
 		//*** test every $granularity or only test final result
 		co.opt_cont = true;										// continuous testing on interval

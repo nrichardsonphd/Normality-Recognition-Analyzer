@@ -55,7 +55,7 @@ struct Command_Options
 	bool opt_test = false;		// for test all units
 	bool opt_detail = false;	// Diagnostic Testing: detailed testing
 
-	// File testing
+	// Files I/O
 	string input_file = "default.in";		// this file contains the digits to be read
 	string output_file = "custom.out";		// this is a custom output file in addition to default logs ***Not implemented
 											// must assign options for output: final, continuous min/max, full, ... TBD
@@ -63,27 +63,23 @@ struct Command_Options
 	bool opt_hex2bin = false;	// convert hexadecimal file to binary input
 
 
-	// Test Statistics 
-	int seq_tested = 0;					// number of sequences tested, Note: Depending on NextSeq, these may be overlapping
-
-
-
 	// Analysis Options
 	int next_seq = 1;					// Specify Next Sequence Function
 	int seq_val = 1;					// Specify Sequence Value Function
-
-//	int digits = 1000;					
+			
 	int number_sequences = 1000;		// number of sequences to test	(replace digits)
 
-	// Logging Options
-
-	int block_size = 1;
-	int max_class = 10;
-	int granularity = 1;
-
 	bool opt_pre = false;		// remove pre-decimal
+
+	// Logging Options
+	int block_size = 1;					// maximum size of sequence block
+	int max_class = 10;					// total number of classifications, (may be base)
+	
+	// 
 	bool opt_cont = false;		// continuous testing
-	bool opt_base = false;		// manually specify base of file
+	int granularity = 1;		// Every n blocks is analyzed
+
+	
 	
 		
 

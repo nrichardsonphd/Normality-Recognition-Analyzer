@@ -92,7 +92,7 @@ void Constant_Analysis::Default_Initial( unsigned long long int *initial_results
 {
 	out << "Initial Results Default Setup" << endl;
 
-	out << "Digits\tX^2\t\t\t";
+	out << "Seqnc's\tX^2\t\t\t";
 	
 
 
@@ -144,7 +144,7 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 	//cout << sum << " ? " << this->ap->digits_tested << endl;
 	//out << sum << "\t" << chisq << "\t";
 
-	out << this->ap->digits_tested << "\t" << fixed << setprecision(14) << chisq << "\t";
+	out << this->ap->sequences_tested << "\t" << fixed << setprecision(14) << chisq << "\t";
 	if (chisq < .000000000001)
 	{
 		out << "=0";
@@ -213,7 +213,7 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 		if (this->digit_count)
 			out << "\t\t\t\t\t";
 
-		unsigned long long int expected = (long long) floor(this->ap->digits_tested / this->ap->number_of_classes_possible);
+		unsigned long long int expected = (long long) floor(this->ap->sequences_tested / this->ap->number_of_classes_possible);
 		out << expected << "\t";
 		
 		for (unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j)
