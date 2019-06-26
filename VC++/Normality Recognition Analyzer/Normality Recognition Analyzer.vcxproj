@@ -140,8 +140,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <CustomBuildStep>
-      <Command>
-      </Command>
+      <Command>-g</Command>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

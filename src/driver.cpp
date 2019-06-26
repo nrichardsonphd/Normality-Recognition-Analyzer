@@ -87,14 +87,10 @@ int main( int argc, char **argv)
 		co.input_file = "../../data/pi1k-hex.txt";				// input file (required)
 	
 
-//		co.output_file = "../../results/pi1k-dec-full.txt";		// output file
-//		co.opt_file = true;
-		
-//		co.opt_summary = true;
-//		co.summary_file = "../../results/pi1k-dec-sum.txt";		// summary output file
 
 		Command_Summarry(co);
 		Command_Execute(co);
+		cout << endl;
 		
 	#else
 		Command_Arguments( argc, argv );
@@ -103,6 +99,7 @@ int main( int argc, char **argv)
 	// end of program
 	time_t end = time( nullptr );
 
+	cout << "Program Analysis" << endl;
 	cout << "Start Time:\t" << ctime( &start );
 	cout << "End Time:\t" << ctime( &end );
 	cout << "Total Time: " << end - start << endl;
