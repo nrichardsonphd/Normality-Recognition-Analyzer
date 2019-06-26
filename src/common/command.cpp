@@ -28,7 +28,7 @@ void Command_Help()
 
 	// Logging
 	cout << "Logging" << endl;
-	cout << " -C #\t\tContiuous testing at intervals of #.  Every N digits will have a record in the log file." << endl;
+	cout << " -g #\t\tContiuous testing at intervals of #.  Every N digits will have a record in the log file." << endl;
 	cout << endl;
 
 	// Customize Sequence
