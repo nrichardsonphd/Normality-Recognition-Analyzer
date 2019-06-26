@@ -3,25 +3,48 @@
 
 void Command_Help()
 {
-	cout << "Command help for nra.  This section may be out of date, check command.h file for use." << endl;
-	exit(1);
-	cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
-	cout << " -T\t\tsame as -t except detailed" << endl;
+	cout << endl;
+	cout << "Normality Recognition Analyzer Version " << RELEASE << endl << endl;
 
-	cout << " -N #\t\tSelect numbered Next Sequence" << endl;
-	cout << "\t 1. Digit Test" << endl;
-	cout << " -V #\t\tSelect numbered Sequence Value" << endl;
-	cout << "\t 1. Digit Value" << endl;
-	cout << " -h \t\trun file as hexadecimal" << endl;
-	cout << " -d #\t\tnumber of digits to test" << endl;
-	cout << " -p \t\tremove predecimal" << endl;
-	cout << " -b # \t\tmaximum size of a sequence" << endl;
-	cout << " -c # \t\tmaximum number of classes (set base)" << endl;
-	cout << " -s \t\tstream digits by overlapping bl	ocks" << endl;
-	cout << " -C #\t\tcontiuous testing at intervals of #" << endl;
+	// General setup
+	cout << "nra.exe - {hrsF} -{NVdbcC} #  - o <full file output> <input file>" << endl;
+	cout << "nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out -f ../../data/Pi1K-dec.txt" << endl;
+	cout << "nra.exe\t\thelp menu" << endl << endl;
+	
+	// Files
+	cout << "File I/O" << endl;
 	cout << " -f <filename> \tselect input file for test" << endl;
-	cout << " -o <filename> \tselect output file for test" << endl;
+	//	cout << " -o <filename> \tselect output file for test" << endl;
+	cout << " -h \t\trun file as hexadecimal" << endl;
+	cout << endl;
 
+	// Analysis
+	cout << "Analysis" << endl;
+	cout << " -d #\t\tSpecify the number of sequences to read from file to test" << endl;
+	cout << " -p \t\tRemove all numbers preceding the decimal point in the file.  \n\t\t3.14159 will remove the 3 and start on 1 being the 1st digit tested." << endl;
+	cout << " -b # \t\tSpecify the maximum size of a sequence.  Depending on Next_Sequence, \n\t\tthe size may change, but this is the maximum it can be" << endl;
+	cout << " -c # \t\tSpecify the maximum number of classes.  This is dependent on Sequence Value" << endl;
+	cout << endl;
+
+	// Logging
+	cout << "Logging" << endl;
+	cout << " -C #\t\tContiuous testing at intervals of #.  Every N digits will have a record in the log file." << endl;
+	cout << endl;
+
+	// Customize Sequence
+	cout << "Customize Sequences" << endl;
+	cout << " -N #\t\tSelect numbered Next Sequence" << endl;
+	cout << "\t\t 1. Digit block \tsequences consist of nonoverlapping blocks of numbers" << endl;
+	cout << "\t\t 2. Digit stream \tsliding window of sequences" << endl;
+	cout << "\t\t 3. Random <not implemented>" << endl;
+	cout << " -V #\t\tSelect numbered Sequence Value" << endl;
+	cout << "\t\t 1. Digit Value \tThe numerical value based on the sequence block, base N" << endl;
+	cout << "\t\t 2. Poker Value <not implemented>" << endl;
+	cout << endl;
+	
+
+//	cout << " -t\t\tRun all tests to ensure program is correct (quiet)" << endl;
+//	cout << " -T\t\tsame as -t except detailed" << endl;
 }
 
 void Command_Summarry( Command_Options co )
@@ -53,9 +76,9 @@ void Command_Arguments( int argc, char **argv )
 {
 	// must check
 	cout << "Testing updated input needed" << endl;
-	exit(1);
+	//exit(1);
 
-	bool menu = true;		// default, no options use cams
+	bool menu = false;		// default, no options use cams
 	bool in_file = false;	// need input file to read
 
 	Command_Options co;
@@ -65,6 +88,12 @@ void Command_Arguments( int argc, char **argv )
 		for ( int i = 0; i < argc; ++i )
 			cout << "Command " << i << ":" << argv[i] << endl;
 	#endif
+
+	if (argc == 1)	// no arguments
+	{
+		Command_Help();
+		exit(1);
+	}
 
 	// parse command arguments
 	for ( int i = 0; i < argc; ++i )
@@ -146,6 +175,7 @@ void Command_Arguments( int argc, char **argv )
 					cout << "ERROR: Unknown Command:" << argv[i] << endl;
 			};
 		}
+
 	}
 
 	if ( menu )
@@ -161,7 +191,7 @@ void Command_Arguments( int argc, char **argv )
 
 		if ( !in_file )
 		{
-			cout << "Error: Need an input file for command line" << endl;
+			cout << "Error: Need an input file for command line. Use -f to specify" << endl;
 			exit( 1 );
 		}
 

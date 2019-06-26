@@ -14,7 +14,9 @@
 // Output will be displayed to screen and recorded in log files
 //
 // nra.exe -{hrsF} -{NVdbcC} # -o <full file output> <input file>
-// nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out ../../data/Pi1K-dec.txt 
+// nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out -f ../../data/Pi1K-dec.txt 
+//
+// nra.exe				help menu
 //
 // -N #					Select numbered Next Sequence
 //							0. Custom (user implemented CUSTOM_NEXT_SEQUENCE()
@@ -36,7 +38,7 @@
 //
 // -g #					Continuous Testing, # is for granularity how often to calculate results
 //
-// <filename>			input file, i.e. input.in: File should be in binary/Hexadecimal or decimal
+// -f <filename>		input file, i.e. input.in: File should be in binary/Hexadecimal or decimal
 // -h					hexadecimal input file, converted to binary on the fly
 //
 // -o <filename>		select output file for test, overide auto logs (Not Implemented)
@@ -62,15 +64,16 @@ struct Command_Options
 	string input_file = "default.in";		// this file contains the digits to be read
 	string output_file = "custom.out";		// this is a custom output file in addition to default logs ***Not implemented
 											// must assign options for output: final, continuous min/max, full, ... TBD
-
-											// binary files are stored as hexadecimal, when reading the remaining bits are remembered
-	bool opt_hex2bin = false;				// convert hexadecimal file to binary input (Needed when file is in hex
+	
+	bool opt_hex2bin = false;				// binary files are stored as hexadecimal, when reading the remaining bits are remembered
+											// convert hexadecimal file to binary input (Needed when file is in hex
 											// Hexadecimal will be binary with a group of 4 bits
 
-	// Analysis Options
+	// Customize Sequences					*** Must be implemented for use
 	int next_seq = 1;						// Specify Next Sequence Function
 	int seq_val = 1;						// Specify Sequence Value Function
-			
+
+	// Analysis Options
 	int number_sequences = 1000;			// number of sequences to test	
 	bool opt_pre = false;					// remove pre-decimal
 	int block_size = 1;						// maximum size of sequence block, used by Next Sequence function
@@ -79,6 +82,13 @@ struct Command_Options
 	// Logging Options
 	bool opt_cont = false;					// continuous testing, if false, only final results will be displayed
 	int granularity = 1;					// Every n blocks is analyzed 
+
+	// *** Not Implemented
+	// Result Options						// For customizible output file
+	bool res_digit_count = false;			// display digit count for each class
+	bool res_digit_differential = false;	// display digit differential for each class
+	bool res_minmax = false;				// show new min/max on continuous output
+	bool res_full = false;					// show full output
 
 };
 
