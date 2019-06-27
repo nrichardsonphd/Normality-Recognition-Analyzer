@@ -13,7 +13,7 @@
 // Only use known sequence functions
 // Output will be displayed to screen and recorded in log files
 //
-// nra.exe -{hrsF} -{NVdbcg} # -o <full file output> <input file>
+// nra.exe -{hrs} -{NVdbcg} # -o <full file output> -f <input file>
 // nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out -f ../../data/Pi1K-dec.txt 
 //
 // nra.exe				help menu
@@ -41,7 +41,7 @@
 // -f <filename>		input file, i.e. input.in: File should be in binary/Hexadecimal or decimal
 // -h					hexadecimal input file, converted to binary on the fly
 //
-// -o <filename>		select output file for test, overide auto logs (Not Implemented)
+// -o <filename>		select output file for test, overide auto logs 
 // -C					show digit counts in output file
 // -D					show digit differential in output file
 // -M					record new min/max
@@ -68,7 +68,7 @@ struct Command_Options
 	string input_file = "default.in";		// this file contains the digits to be read
 	string output_file = "custom.out";		// this is a custom output file in addition to default logs ***Not implemented
 											// must assign options for output: final, continuous min/max, full, ... TBD
-	
+	bool opt_out = false;
 	bool opt_hex2bin = false;				// binary files are stored as hexadecimal, when reading the remaining bits are remembered
 											// convert hexadecimal file to binary input (Needed when file is in hex
 											// Hexadecimal will be binary with a group of 4 bits
@@ -87,12 +87,11 @@ struct Command_Options
 	bool opt_cont = false;					// continuous testing, if false, only final results will be displayed
 	int granularity = 1;					// Every n blocks is analyzed 
 
-	// *** Not Implemented
 	// Result Options						// For customizible output file
 	bool res_digit_count = false;			// display digit count for each class
 	bool res_digit_differential = false;	// display digit differential for each class
 	bool res_minmax = false;				// show new min/max on continuous output
-	bool res_full = false;					// show full output
+//	bool res_full = false;					// show full output
 
 };
 

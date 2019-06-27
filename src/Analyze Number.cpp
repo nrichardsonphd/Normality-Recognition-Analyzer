@@ -105,12 +105,22 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	// summary - digits X^2 Max/Min
 	// full - Digits X^2 Digit Count Digit differential Max/Min
 	// final - Final Results  (uses full calculations)
-	ofstream summary_output, full_output, final_result;
+	ofstream summary_output, full_output, final_result, local_file;
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
-
+	cout << "Starting Analyze Number *************************" << endl;
+	if (ap.output_file != "")
+	{
+		cout << "Full analysis redirect to local file: " << ap.output_file << endl;
+		full_output.open(ap.output_file, ios::out);
+	}
+	else
+	{
+		cout << "Full analysis in log file: " << FULL_ANALYSIS << endl;
+		full_output.open(FULL_ANALYSIS, ios::out);
+	}
+	
 	summary_output.open(SUMMARY, ios::out);
-	full_output.open(FULL_ANALYSIS, ios::out);
 	final_result.open(FINAL_ANALYSIS, ios::out);
 	
 	if (!full_output || !summary_output || !final_result)

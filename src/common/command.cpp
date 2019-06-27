@@ -7,7 +7,7 @@ void Command_Help()
 	cout << "Normality Recognition Analyzer Version " << RELEASE << endl << endl;
 
 	// General setup
-	cout << "nra.exe - {hrsF} -{NVdbcg} #  - o <full file output> <input file>" << endl;
+	cout << "nra.exe - {hrs} -{NVdbcg} #  - o <full file output> -f <input file>" << endl;
 	cout << "nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out -f ../../data/Pi1K-dec.txt" << endl;
 	cout << "nra.exe\t\thelp menu" << endl << endl;
 	
@@ -137,22 +137,9 @@ void Command_Arguments( int argc, char **argv )
 					co.granularity = atoi( argv[++i] );
 					break;
 			
-
-
-
-
-
-
 				case 'h':										// treat input file is hexadecimal and convert to binary on the fly
 					co.opt_hex2bin = true;
 					break;
-
-				
-
-			
-
-		
-
 
 				// specify file output
 				case 'f':										// input file (required)
@@ -161,15 +148,9 @@ void Command_Arguments( int argc, char **argv )
 					break;
 
 				case 'o':										// full output file
-					//co.opt_file = true;
-				//	co.output_file = argv[++i];
+					co.opt_out = true;
+					co.output_file = argv[++i];
 					break;
-
-				case 'q':										// summary output file
-					//co.opt_summary = true;
-					//co.summary_file = argv[++i];
-					break;
-
 
 				default:
 					cout << "ERROR: Unknown Command:" << argv[i] << endl;
@@ -237,13 +218,18 @@ void Command_Execute( Command_Options co )
 
 	// setup sequence value
 	Sequence_Value sv = Set_Sequence_Value( co, ap);
-
+	
 	// analyze number
 	#ifdef DEBUG
 		cout << "Analysis Parameters before Analyze_Number" << endl;
 		Display_AP( ap );
 	#endif
 	
+	if (co.opt_out)
+	{
+		ap.output_file = co.output_file;
+	}
+
 	// run analysis
 	if ( co.opt_cont )
 	{

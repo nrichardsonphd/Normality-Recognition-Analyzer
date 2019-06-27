@@ -32,6 +32,8 @@ struct Analysis_Parameters
 	bool file_constant = true;												///< number in file
 	std::string filename = "../data/Pi1K-dec.txt";
 
+	string output_file = "";												// output file
+
 	/// function pointer to next sequence description
 	string desc_next_sequence = "Description of how to get next sequence of digits";
 	
