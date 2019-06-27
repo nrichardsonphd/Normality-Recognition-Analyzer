@@ -7,7 +7,7 @@ void Command_Help()
 	cout << "Normality Recognition Analyzer Version " << RELEASE << endl << endl;
 
 	// General setup
-	cout << "nra.exe - {hrsF} -{NVdbcC} #  - o <full file output> <input file>" << endl;
+	cout << "nra.exe - {hrsF} -{NVdbcg} #  - o <full file output> <input file>" << endl;
 	cout << "nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out -f ../../data/Pi1K-dec.txt" << endl;
 	cout << "nra.exe\t\thelp menu" << endl << endl;
 	

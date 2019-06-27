@@ -13,7 +13,7 @@
 // Only use known sequence functions
 // Output will be displayed to screen and recorded in log files
 //
-// nra.exe -{hrsF} -{NVdbcC} # -o <full file output> <input file>
+// nra.exe -{hrsF} -{NVdbcg} # -o <full file output> <input file>
 // nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out -f ../../data/Pi1K-dec.txt 
 //
 // nra.exe				help menu
@@ -42,6 +42,10 @@
 // -h					hexadecimal input file, converted to binary on the fly
 //
 // -o <filename>		select output file for test, overide auto logs (Not Implemented)
+// -C					show digit counts in output file
+// -D					show digit differential in output file
+// -M					record new min/max
+// 
 //
 // -t					Diagnostic Test (not implemented)
 // -T					Diagnostic Test (not implemented)
