@@ -310,7 +310,7 @@ void Constant_Analysis::Display_Summary( unsigned long long int *results, ostrea
 
 	// Format of important data
 	// Digits X^2 Min Max Mean StdDev
-	out << "Digits: " << this->ap->digits_tested << "X^2: " << al.Chi_Squared() << "Minimum: " << al.Min() << "Maximum: " << al.Max()
-		<< "Mean: " << al.Mean() << "Standard Deviation: " << al.Standard_Deviation();
+	out << "Digits: " << this->ap->digits_tested << "\tX^2: " << al.Chi_Squared() << "\tMinimum: " << al.Min() << "\tMaximum: " << al.Max()
+		<< "\nMean: " << al.Mean() << "\tStandard Deviation: " << al.Standard_Deviation();
 
 }

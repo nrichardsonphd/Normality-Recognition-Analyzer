@@ -103,7 +103,15 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 	cout << "Continuous" << endl;  ca.Continuous_Analysis_Initial(results, cout); cout << endl;
 	ca.Continuous_Analysis_Interval(results, cout);
 	ca.Continuous_Analysis_Summary( results, cout );
+	
+	local_out << "Analysis Results: " << endl;
+	local_out << "Full" << endl;	ca.Display_Full_Result(results, local_out, true);  local_out << endl;
+	local_out << "Summary" << endl;  ca.Display_Summary_Result(results, local_out); local_out << endl;
+	local_out << "Continuous" << endl;  ca.Continuous_Analysis_Initial(results, local_out); local_out << endl;
+	ca.Continuous_Analysis_Interval(results, local_out);
 	ca.Continuous_Analysis_Summary(results, local_out);
+	ca.Continuous_Analysis_Summary(results, local_out);
+	
 	local_out.close();
 
 	return results;
