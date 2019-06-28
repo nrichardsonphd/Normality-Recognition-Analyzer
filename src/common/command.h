@@ -41,10 +41,10 @@
 // -f <filename>		input file, i.e. input.in: File should be in binary/Hexadecimal or decimal
 // -h					hexadecimal input file, converted to binary on the fly
 //
-// -o <filename>		select output file for test, overide auto logs 
-// -C					show digit counts in output file
-// -D					show digit differential in output file
-// -M					record new min/max
+// -o <filename>		select output file for test, overide auto logs // currently full output
+// -C					show digit counts in output file <TBD>			
+// -D					show digit differential in output file <TBD>
+// -M					record new min/max	<TBD>
 // 
 //
 // -t					Diagnostic Test (not implemented)

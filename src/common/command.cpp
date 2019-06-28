@@ -21,7 +21,7 @@ void Command_Help()
 	// Analysis
 	cout << "Analysis" << endl;
 	cout << " -d #\t\tSpecify the number of sequences to read from file to test" << endl;
-	cout << " -p \t\tRemove all numbers preceding the decimal point in the file.  \n\t\t3.14159 will remove the 3 and start on 1 being the 1st digit tested." << endl;
+	cout << " -r \t\tRemove all numbers preceding the decimal point in the file.  \n\t\t3.14159 will remove the 3 and start on 1 being the 1st digit tested." << endl;
 	cout << " -b # \t\tSpecify the maximum size of a sequence.  Depending on Next_Sequence, \n\t\tthe size may change, but this is the maximum it can be" << endl;
 	cout << " -c # \t\tSpecify the maximum number of classes.  This is dependent on Sequence Value" << endl;
 	cout << endl;
@@ -228,6 +228,15 @@ void Command_Execute( Command_Options co )
 	if (co.opt_out)
 	{
 		ap.output_file = co.output_file;
+
+		ofstream local_out;
+		if (ap.output_file != "")
+		{
+			cout << "Writing local file " << co.output_file << endl;
+			local_out.open(ap.output_file, ios::out);
+			local_out.close();
+		}
+
 	}
 
 	// run analysis
