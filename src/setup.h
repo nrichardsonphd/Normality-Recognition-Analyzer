@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-#define RELEASE "0.2b"				// Release version
+#define RELEASE "0.3"				// Release version
 #define DEBUG						// Debug mode for development
 //#define TESTING						// testing mode with parameters in code
 
