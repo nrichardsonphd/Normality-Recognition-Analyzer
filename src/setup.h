@@ -16,6 +16,7 @@ const int CONSTANTS = 3;
 #define CUSTOM_FILE	0
 #define PI			1
 #define E			2
+#define ln2			3
 
 // Add new constants here
 
