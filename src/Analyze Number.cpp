@@ -70,6 +70,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 	ap.sequences_tested = 0;
 	ap.digits_tested = 0;
 
+	
 	// init for sequence functions
 	Initialize_Next_Sequence_Functions();
 
@@ -88,9 +89,22 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 
 	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_digits_to_test, true );
 
+
+	ofstream local_out;
+	if (ap.output_file != "")
+	{
+		local_out.open(ap.output_file, ios::app);
+	}
 	
 	Constant_Analysis ca(ap);
+	cout << "Analysis Results: " << endl;
+	cout << "Full" << endl;	ca.Display_Full_Result(results, cout, true);  cout << endl;
+	cout << "Summary" << endl;  ca.Display_Summary_Result(results, cout); cout << endl;
+	cout << "Continuous" << endl;  ca.Continuous_Analysis_Initial(results, cout); cout << endl;
+	ca.Continuous_Analysis_Interval(results, cout);
 	ca.Continuous_Analysis_Summary( results, cout );
+	ca.Continuous_Analysis_Summary(results, local_out);
+	local_out.close();
 
 	return results;
 }
@@ -236,6 +250,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	summary_output.close();
 	full_output.close();
 	final_result.close();
+	local_file.close();
 
 	return results;
 }
