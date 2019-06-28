@@ -3,31 +3,41 @@
 // This is a rough setup, no combining arguments
 // Only use known sequence functions
 // 
-// nra.exe -t -T -N 2 -V 2 -p -s 5 -b 8 -f ../../data/Pi1K-dec.txt -r tmp.out
+// nra.exe -{hrs} -{NVdbcg} # -o <full file output> -f <input file>
+// nra.exe -N 2 -V 2 -r -g 5 -b 8 -r -o tmp.out -f ../../data/Pi1K-dec.txt 
 //
-// -t					Run all tests to ensure program is correct (quiet)
-// -T					same as -t except detailed
+// nra.exe				help menu
 //
 // -N #					Select numbered Next Sequence
-//						1. Digit blocks
-//							2.
+//							0. Custom (user implemented CUSTOM_NEXT_SEQUENCE()
+//							1. Digit block
+//							2. Digit Stream
+//							3. Random (not implemented)
+//							4. etc ...	These are to be expanded by user research
 //
 // -V #					Select numbered Sequence Value
-//							1. Number value
-//							2. 
+//							0. Custom (user implemented) CUSTOM_SEQUENCE_VALUE()
+//							1. Number Value
+//							2. Poker Value (not implemented)
+//							3. etc ...	These are to be expanded by user research
 //
-// -h					hexadecimal input file, converted to binary on the fly
-// -d #					Number of digits to test ( binary or decimal )
 // -r					remove predecimal
-// -b #					size of each sequence
-// -s					stream digits with overlapping blocks (nonoverlapping is default)
-// -c #					number of classes ( default is 2^n (hex) or 10^n(dec) where n is size of sequence )
+// -d #					Number of sequences to test 
+// -b #					maximum size of each sequence ( dependent on Next_Sequence )
+// -c #					number of classes ( dependent on Sequence_Value )
 //
-// -C #					Continuous Testing, # is for granularity how often to calculate results
-// -F					select full results for continuous testing, default is only important results
+// -g #					Continuous Testing, # is for granularity how often to calculate results
 //
-// -f <filename>		select input file for test
-// -o <filename>		select output file for test
-// -q <filename>		quiet summary, only digits and X^2, no class values
+// -f <filename>		input file, i.e. input.in: File should be in binary/Hexadecimal or decimal
+// -h					hexadecimal input file, converted to binary on the fly
+//
+// -o <filename>		select output file for test, overide auto logs // currently full output
+// -C					show digit counts in output file <TBD>			
+// -D					show digit differential in output file <TBD>
+// -M					record new min/max	<TBD>
+// 
+//
+// -t					Diagnostic Test (not implemented)
+// -T					Diagnostic Test (not implemented)
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
