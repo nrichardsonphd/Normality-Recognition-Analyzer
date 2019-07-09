@@ -144,11 +144,13 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	
 	summary_output.open(SUMMARY, ios::out);
 	final_result.open(FINAL_ANALYSIS, ios::out);
-	
+	bool logs = true;
+
 	if (!full_output || !summary_output || !final_result)
 	{
 		cout << "Error creating log files." << endl;
-		exit(1);
+		logs = false;
+		//exit(1);
 	}
 
 	Analyze_List al;
@@ -198,10 +200,12 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	ca_full.Output_Setup(true, digit_count, digit_diff, true, true);
 	ca_summary.Output_Setup(true, false, false, true, true);
 
-
-	ca_full.Continuous_Analysis_Initial(results, full_output);
-	ca_full.Continuous_Analysis_Initial(results, final_result);
-	ca_summary.Continuous_Analysis_Initial(results, summary_output);
+	if (logs)
+	{
+		ca_full.Continuous_Analysis_Initial(results, full_output);
+		ca_full.Continuous_Analysis_Initial(results, final_result);
+		ca_summary.Continuous_Analysis_Initial(results, summary_output);
+	}
 
 
 	int pct = 0;
@@ -220,9 +224,12 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		delete[] tmp_results;
 
 		// Interval Analysis
-		//***ca.Continuous_Analysis_Interval( results, out );
-		ca_full.Continuous_Analysis_Interval(results, full_output );
-		ca_summary.Continuous_Analysis_Interval(results, summary_output);
+		if (logs)
+		{
+			//***ca.Continuous_Analysis_Interval( results, out );
+			ca_full.Continuous_Analysis_Interval(results, full_output);
+			ca_summary.Continuous_Analysis_Interval(results, summary_output);
+		}
 
 		// calculate progress (percentage only)
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
@@ -248,16 +255,23 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	cout << "Analyze Number continuous Summarry" << endl;
 	//****ca.Continuous_Analysis_Summary( results, out );
 	
-	ca_full.Continuous_Analysis_Summary(results, full_output);
-	ca_full.Continuous_Analysis_Interval(results, final_result);		// last result only for final record
-	ca_full.Continuous_Analysis_Summary(results, final_result);			// use full analysis for summary data
-	ca_summary.Continuous_Analysis_Summary(results, summary_output);
+	if (logs)
+	{
+		ca_full.Continuous_Analysis_Summary(results, full_output);
+		ca_full.Continuous_Analysis_Interval(results, final_result);		// last result only for final record
+		ca_full.Continuous_Analysis_Summary(results, final_result);			// use full analysis for summary data
+		ca_summary.Continuous_Analysis_Summary(results, summary_output);
+	}
 	
 	
 
-	summary_output.close();
-	full_output.close();
-	final_result.close();
+	if (logs)
+	{
+		summary_output.close();
+		full_output.close();
+		final_result.close();
+	}
+
 	local_file.close();
 
 	return results;
