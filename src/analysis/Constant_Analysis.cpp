@@ -144,7 +144,7 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 	//cout << sum << " ? " << this->ap->digits_tested << endl;
 	//out << sum << "\t" << chisq << "\t";
 
-	out << this->ap->sequences_tested << "\t" << fixed << setprecision(14) << chisq << "\t";
+	out << this->ap->sequences_tested << "\t\t" << fixed << setprecision(10) << chisq << "\t";
 	if (chisq < .000000000001)
 	{
 		out << "=0";

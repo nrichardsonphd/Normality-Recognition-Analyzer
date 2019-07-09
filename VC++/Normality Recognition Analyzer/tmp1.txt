@@ -13,29 +13,29 @@ Seqnc's	X^2			/\\/		0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15
 					E(X)+-	.	.	.	.	.	.	.	.	.	.	.	.	.	.	.	.	
 
 
-250	8.94400000000000	/\\/==		17	18	18	15	13	11	15	17	19	23	13	13	14	16	12	16	
+250		8.9440000000	/\\/==		17	18	18	15	13	11	15	17	19	23	13	13	14	16	12	16	
 					15	+2	+3	+3	0	-2	-4	0	+2	+4	+8	-2	-2	-1	+1	-3	+1	
 
 
 Final Results
-Minimum Chi-Squared: 8.94400000000000	Position: 1000	 New minimums: 2
-Maximum Chi-Squared: 8.94400000000000	Position: 1000	 New maximums: 2
+Minimum Chi-Squared: 8.9440000000	Position: 1000	 New minimums: 2
+Maximum Chi-Squared: 8.9440000000	Position: 1000	 New maximums: 2
 Local Minimums: 0
 Local Maximums: 0
 X^2 == 0 times: 0
 
 
-Final X^2 on 1000 digits with 1000 sequences is 8.94400000000000
+Final X^2 on 1000 digits with 1000 sequences is 8.9440000000
 
 
 
 Final Results
-Minimum Chi-Squared: 8.94400000000000	Position: 1000	 New minimums: 2
-Maximum Chi-Squared: 8.94400000000000	Position: 1000	 New maximums: 2
+Minimum Chi-Squared: 8.9440000000	Position: 1000	 New minimums: 2
+Maximum Chi-Squared: 8.9440000000	Position: 1000	 New maximums: 2
 Local Minimums: 0
 Local Maximums: 0
 X^2 == 0 times: 0
 
 
-Final X^2 on 1000 digits with 1000 sequences is 8.94400000000000
+Final X^2 on 1000 digits with 1000 sequences is 8.9440000000
 
