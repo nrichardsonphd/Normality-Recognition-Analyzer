@@ -61,17 +61,12 @@ int main( int argc, char **argv)
 	#ifdef TESTING
 		cout << "Testing Mode" << endl;
 		Command_Options co;
+	
 		co.opt_pre = true;										// remove pre decimal
-		
-		//****co.opt_block = true;
-		
-
-
-		co.opt_hex2bin = true;									// treat hexadecimal file as binary, convert on fly
 		
 		// stream digits tested
 		// block digits*blocksize tested
-		co.number_sequences = 1000;										// number of digits to test
+		co.number_sequences = 100;										// number of digits to test
 		co.block_size = 4;										// select size of block, maximum if using variable sizes
 		co.max_class = 16;										// number of possible classifications, (default base)
 		
@@ -85,6 +80,7 @@ int main( int argc, char **argv)
 		co.seq_val = 1;											// select sequence value function 1. 2. 3.?
 	
 		co.input_file = "../../data/pi1k-hex.txt";				// input file (required)
+		co.opt_hex2bin = true;									// treat hexadecimal file as binary, convert on fly
 	
 
 

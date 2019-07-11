@@ -238,9 +238,13 @@ void Constant_Analysis::Default_Interval(unsigned long long int* initial_results
 
 void Constant_Analysis::Default_Summary( unsigned long long int *initial_results, ostream &out )
 {
-	out << endl << endl;
-	out << "Final Results" << endl;
 
+	out << "************************************" << endl;
+	out << "**        Default Summarry        **" << endl;
+	out << "************************************" << endl;
+
+	out << "Final Results" << endl;
+	out << fixed << setprecision(4);
 	out << "Minimum Chi-Squared: " << this->min_chi << "\tPosition: " << this->last_min << "\t New minimums: " << this->new_mins << endl;
 	out << "Maximum Chi-Squared: " << this->max_chi << "\tPosition: " << this->last_max << "\t New maximums: " << this->new_maxes << endl;
 
@@ -257,6 +261,12 @@ void Constant_Analysis::Default_Summary( unsigned long long int *initial_results
 
 	out << "Final X^2 on " << this->ap->digits_tested << " digits with " << this->ap->number_of_digits_to_test << " sequences is " << chisq << endl;
 	out << endl;
+
+	out << "************************************" << endl;
+	out << "**     End Default Summarry       **" << endl;
+	out << "************************************" << endl;
+
+	out << endl << endl;
 }
 
 void Constant_Analysis::Display_Full_Result( unsigned long long int *results, ostream &out, bool class_list )

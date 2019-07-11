@@ -14,19 +14,16 @@ using namespace std;
 
 struct Analysis_Parameters
 {
-	//int base = 10;														///< base number to be tested, usually decimal or Hex tp binary
-	//int max_digits = 1000;												///< number of digits to test, truncated, original base
-
 	// used to count as testing
-	unsigned int digits_tested = 0;												///< used to keep track of how many digits tested in sequences, calculate by #sequences * size of sequence - skipped
-	unsigned int sequences_tested = 0;											/// incremented on every sucessfully tested block
+	unsigned int digits_tested = 0;											///< used to keep track of how many digits tested in sequences, calculate by #sequences * size of sequence - skipped
+	unsigned int sequences_tested = 0;										/// incremented on every sucessfully tested block
 	
 	// used as parameters
 	bool remove_predecimal = true;											///< bypass any digits before the decimal ****.start
-	unsigned int max_sequence_size = 1;														///< number of digits to get for each class, 0 for variable size classes
-	unsigned long long int number_of_classes_possible = 10;												///< total number of classes possible
-	//unsigned int number_of_sequences_to_test = 1000;										// number of sequences to analyze		Total digits / block size
-	unsigned long long int number_of_digits_to_test = 1000;
+	unsigned int max_sequence_size = 1;										///< number of digits to get for each class, 0 for variable size classes
+	unsigned long long int number_of_classes_possible = 10;					///< total number of classes possible
+	unsigned int number_of_sequences_to_test = 1000;						///< number of sequences to analyze		Total digits / block size
+	unsigned long long int number_of_digits_to_test = 1*1000;					///< number of digits to test ( must be less than size*sequences )
 	
 
 	bool file_constant = true;												///< number in file

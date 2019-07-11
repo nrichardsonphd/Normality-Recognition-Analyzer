@@ -13,7 +13,7 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 		tmp_results[i] = 0;
 
 	// run analysis of the digits
-	for ( unsigned int i = 0; i < number_of_digits && ap.digits_tested < ap.number_of_digits_to_test; ++i )		// only test partial set of entire number
+	for (unsigned int i = 0; i < number_of_digits && ap.digits_tested < ap.number_of_digits_to_test && ap.sequences_tested < ap.number_of_sequences_to_test; ++i)		// only test partial set of entire number
 	{
 		// Get the next sequence
 		group = Next_Sequence( rn, ap.max_sequence_size );
@@ -87,7 +87,7 @@ unsigned long long int *Analyze_Number( Sequence( *Next_Sequence )(Read_Number &
 	if ( ap.remove_predecimal )
 		rn.Remove_Decimal();
 
-	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_digits_to_test, true );
+	results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, ap.number_of_sequences_to_test, true );
 
 
 	ofstream local_out;
@@ -212,7 +212,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 	float tmp;
 
 	
-	while ( ap.digits_tested < ap.number_of_digits_to_test )
+	while ( ap.digits_tested < ap.number_of_digits_to_test && ap.sequences_tested < ap.number_of_sequences_to_test )
 	{
 		// Calculate results for the next granularity set
 		tmp_results = Get_Next_Set_Of_Sequences( Next_Sequence, Sequence_Value, ap, rn, granularity, false );
@@ -232,7 +232,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		}
 
 		// calculate progress (percentage only)
-		tmp = (float) ap.sequences_tested / (float) ap.number_of_digits_to_test * (float) 100;
+		tmp = (float) ap.sequences_tested / (float) ap.number_of_sequences_to_test * (float) 100;
 
 		if ( pct + 1 < ap.max_sequence_size * tmp )
 		{
@@ -263,6 +263,8 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		ca_summary.Continuous_Analysis_Summary(results, summary_output);
 	}
 	
+	// for testing
+	ca_full.Continuous_Analysis_Summary(results, cout);
 	
 
 	if (logs)

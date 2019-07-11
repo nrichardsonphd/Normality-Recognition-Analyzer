@@ -206,7 +206,8 @@ void Command_Execute( Command_Options co )
 	Analysis_Parameters ap;
 	
 	ap.remove_predecimal = co.opt_pre;
-	ap.number_of_digits_to_test = co.number_sequences;
+	ap.number_of_sequences_to_test = co.number_sequences;
+	ap.number_of_digits_to_test = co.number_sequences * co.block_size;		// maximum number of digits to test
 	ap.max_sequence_size = co.block_size;
 	ap.filename = co.input_file;
 
@@ -370,8 +371,11 @@ void Display_Results( Command_Options co, Analysis_Parameters &ap, unsigned long
 
 void Display_Results_Full( unsigned long long int *results, Analysis_Parameters &ap, ostream &out )
 {
+	out << "**************************" << endl;
+	out << "** Full Summary Results **" << endl;
+	out << "**************************" << endl;
 	unsigned long long int sum = 0;
-
+	
 	out << "Chi Squared\t| " << "Seqnc's\t";
 	if ( ap.digits_tested >= 10000000 ) out << "\t";
 	out << "|\t";
@@ -418,6 +422,10 @@ void Display_Results_Full( unsigned long long int *results, Analysis_Parameters 
 	}
 
 	out << endl;
+
+	out << "**************************" << endl;
+	out << "** Full Summary Results **" << endl;
+	out << "**************************" << endl;
 
 }
 
