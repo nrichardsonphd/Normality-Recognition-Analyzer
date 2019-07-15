@@ -283,7 +283,10 @@ void Constant_Analysis::Display_Full_Result( unsigned long long int *results, os
 	out << endl;
 
 	out << "Digit Counts: " << endl;
-	al.Display_Distribution();
+	al.Display_Distribution(out);
+
+	out << "Digit Differentials: " << endl;
+	al.Display_Differential(out);
 
 	out << "Distribution Stats: " << endl;
 	out << "====================" << endl;
@@ -302,16 +305,15 @@ void Constant_Analysis::Display_Full_Result( unsigned long long int *results, os
 	out << endl;
 
 
-	
 
 	// display class results
-	if ( class_list )
-	{
-		out << "Class List: { ";
-		for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
-			out << results[j] << "\t";
-		out << "}";
-	}
+	//if ( class_list )
+	//{
+	//	out << "Class List: { ";
+	//	for ( unsigned int j = 0; j < this->ap->number_of_classes_possible; ++j )
+	//		out << results[j] << "\t";
+	//	out << "}";
+	//}
 
 	out << endl;
 

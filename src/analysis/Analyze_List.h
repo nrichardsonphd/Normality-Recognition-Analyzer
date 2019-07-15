@@ -94,6 +94,7 @@ class Analyze_List
 		void Display_Chi_Table( unsigned long long list_to_analyze[], int list_size );	// display a table with chi^2 and digit distribution
 		
 		/// @details Display a summary of the distribution
+		void Display_Differential(ostream& out);
 		void Display_Distribution( ostream &out );
 		void Display_Distribution();
 		void Summary( ostream &out );

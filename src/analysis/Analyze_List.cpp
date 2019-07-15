@@ -43,6 +43,61 @@ double Analyze_List::Expected_Value()
 	return this->expected;
 }
 
+void Analyze_List::Display_Differential(ostream& out)
+{
+	out << "Expected: " << (int) this->expected << endl;
+
+	if (this->size <= 10)
+	{
+		out << "Digit\t";
+		for (int i = 0; i < this->size; ++i)
+			out << i << "\t";
+		out << endl << "\t";
+
+		for (int i = 0; i < this->size; ++i)
+			out << this->list[i] << "\t";
+	}
+	else if (this->size <= 10000)
+	{
+		int col = 0;
+
+		for (int i = 0; i < this->size; ++i)
+		{
+			if (this->list[i] > 0)
+			{
+				if (i < 10)
+					out << 0;
+				if (i < 100)
+					out << 0;
+				out << i << ": ";
+
+
+				if (this->list[i] == this->expected)
+					out << 0;
+				else if (this->list[i] > this->expected)
+					out << "-" << (int) ( this->list[i] - this->expected );
+				else if (this->list[i] < this->expected)
+					out << "+"<< (int) ( this->expected - this->list[i] );
+				else
+					cout << "Differential Error" << endl;
+
+				if (abs(this->list[i] - this->expected) < 10)
+					out << "\t\t";
+				else
+					out << "\t";
+				++col;
+
+
+				if (col % 8 == 0)
+					out << endl;
+			}
+
+		}
+	}
+
+	out << endl << endl;
+
+}
 
 void Analyze_List::Display_Distribution( ostream &out )
 {
@@ -85,7 +140,7 @@ void Analyze_List::Display_Distribution( ostream &out )
 		}
 	}
 
-	out << endl;
+	out << endl << endl;
 }
 
 void Analyze_List::Display_Distribution()
