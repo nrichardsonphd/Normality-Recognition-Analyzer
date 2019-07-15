@@ -234,33 +234,22 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		// calculate progress (percentage only)
 		tmp = (float) ap.sequences_tested / (float) ap.number_of_sequences_to_test * (float) 100;
 
-		if ( pct + 1 < ap.max_sequence_size * tmp )
+		if (pct + 1 < tmp )
 		{
-
-			if ( tmp > 100 )
-				tmp = 100;
-
-			pct += 1;
-			if ( pct % 10 == 0 )
-				cout << (int) (ap.max_sequence_size * tmp) << "% complete." << endl;
-			else
-				cout << "...";
+			++pct;
+			cout << ".";
+			if (pct % 10 == 0)
+				cout << pct << "%" << endl;
 		}
-
-
-
 		
 	}
 
 
 
 	// Final Analysis
-	cout << "100% complete" << endl << endl;
+	cout << ".100% complete" << endl << endl;
 	cout << "Analyze Number continuous Summarry" << endl;
 	//****ca.Continuous_Analysis_Summary( results, out );
-
-	//cout << "end progress" << endl;
-	//exit(1);
 	
 	
 	if (logs)
