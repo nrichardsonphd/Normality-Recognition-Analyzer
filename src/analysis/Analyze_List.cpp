@@ -78,7 +78,7 @@ void Analyze_List::Display_Distribution( ostream &out )
 				++col;
 
 
-				if ( col % 7 == 0 )
+				if ( col % 8 == 0 )
 					out << endl;
 			}
 

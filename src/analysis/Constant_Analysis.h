@@ -72,8 +72,6 @@ class Constant_Analysis
 
 			Analyze_List al;
 			Analysis_Parameters *ap;
-		//	double max;
-		//	double min;
 
 			double max_chi;
 			double min_chi;
@@ -89,9 +87,7 @@ class Constant_Analysis
 			void Default_Interval( unsigned long long int *initial_results, ostream &out );
 			void Default_Summary( unsigned long long int *initial_results, ostream &out );
 
-			// this is for 1 record to display
-			void Display_Summary( unsigned long long int *initial_results, ostream &out );
-
+			
 			// Display options
 			bool chi_squared;
 			bool digit_count;

@@ -83,6 +83,7 @@ void Constant_Analysis::Continuous_Analysis_Interval( unsigned long long int *in
 void Constant_Analysis::Continuous_Analysis_Summary( unsigned long long int *final_results, ostream &out )
 {
 	this->Default_Summary( final_results, out );
+	this->Display_Full_Result(final_results, out, true);
 
 	// Add Code Here for final summary of results
 	// Final calculations are done here
@@ -271,29 +272,37 @@ void Constant_Analysis::Default_Summary( unsigned long long int *initial_results
 
 void Constant_Analysis::Display_Full_Result( unsigned long long int *results, ostream &out, bool class_list )
 {
-	this->Display_Summary( results, out );
+	out << "************************************" << endl;
+	out << "**          Full Summarry         **" << endl;
+	out << "************************************" << endl;
+
+	out << "Testing Stats: " << endl;
+	out << "====================" << endl;
+	out << "Digits Tested: " << this->ap->digits_tested << endl;
+	out << "Sequences Tested: " << this->ap->sequences_tested << endl;
+	out << endl;
+
+	out << "Digit Counts: " << endl;
+	al.Display_Distribution();
+
+	out << "Distribution Stats: " << endl;
+	out << "====================" << endl;
+	out << "Minimum count: " << al.Min() << endl;
+	out << "Maximum count: " << al.Max() << endl;
+	out << "Mean count: " << al.Mean() << endl;
+	out << "Range count: " << al.Range() << endl;
+	out << "MidRange count: " << al.Mid_Range() << endl;
+	//out << "Mode count: " << al.Mode() << endl;			// not implemented
+	out << "Variance count: " << al.Variance() << endl;
+	out << "Standard Deviation count: " << al.Standard_Deviation() << endl;
+	out << "Sum count: " << al.Sum() << endl; 
+	out << endl;
+
+	out << "X^2 result: " << al.Chi_Squared() << endl;
+	out << endl;
+
+
 	
-	// show variance after standard deviation
-	out << "Variance: " << al.Variance() << " ";
-
-	// find minimum classes
-	out << "Minimum classes: { ";
-	unsigned long long int min = this->al.Min();
-	for ( unsigned long long int i = 0; i < this->ap->number_of_classes_possible; ++i )
-		if ( results[i] == min )
-			out << i << " ";
-	out << "} ";
-
-	// find maximum classes
-	out << "Maximum classes: { ";
-	unsigned long long int max = this->al.Max();
-	for ( unsigned long long int i = 0; i < this->ap->number_of_classes_possible; ++i )
-		if ( results[i] == max )
-			out << i << " ";
-	out << "} ";
-
-	// range and midrange
-	out << "Midrange: " << this->al.Mid_Range() << "Range: " << this->al.Range();
 
 	// display class results
 	if ( class_list )
@@ -305,22 +314,9 @@ void Constant_Analysis::Display_Full_Result( unsigned long long int *results, os
 	}
 
 	out << endl;
+
+	out << "************************************" << endl;
+	out << "**       End Full Summarry        **" << endl;
+	out << "************************************" << endl;
 }
 
-void Constant_Analysis::Display_Summary_Result( unsigned long long int *results, ostream &out )
-{
-	this->Display_Summary( results, out );
-	out << endl;
-}
-
-// private
-void Constant_Analysis::Display_Summary( unsigned long long int *results, ostream &out )
-{
-	al.Set_List( results, this->ap->number_of_classes_possible );
-
-	// Format of important data
-	// Digits X^2 Min Max Mean StdDev
-	out << "Digits: " << this->ap->digits_tested << "\tX^2: " << al.Chi_Squared() << "\tMinimum: " << al.Min() << "\tMaximum: " << al.Max()
-		<< "\nMean: " << al.Mean() << "\tStandard Deviation: " << al.Standard_Deviation();
-
-}
