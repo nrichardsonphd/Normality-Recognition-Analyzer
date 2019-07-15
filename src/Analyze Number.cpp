@@ -210,6 +210,7 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 
 	int pct = 0;
 	float tmp;
+	int dot = 0;
 
 	
 	while ( ap.digits_tested < ap.number_of_digits_to_test && ap.sequences_tested < ap.number_of_sequences_to_test )
@@ -237,21 +238,28 @@ unsigned long long int * Analyze_Number_Continuously(	Sequence( *Next_Sequence )
 		if (pct + 1 < tmp )
 		{
 			++pct;
+			++dot;
 			cout << ".";
 			if (pct % 10 == 0)
-				cout << pct << "%" << endl;
+			{
+				for (dot; dot < 10; ++dot)
+					cout << ".";
+
+				cout << " " << pct << "%" << endl;
+				dot = 0;
+			}
 		}
 		
 	}
 
-
+	for (dot; dot < 10; ++dot)
+		cout << ".";
 
 	// Final Analysis
-	cout << ".100% complete" << endl << endl;
+	cout << " 100% complete" << endl << endl;
 	cout << "Analyze Number continuous Summarry" << endl;
 	//****ca.Continuous_Analysis_Summary( results, out );
-	
-	
+
 	if (logs)
 	{
 		ca_full.Continuous_Analysis_Summary(results, full_output);

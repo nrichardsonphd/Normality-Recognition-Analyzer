@@ -66,7 +66,7 @@ int main( int argc, char **argv)
 		
 		// stream digits tested
 		// block digits*blocksize tested
-		co.number_sequences = 1000;										// number of digits to test
+		co.number_sequences = 97;										// number of digits to test
 		co.block_size = 2;										// select size of block, maximum if using variable sizes
 		co.max_class = 10;										// number of possible classifications, (default base)
 		
