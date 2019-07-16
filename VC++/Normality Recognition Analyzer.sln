@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "File Merger", "File Merger\File Merger.vcxproj", "{85877AA9-FFB8-4114-A5C7-1C6FAD9B3217}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Normality Recognition Analyzer", "Normality Recognition Analyzer\Normality Recognition Analyzer.vcxproj", "{A5EAE25D-580A-49C6-A99F-906A926656D1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "File Display", "File Display\File Display.vcxproj", "{11B8C863-2F83-4D90-9100-E61098B1EA78}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Digit Groupings", "Digit Groupings\Digit Groupings.vcxproj", "{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{11B8C863-2F83-4D90-9100-E61098B1EA78}.Release|x64.Build.0 = Release|x64
 		{11B8C863-2F83-4D90-9100-E61098B1EA78}.Release|x86.ActiveCfg = Release|Win32
 		{11B8C863-2F83-4D90-9100-E61098B1EA78}.Release|x86.Build.0 = Release|Win32
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Debug|x64.ActiveCfg = Debug|x64
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Debug|x64.Build.0 = Debug|x64
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Debug|x86.ActiveCfg = Debug|Win32
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Debug|x86.Build.0 = Debug|Win32
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Release|x64.ActiveCfg = Release|x64
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Release|x64.Build.0 = Release|x64
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Release|x86.ActiveCfg = Release|Win32
+		{9D00CC85-B55E-4FBC-A9D7-927062CDAB79}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
