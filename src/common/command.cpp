@@ -302,12 +302,7 @@ Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap )
 	
 	switch ( co.next_seq )
 	{
-		case 1:
-			if ( co.opt_hex2bin )
-				ns = &Get_Bin_Stream_Sequence;
-			else 
-				ns = &Get_Stream_Sequence;
-			
+		case 1:			
 			if ( co.opt_hex2bin )
 				ns = &Get_Bin_Block_Sequence;
 			else
@@ -316,8 +311,12 @@ Next_Sequence Set_Next_Sequence( Command_Options co, Analysis_Parameters &ap )
 
 		// add additional case labels here
 		case 2:
-			cout << "Next Sequence 2 not implemented." << endl;
-			exit(1);
+			if ( co.opt_hex2bin )
+				ns = &Get_Bin_Stream_Sequence;
+			else 
+				ns = &Get_Stream_Sequence;
+			//cout << "Next Sequence 2 not implemented." << endl;
+			//exit(1);
 			break;
 
 		default:
