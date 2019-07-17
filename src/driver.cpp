@@ -83,7 +83,8 @@ int main( int argc, char **argv)
 		//co.input_file = "../../data/pi1k-hex.txt";				// input file (required)
 		//co.opt_hex2bin = true;									// treat hexadecimal file as binary, convert on fly
 	
-
+		co.opt_out = true;
+		co.output_file = "temp1.txt";
 
 		Command_Summarry(co);
 		Command_Execute(co);

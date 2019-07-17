@@ -7,7 +7,7 @@ using namespace std;
 
 #define RELEASE "0.3"				// Release version
 #define DEBUG						// Debug mode for development
-#define TESTING						// testing mode with parameters in code
+//#define TESTING						// testing mode with parameters in code
 
 
 const int CONSTANTS = 3;

@@ -42,9 +42,10 @@
 // -h					hexadecimal input file, converted to binary on the fly
 //
 // -o <filename>		select output file for test, overide auto logs // currently full output
-// -C					show digit counts in output file <TBD>			
-// -D					show digit differential in output file <TBD>
-// -M					record new min/max	<TBD>
+// -C					show digit counts in output file 		
+// -D					show digit differential in output file 
+// -M					record new min/max	
+// -K					record every K results (requires -g #)
 // 
 //
 // -t					Diagnostic Test (not implemented)
@@ -91,6 +92,7 @@ struct Command_Options
 	bool res_digit_count = false;			// display digit count for each class
 	bool res_digit_differential = false;	// display digit differential for each class
 	bool res_minmax = false;				// show new min/max on continuous output
+	bool res_interval = false;				// show every n (granularity) results
 //	bool res_full = false;					// show full output
 
 };
