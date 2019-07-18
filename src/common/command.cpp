@@ -1,6 +1,5 @@
 #include "command.h"
 
-
 void Command_Help()
 {
 	cout << endl;
@@ -190,7 +189,8 @@ void Command_Arguments( int argc, char **argv )
 // Take command options and run program
 void Command_Execute( Command_Options co )
 {
-	
+	time_t start = std::time(NULL);
+
 	// check testing parameters
 	if ( co.opt_test )
 	{
@@ -226,11 +226,12 @@ void Command_Execute( Command_Options co )
 		Display_AP( ap );
 	#endif
 	
+	ofstream local_out;
+
 	if (co.opt_out)
 	{
 		ap.output_file = co.output_file;
 
-		ofstream local_out;
 		if (ap.output_file != "")
 		{
 			cout << "Writing local file " << co.output_file << endl;
@@ -268,7 +269,15 @@ void Command_Execute( Command_Options co )
 	
 	delete[] results;			// clean up memory
 
+	time_t end = std::time(NULL);
 
+	if (co.opt_out)
+	{
+		local_out.open(co.output_file, ios::out);
+		local_out << "Start Time:\t" << start << endl;
+		local_out << "End Time:\t" << end << endl;
+		local_out << "Total Time: " << end - start << "(s)\t== " << (end-start)/60 << "(m)\t== " << (end - start) / 3600 << "(hrs)" << endl;
+	}
 }
 
 void Set_Base( Command_Options co, Analysis_Parameters &ap )
