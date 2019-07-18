@@ -3,7 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>$(TargetPath)</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-f ../../data/pi1k-dec.txt -N 2 -V 1 -r -g 1 -d 800 -b 2 -c 100 -o tmp1.txt</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-f ../../data/pi1k-dec.txt -N 1 -V 1 -r -g 1 -d 2000000000 -b 2 -c 100 -o tmp1.txt</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerCommandArguments>-d 10000 -C 1 -f ../../data/pi1billion.txt -o ../../logs/release.txt</LocalDebuggerCommandArguments>

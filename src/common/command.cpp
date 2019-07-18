@@ -207,7 +207,7 @@ void Command_Execute( Command_Options co )
 	
 	ap.remove_predecimal = co.opt_pre;
 	ap.number_of_sequences_to_test = co.number_sequences;
-	ap.number_of_digits_to_test = co.number_sequences * co.block_size;		// maximum number of digits to test
+	ap.number_of_digits_to_test = co.number_sequences * (unsigned long long) co.block_size;		// maximum number of digits to test
 	ap.max_sequence_size = co.block_size;
 	ap.filename = co.input_file;
 

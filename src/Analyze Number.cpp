@@ -24,7 +24,16 @@ unsigned long long int *Get_Next_Set_Of_Sequences( Sequence( *Next_Sequence )(Re
 			if ( group.seq[j] == -1 )
 			{
 				cout << "Out of digits to test, finishing calculations." << endl;
-				return tmp_results;
+				cout << "Digits Tested: " << ap.digits_tested << "\tSequences Tested: " << ap.sequences_tested << endl;
+
+				cout << "Exit(y/n)?";
+				char c;
+				cin >> c;
+
+				if (c == 'y' || c == 'Y')
+					exit(1);
+				else
+					return tmp_results;
 			}
 		}
 
