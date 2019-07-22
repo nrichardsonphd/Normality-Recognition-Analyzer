@@ -273,7 +273,7 @@ void Command_Execute( Command_Options co )
 
 	if (co.opt_out)
 	{
-		local_out.open(co.output_file, ios::out);
+		local_out.open(co.output_file, ios::app);
 		local_out << "Start Time:\t" << start << endl;
 		local_out << "End Time:\t" << end << endl;
 		local_out << "Total Time: " << end - start << "(s)\t== " << (end-start)/60 << "(m)\t== " << (end - start) / 3600 << "(hrs)" << endl;
